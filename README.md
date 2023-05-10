@@ -2,7 +2,7 @@
 
 If you are new to home assistant then the DeyeSolarDesktop Home Assistant backup is a quick and sure way to get your solar monitoring up and running. Initially this will be very focussed on the South African market where power outages are common occurences.
 
-This desktop was built to proved plug and play integration with the smartDeyeDongle which can be purchased seperately (available towards end of June 2023)
+This desktop was built to proved plug and play integration with the smartDeyeDongle which can be purchased seperately (available towards end of June 2023). But you can still use this desktop without the smartDeyeDongle (Details below).
 The smartDeyeDongle contains all the decoding logic for the inverter and will give you a seamless integration into Home Assistant
 
 Compatible hardware: This desktop was built for Deye inverters (which includes all the rebranded inverters Sunsynk/Sol-Ark etc). First relase is focussed on 5/8 KW single phase inverters.
