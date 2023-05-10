@@ -1,16 +1,16 @@
 # DeyeSolarDesktop
 
-If you are new to home assistant then the DeyeSolarDesktop Home Assistant backup is a quick and sure way to get your solar monitoring up and running.
+If you are new to home assistant then the DeyeSolarDesktop Home Assistant backup is a quick and sure way to get your solar monitoring up and running. Initially this will be very focussed on the South African market where power outages are common occurences.
 
-This desktop works was built for the smartDeyeDongle which can be purchased seperately
+This desktop was built to proved plug and play integration with the smartDeyeDongle which can be purchased seperately (available towards end of June 2023)
 The smartDeyeDongle contains all the decoding logic for the inverter and will give you a seamless integration into Home Assistant
 
-Compatible hardware: This desktop was built for Deye inverters (which includes all the rebranded inverters Sunsynk/Sol-Ark etc)
+Compatible hardware: This desktop was built for Deye inverters (which includes all the rebranded inverters Sunsynk/Sol-Ark etc). First relase is focussed on 5/8 KW single phase inverters.
 
-The backup file should contain all the home assistant plugins to get you started plus the DeyeSolarDesktop
+The backup file should contain all the home assistant plugins and integrations pre-configured to get you started plus the DeyeSolarDesktop
 Steps:
 1. Install your own Home Assistant server
-2. Restore the backup file
+2. Restore the backup file (found in releases)
 3. Login with user: solar password: solar123 (be sure to delete this user once done)
 4. Plug in your smartDeyeDongle, connect to the hot-spot it provides and configure your wifi network details, once saved it will reboot and join your network
 5. Home Assistant will detect a new device called Deye inverter, click configure and your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data)
@@ -26,6 +26,7 @@ Terminal server
 Studio code server
 
 Plugins that you will need:
+Mushroom
 slider-entity-row
 layout-card
 Flexible Horseshoe Card
@@ -87,7 +88,7 @@ template:
     device_class: power
 ```
 
-Automations: (that will copy the values from the inverter to dateTime objects( in home assistant), and when the user edits the time, it will convert the time to the format the inverter expects and update the inverter values
+Automations: Needed for the time of use configuration (that will copy the values from the inverter to dateTime objects(in home assistant), and when the user edits the time, it will convert the time to the format the inverter expects and update the inverter values via the smartDeyeDongle
 
     ```
     alias: InverterConfig send update to inverter
@@ -221,8 +222,14 @@ Automations: (that will copy the values from the inverter to dateTime objects( i
     ```
 
 Special mentions:
-https://github.com/slipx06 for a large portion of the desktop and the brilliant power flow card
+https://github.com/slipx06 for sharing a large portion of the desktop and the brilliant power flow card
 
 You do not need to buy the smartDeyeDongle, there are other options:
-https://github.com/kellerza/sunsynk You need to buy an USB to RS485 cable and connect to your Home Assistant server
-https://github.com/StephanJoubert/home_assistant_solarman Pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations but it could work for those simply wanting to view values
+https://github.com/kellerza/sunsynk You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ
+https://github.com/StephanJoubert/home_assistant_solarman Pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations but it could work for those simply wanting to view values at the end of the day. Once again you will need to map all the entity names.
+
+Coming Soon:
+Boilerplate config and automations to integrate into your own Telegram bot. Once a power outage/loadshedding starts you need to receive a message to warn you and tell you the SOC of the battery.
+
+Why this project:
+I believe that knowledge is power. Once you understand your power usage you will be able to optimise it. We are rapidly moving towards a future where there is a need to have a smart home with smart power usage. Since the platform allows automations that is the next logical step towards a greener future. If this project can enable every house to save just 5% of power sourced from dirty generation (such as coal) and replace it with power from panels already installed we have achieved our goal. We are well on our way to a more sustainable future.
