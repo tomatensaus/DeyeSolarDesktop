@@ -1,5 +1,7 @@
 # DeyeSolarDesktop
 
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/DeyeTab.png)
+
 If you are new to home assistant then the DeyeSolarDesktop Home Assistant backup is a quick and sure way to get your solar monitoring up and running. Initially this will be very focussed on the South African market where power outages are common occurences.
 
 This desktop was built to proved plug and play integration with the smartDeyeDongle which can be purchased seperately (available towards end of June 2023). But you can still use this desktop without the smartDeyeDongle (Details below).
@@ -12,12 +14,12 @@ Steps:
 1. Install your own Home Assistant server
 2. Restore the backup file (found in releases)
 3. Login with user: solar password: solar123 (be sure to delete this user once done)
-4. Plug in your smartDeyeDongle, connect to the hot-spot it provides and configure your wifi network details, once saved it will reboot and join your network
+4. Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network
 5. Home Assistant will detect a new device called Deye inverter, click configure and your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data)
 6. Modify and delete what does not suit you, it is your desktop after all. Feel free to suggest improvements and fix wrong values
 
 
-In the case that you already have Home Assistant server, do not install the backup.
+In the case that you already have Home Assistant server, do not restore the backup.
 You can pick and choose sections of the desktop to build your own
 
 Integrations needed:
