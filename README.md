@@ -33,21 +33,25 @@ Please consult the yaml file (https://github.com/tomatensaus/DeyeSolarDesktop/bl
 Delete what you do not like or do not neeed. Build your own
 
 Integrations needed:
-HACS
-Terminal server
-Studio code server
-ha-eskom-loadshedding (https://github.com/swartjean/ha-eskom-loadshedding)
+
+* HACS
+* Terminal server
+* Studio code server
+* ha-eskom-loadshedding (https://github.com/swartjean/ha-eskom-loadshedding)
+
 
 Plugins that you will need:
-Mushroom
-slider-entity-row
-layout-card
-Flexible Horseshoe Card
-Plotly Graph Card
-ApexCharts
+
+* Mushroom
+* slider-entity-row
+* layout-card
+* Flexible Horseshoe Card
+* Plotly Graph Card
+* ApexCharts
+
 
 Configuration.yaml needed
-```
+```yaml
 sensor:
   - platform: statistics
     name: "min_soc_battery"
@@ -237,12 +241,18 @@ Automations: Needed for the time of use configuration (that will copy the values
 Special mentions:
 https://github.com/slipx06 for sharing a large portion of the desktop and the brilliant power flow card
 
-You do not need to buy the smartDeyeDongle, there are other options:
-https://github.com/kellerza/sunsynk You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ
-https://github.com/StephanJoubert/home_assistant_solarman Pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations but it could work for those simply wanting to view values at the end of the day. Once again you will need to map all the entity names.
+
+Getting the Data from your inverter
+* Preferred way is to buy the smartDeyeDongle, it plugs into your inverter and translates all the data to home assistant directly, you can expect real time data updated every 3s and the ability to change settings via the screen or automations.
+
+* You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ https://github.com/kellerza/sunsynk  (provides real-time data, works via MQTT)
+
+* Last option is also the cheapest but requires no additional cables to be purchased. You could pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
 
 Coming Soon:
-Boilerplate config and automations to integrate into your own Telegram bot. Once a power outage/loadshedding starts you need to receive a message to warn you and tell you the SOC of the battery.
+Boilerplate config and automations to integrate into your own Telegram bot. 
+Message notifications of a power outage/loadshedding to warn you and report the battery SOC.
+Messge notification of a power outage that is outside the loadshedding schedule provided for your area (needs loadshedding plugin too)
 
 Why this project:
-I believe that knowledge is power. Once you understand your power usage you will be able to optimise it. We are rapidly moving towards a future where there is a need to have a smart home with smart power usage. Since the platform allows automations that is the next logical step towards a greener future. If this project can enable every house to save just 5% of power sourced from dirty generation (such as coal) and replace it with power from panels already installed we have achieved our goal. Now if that saves the user money that can be seen as a bonus. We are well on our way to a more sustainable future.
+I believe that knowledge is power. Once you understand your power usage you will be able to optimise it. We are rapidly moving towards a future where there is a need to have a smart home with smart power usage. Since the platform allows automations that is the next logical step towards a greener future. If this project can enable every house to save just 5% of power sourced from dirty generation (such as coal) and replace it with power from panels already installed we have achieved our goal. Now if that saves the user money that can be seen as a bonus. Helping people to move towards a sustainable future
