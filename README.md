@@ -1,5 +1,7 @@
 # DeyeSolarDesktop
 
+Let's get your desktop up and running, once entities are populating with data it will look like this:
+
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/DeyeTab.png)
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/GraphsTab1.png)
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/GraphsTab2.png)
@@ -32,6 +34,7 @@ Integrations needed:
 HACS
 Terminal server
 Studio code server
+ha-eskom-loadshedding (https://github.com/swartjean/ha-eskom-loadshedding)
 
 Plugins that you will need:
 Mushroom
