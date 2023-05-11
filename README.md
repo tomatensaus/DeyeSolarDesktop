@@ -1,6 +1,12 @@
 # DeyeSolarDesktop
 
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/DeyeTab.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/GraphsTab1.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/GraphsTab2.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/InverterValuesTab.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/ConfigTab.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/TimeOfUseTab1.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/TimeOfUseTab2.png)
 
 If you are new to home assistant then the DeyeSolarDesktop Home Assistant backup is a quick and sure way to get your solar monitoring up and running. Initially this will be very focussed on the South African market where power outages are common occurences.
 
