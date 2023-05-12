@@ -9,6 +9,7 @@ Let's get your desktop up and running, once entities are populating with data it
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/ConfigTab.png)
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/TimeOfUseTab1.png)
 ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/TimeOfUseTab2.png)
+![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/StandardEnergyDashboard.png)
 
 If you are new to home assistant then the DeyeSolarDesktop Home Assistant backup is a quick and sure way to get your solar monitoring up and running. Initially this will be very focussed on the South African market where power outages are common occurences.
 
