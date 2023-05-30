@@ -251,7 +251,7 @@ Getting the Data from your inverter
 * Last option is also the cheapest but requires no additional cables to be purchased. You could pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
 
 Coming Soon:
-Boilerplate config and automations to integrate into your own Telegram bot. 
+Boilerplate config and automations to integrate into your own Telegram bot.
 Message notifications of a power outage/loadshedding to warn you and report the battery SOC.
 Messge notification of a power outage that is outside the loadshedding schedule provided for your area (needs loadshedding plugin too)
 

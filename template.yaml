@@ -1,0 +1,31 @@
+sensor:
+  - name: sensor.sunsynk_day_total_power
+    unit_of_measurement: "kWh"
+    state: '{{ states("sensor.sunsynk_dayactive_powerwh") |float + states("sensor.sunsynk_grid_gridbuy_day") | float + states("sensor.sunsynk_overall_battery_discharge_day") | float }}'
+
+  - name: "battery_power_needed"
+    unit_of_measurement: "KWh"
+    state: '{{ (((100.0 - states("sensor.min_soc_battery") |float)/10.0) - (states("sensor.sunsynk_overall_battery_charge_day")  |float) + (states("input_number.battery_charge_needed_lossfactor") | float)) | round(1) }}'
+
+  - name: "deyeinverter_solar_power_used"
+    state: "{{ (states('sensor.deyeinverter_summary_day_pv') | float(0) - states('sensor.deyeinverter_summary_day_battery_charge') | float(0)) |round(1) }}"
+    unit_of_measurement: "kWh"
+    device_class: energy
+
+  - name: "deyeinverter_essential_load"
+    state: "{{ (states('sensor.deyeinverter_inverter_output_power') |float(0)  + (states('sensor.deyeinverter_grid_load') |float(0) - states('sensor.deyeinverter_aux_output_power') |float(0) )) | round(0)}}"
+    unit_of_measurement: "W"
+    device_class: power
+
+  - name: "deyeinverter_non_essential_load"
+    state: "{{ (states('sensor.deyeinverter_grid_external_power') |float(0)  - (states('sensor.deyeinverter_grid_load') |float(0))) | round(0)}}"
+    unit_of_measurement: "W"
+    device_class: power
+
+  - name: "deyeinverter_priority_charge_or_load"
+    state: |
+      {% if is_state('select.deyeinverter_energy_management_model', 'Battery Priority Mode') %}
+        off
+      {% else %}
+        on
+      {% endif %}

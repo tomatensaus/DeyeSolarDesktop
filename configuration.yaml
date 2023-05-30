@@ -1,0 +1,66 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech default config
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+template: !include template.yaml    #we include template file here
+
+# Example configuration.yaml entry for the Telegram Bot
+telegram_bot:
+  - platform: polling
+    api_key: 123456:ABCDEF_ETC_ETC  #your bot API KEY HERE
+    allowed_chat_ids:
+      - 123  #your username chatid here as supplied by telegram
+      - -12333321 #your chatgroup_for_bot chatid here, notice that groups start with minus
+
+# this is needed for the Telegram Bot
+notify:
+  - platform: telegram
+    name: use_user_id_here  #Eg user: Heinz or  solar: Solar
+    chat_id: 123  #your username chatid here as supplied by telegram
+  - platform: telegram
+    name: chatgroup_for_bot
+    chat_id: -12333321  #your chatgroup for your bot chatid here as supplied by telegram, notice that groups start with minus
+
+# The sensor below keeps the minimum soc of the battery for the last 12 hours, only displayed on the DeyeSolarDesktop, not important
+sensor:
+  - platform: statistics
+    name: "min_soc_battery"
+    entity_id: sensor.deyeinverter_battery_soc
+    state_characteristic: value_min
+    max_age:
+      hours: 12
+    sampling_size: 144
+
+#These entries below define data fields to store the TimeOfUse values on home_assistant side
+#The automation will take a change in value and populate the value on the inverter accordingly
+input_datetime:
+  timezone1_time:
+    name: Timezone 1 Time
+    has_date: false
+    has_time: true
+  timezone2_time:
+    name: Timezone 2 Time
+    has_date: false
+    has_time: true
+  timezone3_time:
+    name: Timezone 3 Time
+    has_date: false
+    has_time: true
+  timezone4_time:
+    name: Timezone 4 Time
+    has_date: false
+    has_time: true
+  timezone5_time:
+    name: Timezone 5 Time
+    has_date: false
+    has_time: true
+  timezone6_time:
+    name: Timezone 6 Time
+    has_date: false
+    has_time: true

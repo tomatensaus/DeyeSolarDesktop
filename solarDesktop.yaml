@@ -6,11 +6,12 @@ views:
     subview: false
     cards:
       - type: custom:sunsynk-power-flow-card
-        cardstyle: lite
+        cardstyle: full
         show_daily: 'yes'
         panel_mode: 'yes'
+        show_solar: 'yes'
         solar:
-          show_solar: 'yes'
+          mppts: two
           colour: orange
           show_daily: 'yes'
         inverter:
@@ -19,7 +20,7 @@ views:
         battery:
           energy: 10000
           shutdown_soc: 10
-          invert_power: 'yes'
+          invert_power: 'no'
           colour: green
           show_daily: 'yes'
         load:
@@ -28,32 +29,40 @@ views:
           show_aux: 'no'
         grid:
           colour: '#5490c2'
-          show_daily: 'yes'
+          show_daily_buy: 'yes'
           no_grid_colour: red
+          show_nonessential: 'no'
         entities:
           use_timer_248: switch.deyeinverter_time_of_use
-          priority_load_243: switch.toggle_priority_load
+          priority_load_243: sensor.deyeinverter_priority_charge_or_load
           batchargeday_70: sensor.deyeinverter_summary_day_battery_charge
           batdischargeday_71: sensor.deyeinverter_summary_day_battery_discharge
           loadday_84: sensor.deyeinverter_summary_day_load
-          gridday_76: sensor.deyeinverter_summary_day_grid_import_buy
+          grid_buy_day_76: sensor.deyeinverter_summary_day_grid_import_buy
           solarday_108: sensor.deyeinverter_summary_day_pv_energy
           inverter_grid_voltage_154: sensor.deyeinverter_grid_voltage
           inverter_load_freq_192: sensor.deyeinverter_grid_frequency
           inverter_out_164: sensor.deyeinverter_inverter_output_current
           inverter_out_175: sensor.deyeinverter_inverter_output_power
           inverter_load_grid_169: sensor.deyeinverter_grid_load
-          pv2_power_187: sensor.deyeinverter_pv2_power
           pv1_power_186: sensor.deyeinverter_pv1_power
+          pv2_power_187: sensor.deyeinverter_pv2_power
+          pv3_power_188: none
+          pv4_power_189: none
           battery_voltage_183: sensor.deyeinverter_battery_voltage
           battery_soc_184: sensor.deyeinverter_battery_soc
           battery_out_190: sensor.deyeinverter_battery_output_power
+          battery_current_191: sensor.deyeinverter_battery_output_current
           ess_power: sensor.deyeinverter_essential_load
           grid_external_power_172: sensor.deyeinverter_grid_power_ct_clamp
           pv1_v_109: sensor.deyeinverter_pv1_voltage
           pv1_i_110: sensor.deyeinverter_pv1_current
           pv2_v_111: sensor.deyeinverter_pv2_voltage
           pv2_i_112: sensor.deyeinverter_pv2_current
+          pv3_v_113: none
+          pv3_i_114: none
+          pv4_v_115: none
+          pv4_i_116: none
           grid_status_194: binary_sensor.deyeinverter_grid_connected_status
           inverter_status_59: sensor.deyeinverter_inverter_system_state
           aux_power_166: sensor.deyeinverter_aux_output_power
@@ -271,14 +280,14 @@ views:
           - entity: sensor.deyeinverter_pv2_current
             decimals: 1
             unit: A
-          - entity: sensor.deyeinverter_summary_day_pv_energy
+          - entity: sensor.deyeinverter_summary_day_pv
             decimals: 2
             unit: kWh
             name: Daily
-          - entity: sensor.deyeinverter_summary_day_pv1_energy
+          - entity: sensor.deyeinverter_summary_day_pv1
             decimals: 1
             unit: kWh
-          - entity: sensor.deyeinverter_summary_day_pv2_energy
+          - entity: sensor.deyeinverter_summary_day_pv2
             decimals: 1
             unit: kWh
         layout:
@@ -729,7 +738,7 @@ views:
         view_layout:
           grid-area: daily
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv_energy
+          - entity: sensor.deyeinverter_summary_day_pv
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -895,7 +904,7 @@ views:
         view_layout:
           grid-area: sg
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv_energy
+          - entity: sensor.deyeinverter_summary_day_pv
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -963,7 +972,7 @@ views:
         view_layout:
           grid-area: m
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv_energy
+          - entity: sensor.deyeinverter_summary_day_pv
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
@@ -1101,11 +1110,11 @@ views:
         name: PV2
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv_energy
+          - entity: sensor.deyeinverter_summary_day_pv
             name: Day PV Energy
-          - entity: sensor.deyeinverter_summary_day_pv1_energy
+          - entity: sensor.deyeinverter_summary_day_pv1
             name: Day PV1 Energy
-          - entity: sensor.deyeinverter_summary_day_pv2_energy
+          - entity: sensor.deyeinverter_summary_day_pv2
             name: ' Day PV2 Energy'
           - entity: sensor.deyeinverter_temperature_ac_transformer
             name: Temperature AC Transformer
@@ -1131,21 +1140,21 @@ views:
           - entity: sensor.deyeinverter_summary_month_grid_import_buy
             secondary_info: none
           - entity: sensor.deyeinverter_summary_month_load
-          - entity: sensor.deyeinverter_summary_month_pv_energy
+          - entity: sensor.deyeinverter_summary_month_pv
           - entity: sensor.heatpump_monthly_energy_wh
           - entity: sensor.tasmota_energy_today
           - entity: sensor.tasmota_energy_yesterday
           - entity: sensor.deye_monthly_power_purchased
         title: Monthly Totals
-      - hours_to_show: 10
-        graph: line
+      - graph: line
+        hours_to_show: 10
         type: sensor
-        entity: sensor.deyeinverter_summary_day_pv2_energy
+        entity: sensor.deyeinverter_summary_day_pv2
         detail: 1
-      - hours_to_show: 10
-        graph: line
+      - graph: line
+        hours_to_show: 10
         type: sensor
-        entity: sensor.deyeinverter_summary_day_pv1_energy
+        entity: sensor.deyeinverter_summary_day_pv1
         detail: 1
         unit: Wh
       - type: entities
@@ -1175,7 +1184,6 @@ views:
           - entity: sensor.daily_power_used
           - entity: sensor.deyeinverter_load_power
           - entity: sensor.deyeinverter_grid_load
-          - entity: sensor.sunsynk_voltage_inverter
           - entity: select.deyeinverter_energy_management_model
         title: Inverter
       - type: entities
@@ -1222,10 +1230,10 @@ views:
             name: Summary Total Grid Export(Sell)
           - entity: sensor.deyeinverter_summary_total_grid_import_buy
             name: Summary Total Grid Import(Buy)
-          - entity: sensor.deyeinverter_summary_total_load_power
-            name: Summary Total Load Power
-          - entity: sensor.deyeinverter_summary_total_pv_power
-            name: Summary Total PV Power
+          - entity: sensor.deyeinverter_summary_total_load
+            name: Summary Total Load Energy
+          - entity: sensor.deyeinverter_summary_total_pv
+            name: ' PV'
         title: Inverter Lifetime Totals
       - type: entities
         entities:
@@ -1243,14 +1251,14 @@ views:
             name: Inverter Daily Energy calc
           - entity: sensor.deyeinverter_summary_day_load
             name: Load
-          - entity: sensor.deyeinverter_summary_day_pv_energy
+          - entity: sensor.deyeinverter_summary_day_pv
             name: PV Energy
-          - entity: sensor.deyeinverter_summary_day_pv_energy_calc
+          - entity: sensor.deyeinverter_summary_day_pv_calc
             name: PV Energy Calc
-          - entity: sensor.deyeinverter_summary_day_pv1_energy
-            name: PV1 Energy
-          - entity: sensor.deyeinverter_summary_day_pv2_energy
-            name: PV2 Energy
+          - entity: sensor.deyeinverter_summary_day_pv1
+            name: PV1
+          - entity: sensor.deyeinverter_summary_day_pv2
+            name: PV2
         title: Today totals
       - type: entities
         entities:
@@ -1260,15 +1268,15 @@ views:
             name: Grid Import(Buy)
           - entity: sensor.deyeinverter_summary_month_load
             name: Load
-          - entity: sensor.deyeinverter_summary_month_pv_energy
-            name: PV Energy
+          - entity: sensor.deyeinverter_summary_month_pv
+            name: 'PV '
         title: Month Totals
       - type: entities
         entities:
           - entity: sensor.deyeinverter_summary_year_load
             name: Summary Year Load
-          - entity: sensor.deyeinverter_summary_year_pv_energy
-            name: Summary Year PV Energy
+          - entity: sensor.deyeinverter_summary_year_pv
+            name: 'Summary Year PV '
         title: Year Totals
   - theme: Backend-selected
     title: Config
