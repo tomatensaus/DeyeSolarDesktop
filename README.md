@@ -75,7 +75,7 @@ Getting the Data from your inverter
 * Last option is also the cheapest but requires no additional cables to be purchased. You could pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
 
 Telegram integration:
-see [https://github.com/tomatensaus/DeyeSolarDesktop/TELEGRAM_SETUP.md]
+see [https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/TELEGRAM_SETUP.md]
 
 Why this project:
 I believe that knowledge is power. Once you understand your power usage you will be able to optimise it. We are rapidly moving towards a future where there is a need to have a smart home with smart power usage. Since the platform allows automations that is the next logical step towards a greener future. If this project can enable every house to save just 5% of power sourced from dirty generation (such as coal) and replace it with power from panels already installed we have achieved our goal. Now if that saves the user money that can be seen as a bonus. Helping people to move towards a sustainable future
