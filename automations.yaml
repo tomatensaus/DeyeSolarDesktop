@@ -4,12 +4,12 @@
   trigger:
   - platform: state
     entity_id:
-    - number.deyeinverter_timezone1_time
-    - number.deyeinverter_timezone2_time
-    - number.deyeinverter_timezone3_time
-    - number.deyeinverter_timezone4_time
-    - number.deyeinverter_timezone5_time
-    - number.deyeinverter_timezone6_time
+    - number.deyeinvertermaster_timezone1_time
+    - number.deyeinvertermaster_timezone2_time
+    - number.deyeinvertermaster_timezone3_time
+    - number.deyeinvertermaster_timezone4_time
+    - number.deyeinvertermaster_timezone5_time
+    - number.deyeinvertermaster_timezone6_time
   condition:
   - condition: template
     value_template: '{{ trigger.to_state.state != ''unavailable'' }}'
@@ -18,44 +18,44 @@
     target:
       entity_id: input_datetime.timezone1_time
     data:
-      time: '{% set min = ((states(''number.deyeinverter_timezone1_time'') | int)
-        % 100) %} {% set hour = ((states(''number.deyeinverter_timezone1_time'') |
-        int) // 100) %} {{hour|format(''02d'')}}:{{min|format(''02d'')}}:00'
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone1_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone1_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.timezone2_time
     data:
-      time: '{% set min = ((states(''number.deyeinverter_timezone2_time'') | int)
-        % 100) %} {% set hour = ((states(''number.deyeinverter_timezone2_time'') |
-        int) // 100) %} {{hour|format(''02d'')}}:{{min|format(''02d'')}}:00'
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone2_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone2_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.timezone3_time
     data:
-      time: '{% set min = ((states(''number.deyeinverter_timezone3_time'') | int)
-        % 100) %} {% set hour = ((states(''number.deyeinverter_timezone3_time'') |
-        int) // 100) %} {{hour|format(''02d'')}}:{{min|format(''02d'')}}:00'
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone3_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone3_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.timezone4_time
     data:
-      time: '{% set min = ((states(''number.deyeinverter_timezone4_time'') | int)
-        % 100) %} {% set hour = ((states(''number.deyeinverter_timezone4_time'') |
-        int) // 100) %} {{hour|format(''02d'')}}:{{min|format(''02d'')}}:00'
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone4_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone4_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.timezone5_time
     data:
-      time: '{% set min = ((states(''number.deyeinverter_timezone5_time'') | int)
-        % 100) %} {% set hour = ((states(''number.deyeinverter_timezone5_time'') |
-        int) // 100) %} {{hour|format(''02d'')}}:{{min|format(''02d'')}}:00'
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone5_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone5_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.timezone6_time
     data:
-      time: '{% set min = ((states(''number.deyeinverter_timezone6_time'') | int)
-        % 100) %} {% set hour = ((states(''number.deyeinverter_timezone6_time'') |
-        int) // 100) %} {{hour|format(''02d'')}}:{{min|format(''02d'')}}:00'
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone6_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone6_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
   mode: single
 - id: '1683640125053'
   alias: InverterConfig send update to inverter
@@ -73,43 +73,39 @@
   - condition: template
     value_template: '{{ trigger.to_state.state != ''unavailable'' }}'
   action:
-  - service: telegram_bot.send_message
-    data:
-      message: Update ESPHOME received {{trigger.to_state.state}}
-      target: 85050583
   - service: number.set_value
     target:
-      entity_id: number.deyeinverter_timezone1_time
+      entity_id: number.deyeinvertermaster_timezone1_time
     data:
       value: '{{state_attr(''input_datetime.timezone1_time'', ''timestamp'') | timestamp_custom("%H%M",
         false) | float}}'
   - service: number.set_value
     target:
-      entity_id: number.deyeinverter_timezone2_time
+      entity_id: number.deyeinvertermaster_timezone2_time
     data:
       value: '{{state_attr(''input_datetime.timezone2_time'', ''timestamp'') | timestamp_custom("%H%M",
         false) | float}}'
   - service: number.set_value
     target:
-      entity_id: number.deyeinverter_timezone3_time
+      entity_id: number.deyeinvertermaster_timezone3_time
     data:
       value: '{{state_attr(''input_datetime.timezone3_time'', ''timestamp'') | timestamp_custom("%H%M",
         false) | float}}'
   - service: number.set_value
     target:
-      entity_id: number.deyeinverter_timezone4_time
+      entity_id: number.deyeinvertermaster_timezone4_time
     data:
       value: '{{state_attr(''input_datetime.timezone4_time'', ''timestamp'') | timestamp_custom("%H%M",
         false) | float}}'
   - service: number.set_value
     target:
-      entity_id: number.deyeinverter_timezone5_time
+      entity_id: number.deyeinvertermaster_timezone5_time
     data:
       value: '{{state_attr(''input_datetime.timezone5_time'', ''timestamp'') | timestamp_custom("%H%M",
         false) | float}}'
   - service: number.set_value
     target:
-      entity_id: number.deyeinverter_timezone6_time
+      entity_id: number.deyeinvertermaster_timezone6_time
     data:
       value: '{{state_attr(''input_datetime.timezone6_time'', ''timestamp'') | timestamp_custom("%H%M",
         false) | float}}'
@@ -153,7 +149,7 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.deyeinverter_grid_frequency
+    entity_id: sensor.deyeinvertermaster_grid_frequency
     for:
       hours: 0
       minutes: 0
@@ -161,7 +157,7 @@
     below: 49
     id: power-off
   - platform: numeric_state
-    entity_id: sensor.deyeinverter_grid_frequency
+    entity_id: sensor.deyeinvertermaster_grid_frequency
     for:
       hours: 0
       minutes: 0
@@ -169,7 +165,7 @@
     above: 49.1
     id: power-on
   - platform: numeric_state
-    entity_id: sensor.deyeinverter_battery_soc
+    entity_id: sensor.deyeinvertermaster_battery_soc
     below: 20
     id: Battery below 20
   condition: []
@@ -183,10 +179,10 @@
       sequence:
       - service: telegram_bot.send_message
         data:
-          message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinverter_battery_soc")}}%'
+          message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
       - service: telegram_bot.send_message
         data:
-          message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinverter_battery_soc")}}%'
+          message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
           target: -12333321
     - conditions:
       - condition: trigger
@@ -196,16 +192,16 @@
       sequence:
       - service: telegram_bot.send_message
         data:
-          message: 'Loadshedding started with battery SOC: {{states("sensor.deyeinverter_battery_soc")}}%'
+          message: 'Loadshedding started with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
       - service: telegram_bot.send_message
         data:
-          message: 'Loadshedding started with battery SOC: {{states("sensor.deyeinverter_battery_soc")}}%'
+          message: 'Loadshedding started with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
           target: -12333321
     - conditions:
       - condition: trigger
         id: Battery below 20
       - condition: numeric_state
-        entity_id: sensor.deyeinverter_grid_frequency
+        entity_id: sensor.deyeinvertermaster_grid_frequency
         below: 49
       sequence:
       - service: telegram_bot.send_message
@@ -215,4 +211,39 @@
         data:
           message: Grid down and battery below 20%
           target: -12333321
+  mode: single
+- id: '1686299812078'
+  alias: 'Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises'
+  description: This stops the export to non-essentials from the battery when the sun
+    is not shining, but during the day solar power is sent to non-essentials
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:45:00
+    id: poweressentials
+  - platform: sun
+    event: sunrise
+    offset: 00:45:00
+    id: powernonessentials
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: poweressentials
+      sequence:
+      - service: select.select_option
+        data:
+          option: Essentials
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+    - conditions:
+      - condition: trigger
+        id: powernonessentials
+      sequence:
+      - service: select.select_option
+        data:
+          option: Zero Export
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
   mode: single

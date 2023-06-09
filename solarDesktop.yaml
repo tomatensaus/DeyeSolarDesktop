@@ -7,87 +7,99 @@ views:
     cards:
       - type: custom:sunsynk-power-flow-card
         cardstyle: full
-        show_daily: 'yes'
-        panel_mode: 'yes'
-        show_solar: 'yes'
+        show_daily: "yes"
+        panel_mode: "yes"
+        show_solar: "yes"
         solar:
           mppts: two
           colour: orange
-          show_daily: 'yes'
+          show_daily: "yes"
+          animation_speed: 6
+          max_power: 5600
         inverter:
-          modern: 'yes'
+          modern: "yes"
           colour: grey
         battery:
           energy: 10000
-          shutdown_soc: 10
-          invert_power: 'no'
+          shutdown_soc: 8
+          invert_power: "no"
           colour: green
-          show_daily: 'yes'
+          show_daily: "yes"
+          animation_speed: 6
+          max_power: 5000
         load:
-          colour: '#5fb6ad'
-          show_daily: 'yes'
-          show_aux: 'no'
+          colour: "#5fb6ad"
+          show_daily: "yes"
+          show_aux: "no"
+          animation_speed: 4
+          max_power: 4000
         grid:
-          colour: '#5490c2'
-          show_daily_buy: 'yes'
+          colour: "#5490c2"
+          show_daily_buy: "yes"
           no_grid_colour: red
-          show_nonessential: 'no'
+          show_nonessential: "no"
+          animation_speed: 9
+          max_power: 6000
         entities:
-          use_timer_248: switch.deyeinverter_time_of_use
-          priority_load_243: sensor.deyeinverter_priority_charge_or_load
-          batchargeday_70: sensor.deyeinverter_summary_day_battery_charge
-          batdischargeday_71: sensor.deyeinverter_summary_day_battery_discharge
-          loadday_84: sensor.deyeinverter_summary_day_load
-          grid_buy_day_76: sensor.deyeinverter_summary_day_grid_import_buy
-          solarday_108: sensor.deyeinverter_summary_day_pv_energy
-          inverter_grid_voltage_154: sensor.deyeinverter_grid_voltage
-          inverter_load_freq_192: sensor.deyeinverter_grid_frequency
-          inverter_out_164: sensor.deyeinverter_inverter_output_current
-          inverter_out_175: sensor.deyeinverter_inverter_output_power
-          inverter_load_grid_169: sensor.deyeinverter_grid_load
-          pv1_power_186: sensor.deyeinverter_pv1_power
-          pv2_power_187: sensor.deyeinverter_pv2_power
+          use_timer_248: switch.deyeinvertermaster_time_of_use
+          priority_load_243: sensor.deyeinvertermaster_priority_charge_or_load
+          batchargeday_70: sensor.deyeinvertermaster_summary_day_battery_charge
+          batdischargeday_71: sensor.deyeinvertermaster_summary_day_battery_discharge
+          loadday_84: sensor.deyeinvertermaster_summary_day_load
+          grid_buy_day_76: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          solarday_108: sensor.deyeinvertermaster_summary_day_pv
+          inverter_grid_voltage_154: sensor.deyeinvertermaster_grid_voltage
+          inverter_load_freq_192: sensor.deyeinvertermaster_grid_frequency
+          inverter_out_164: sensor.deyeinvertermaster_inverter_output_current
+          inverter_out_175: sensor.deyeinvertermaster_inverter_output_power
+          inverter_load_grid_169: sensor.deyeinvertermaster_grid_load
+          inverter_ac_temp: sensor.deyeinvertermaster_temperature_ac_transformer
+          inverter_dc_temp: sensor.deyeinvertermaster_temperature_dc_transformer
+          pv1_power_186: sensor.deyeinvertermaster_pv1_power
+          pv2_power_187: sensor.deyeinvertermaster_pv2_power
           pv3_power_188: none
           pv4_power_189: none
-          battery_voltage_183: sensor.deyeinverter_battery_voltage
-          battery_soc_184: sensor.deyeinverter_battery_soc
-          battery_out_190: sensor.deyeinverter_battery_output_power
-          battery_current_191: sensor.deyeinverter_battery_output_current
-          ess_power: sensor.deyeinverter_essential_load
-          grid_external_power_172: sensor.deyeinverter_grid_power_ct_clamp
-          pv1_v_109: sensor.deyeinverter_pv1_voltage
-          pv1_i_110: sensor.deyeinverter_pv1_current
-          pv2_v_111: sensor.deyeinverter_pv2_voltage
-          pv2_i_112: sensor.deyeinverter_pv2_current
+          battery_voltage_183: sensor.deyeinvertermaster_battery_voltage
+          battery_soc_184: sensor.deyeinvertermaster_battery_soc
+          battery_out_190: sensor.deyeinvertermaster_battery_output_power
+          battery_current_191: sensor.deyeinvertermaster_battery_output_current
+          battery_temp: sensor.deyeinvertermaster_battery_temperature
+          ess_power: sensor.deyeinvertermaster_essential_load
+          grid_external_power_172: sensor.deyeinvertermaster_grid_power_ct_clamp
+          pv1_v_109: sensor.deyeinvertermaster_pv1_voltage
+          pv1_i_110: sensor.deyeinvertermaster_pv1_current
+          pv2_v_111: sensor.deyeinvertermaster_pv2_voltage
+          pv2_i_112: sensor.deyeinvertermaster_pv2_current
           pv3_v_113: none
           pv3_i_114: none
           pv4_v_115: none
           pv4_i_116: none
-          grid_status_194: binary_sensor.deyeinverter_grid_connected_status
-          inverter_status_59: sensor.deyeinverter_inverter_system_state
-          aux_power_166: sensor.deyeinverter_aux_output_power
+          grid_status_194: binary_sensor.deyeinvertermaster_grid_connected_status
+          inverter_status_59: sensor.deyeinvertermaster_inverter_system_state
+          aux_power_166: sensor.deyeinvertermaster_aux_output_power
+          remaining_solar: sensor.energy_production_today_remaining
       - type: custom:flex-horseshoe-card
         view_layout:
           grid-area: g2
         entities:
-          - entity: sensor.deyeinverter_battery_soc
+          - entity: sensor.deyeinvertermaster_battery_soc
             decimals: 0
-            unit: '%'
+            unit: "%"
             name: BATTERY
-          - entity: sensor.deyeinverter_battery_voltage
+          - entity: sensor.deyeinvertermaster_battery_voltage
             decimals: 2
             unit: V
-          - entity: sensor.deyeinverter_battery_output_current
+          - entity: sensor.deyeinvertermaster_battery_output_current
             decimals: 2
             unit: A
-          - entity: sensor.deyeinverter_battery_output_power
+          - entity: sensor.deyeinvertermaster_battery_output_power
             decimals: 0
             unit: W
-          - entity: sensor.deyeinverter_summary_day_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             decimals: 2
             unit: kWh
             name: Discharge
-          - entity: sensor.deyeinverter_summary_day_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_charge
             decimals: 2
             unit: kWh
             name: Charge
@@ -190,8 +202,8 @@ views:
           max: 100
           width: 6
         color_stops:
-          '0': red
-          '2000': green
+          "0": red
+          "2000": green
         card_mod:
           style: |
             ha-card {
@@ -243,51 +255,51 @@ views:
                 chart:
                   height: 354px
         series:
-          - entity: sensor.deyeinverter_solar_power_used
+          - entity: sensor.deyeinvertermaster_solar_power_used
             name: Solar consumed
             color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverter_summary_day_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             name: Battery
             color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             name: Grid
             color: rgb(84, 144, 194)
       - type: custom:flex-horseshoe-card
         view_layout:
           grid-area: g1
         entities:
-          - entity: sensor.deyeinverter_pv_power
+          - entity: sensor.deyeinvertermaster_pv_power
             decimals: 0
             unit: W
             name: Solar
-          - entity: sensor.deyeinverter_pv1_power
+          - entity: sensor.deyeinvertermaster_pv1_power
             decimals: 0
             unit: W
             name: PV1
-          - entity: sensor.deyeinverter_pv2_power
+          - entity: sensor.deyeinvertermaster_pv2_power
             decimals: 0
             unit: W
             name: PV2
-          - entity: sensor.deyeinverter_pv1_voltage
+          - entity: sensor.deyeinvertermaster_pv1_voltage
             decimals: 0
             unit: V
-          - entity: sensor.deyeinverter_pv2_voltage
+          - entity: sensor.deyeinvertermaster_pv2_voltage
             decimals: 0
             unit: V
-          - entity: sensor.deyeinverter_pv1_current
+          - entity: sensor.deyeinvertermaster_pv1_current
             decimals: 1
             unit: A
-          - entity: sensor.deyeinverter_pv2_current
+          - entity: sensor.deyeinvertermaster_pv2_current
             decimals: 1
             unit: A
-          - entity: sensor.deyeinverter_summary_day_pv
+          - entity: sensor.deyeinvertermaster_summary_day_pv
             decimals: 2
             unit: kWh
             name: Daily
-          - entity: sensor.deyeinverter_summary_day_pv1
+          - entity: sensor.deyeinvertermaster_summary_day_pv1
             decimals: 1
             unit: kWh
-          - entity: sensor.deyeinverter_summary_day_pv2
+          - entity: sensor.deyeinvertermaster_summary_day_pv2
             decimals: 1
             unit: kWh
         layout:
@@ -422,10 +434,10 @@ views:
           max: 6000
           width: 3
         color_stops:
-          '0': green
-          '1000': blue
-          '2500': orange
-          '4000': red
+          "0": green
+          "1000": blue
+          "2500": orange
+          "4000": red
         show:
           horseshoe_style: colorstopgradient
         card_mod:
@@ -484,33 +496,33 @@ views:
                 chart:
                   height: 363px
         series:
-          - entity: sensor.deyeinverter_solar_power_used
+          - entity: sensor.deyeinvertermaster_solar_power_used
             name: Self Consumption
-          - entity: sensor.deyeinverter_summary_day_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_charge
             name: Battery Charging
-          - entity: sensor.deyeinverter_summary_day_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_day_grid_export_sell
             name: Sold to Grid
       - type: custom:flex-horseshoe-card
         entities:
-          - entity: sensor.deyeinverter_essential_load
+          - entity: sensor.deyeinvertermaster_essential_load
             unit: W
             name: AC
-          - entity: sensor.deyeinverter_grid_voltage
+          - entity: sensor.deyeinvertermaster_grid_voltage
             decimals: 0
             unit: V
-          - entity: sensor.deyeinverter_grid_frequency
+          - entity: sensor.deyeinvertermaster_grid_frequency
             decimals: 2
             unit: Hz
             name: Grid
-          - entity: sensor.deyeinverter_grid_power_ct_clamp
+          - entity: sensor.deyeinvertermaster_grid_power_ct_clamp
             decimals: 0
             unit: W
             name: Grid
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             decimals: 2
             unit: kWh
             name: Import
-          - entity: sensor.deyeinverter_summary_day_load
+          - entity: sensor.deyeinvertermaster_summary_day_load
             decimals: 2
             unit: kWh
             name: Daily
@@ -620,8 +632,8 @@ views:
           max: 8000
           width: 6
         color_stops:
-          '0': '#5fb6ad'
-          '2000': '#5fb6ad'
+          "0": "#5fb6ad"
+          "2000": "#5fb6ad"
         card_mod:
           style: |
             ha-card {
@@ -634,15 +646,15 @@ views:
           - calendar.loadshedding_local_events
         title: Loadshedding
       - type: markdown
-        content: "  ## System Timer Settings\n<table width=\"100%\"  border=0>\n  <tbody> \n  <tr>\n    <td align=\"left\">\n    <b>Time Slot</b>\n    </td>\n    <td align=\"left\">\n    <b>Power</b>\n    </td>\n    <td align=\"left\">\n    <b>Bat SOC</b>\n    </td>\n    <td align=\"left\">\n\t<b>Charge</b>\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n     {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone1_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone1_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverter_timezone1_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone2_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone2_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverter_timezone2_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone3_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone3_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverter_timezone3_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone4_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone4_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverter_timezone4_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone5_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone5_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverter_timezone5_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone6_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverter_timezone6_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverter_timezone6_charge')}}\n\t</td>\n  </tr>\n  </tbody>\n</table>"
+        content: "  ## System Timer Settings\n<table width=\"100%\"  border=0>\n  <tbody> \n  <tr>\n    <td align=\"left\">\n    <b>Time Slot</b>\n    </td>\n    <td align=\"left\">\n    <b>Power</b>\n    </td>\n    <td align=\"left\">\n    <b>Bat SOC</b>\n    </td>\n    <td align=\"left\">\n\t<b>Charge</b>\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n     {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone1_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone1_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone1_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone2_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone3_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone4_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone4_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone4_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone5_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone6_charge')}}\n\t</td>\n  </tr>\n  </tbody>\n</table>"
       - type: history-graph
         entities:
-          - entity: sensor.deyeinverter_load_power
-          - entity: sensor.deyeinverter_grid_load
-          - entity: sensor.deyeinverter_pv_power
-          - entity: sensor.deyeinverter_battery_output_power
-          - entity: sensor.deyeinverter_pv1_power
-          - entity: sensor.deyeinverter_pv2_power
+          - entity: sensor.deyeinvertermaster_load_power
+          - entity: sensor.deyeinvertermaster_grid_load
+          - entity: sensor.deyeinvertermaster_pv_power
+          - entity: sensor.deyeinvertermaster_battery_output_power
+          - entity: sensor.deyeinvertermaster_pv1_power
+          - entity: sensor.deyeinvertermaster_pv2_power
         hours_to_show: 12
       - show_current: true
         show_forecast: false
@@ -656,46 +668,46 @@ views:
     cards:
       - type: history-graph
         entities:
-          - entity: sensor.deyeinverter_load_power
-          - entity: sensor.deyeinverter_grid_load
-          - entity: sensor.deyeinverter_pv_power
-          - entity: sensor.deyeinverter_battery_output_power
-          - entity: sensor.deyeinverter_pv1_power
-          - entity: sensor.deyeinverter_pv2_power
+          - entity: sensor.deyeinvertermaster_load_power
+          - entity: sensor.deyeinvertermaster_grid_load
+          - entity: sensor.deyeinvertermaster_pv_power
+          - entity: sensor.deyeinvertermaster_battery_output_power
+          - entity: sensor.deyeinvertermaster_pv1_power
+          - entity: sensor.deyeinvertermaster_pv2_power
         hours_to_show: 18
       - type: custom:plotly-graph
         view_layout:
           grid-area: graph
         entities:
-          - entity: sensor.deyeinverter_pv_power
+          - entity: sensor.deyeinvertermaster_pv_power
             name: |
               $fn ({ ys,meta }) =>
                 "Solar" + "🔆" + "(" +ys[ys.length - 1]+"W)"
             fill: tozeroy
             line:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverter_essential_load
+          - entity: sensor.deyeinvertermaster_essential_load
             name: |
               $fn ({ ys,meta }) =>
                 "Load" + "⚡" + "(" +ys[ys.length - 1]+"W)"
             fill: tozeroy
             line:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverter_grid_power_ct_clamp
+          - entity: sensor.deyeinvertermaster_grid_power_ct_clamp
             name: |
               $fn ({ ys,meta }) =>
                 "Grid" + "💡" + "(" +ys[ys.length - 1]+"W)"
             fill: tozeroy
             line:
               color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverter_battery_output_power
+          - entity: sensor.deyeinvertermaster_battery_output_power
             fill: tozeroy
             name: |
               $fn ({ ys,meta }) =>
                 "Battery" + "🔋" + "(" +ys[ys.length - 1]+"W)"
             line:
               color: rgb(243, 179, 202)
-          - entity: sensor.deyeinverter_battery_soc
+          - entity: sensor.deyeinvertermaster_battery_soc
             name: |
               $fn ({ ys,meta }) =>
                 "SOC" + "⚠️" + "(" +ys[ys.length - 1]+"%)"
@@ -738,54 +750,54 @@ views:
         view_layout:
           grid-area: daily
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv
+          - entity: sensor.deyeinvertermaster_summary_day_pv
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Solar" + "🔆" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverter_summary_day_load
+          - entity: sensor.deyeinvertermaster_summary_day_load
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Load" + "⚡" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Grid Import" + "💡" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverter_summary_day_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Battery Discharge" + "🖱️" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverter_summary_day_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_charge
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Battery Charge" + "🔋" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: yellow
         hours_to_show: 12d
@@ -808,7 +820,7 @@ views:
         view_layout:
           grid-area: total
         entities:
-          - entity: sensor.deyeinverter_summary_total_pv_power
+          - entity: sensor.deyeinvertermaster_summary_total_pv
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -817,13 +829,13 @@ views:
             type: bar
             width: $fn() => 1000*60*60*3
             offset: $fn() => 1000*60*60*3.5
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - filter: i>0
               - force_numeric
             marker:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverter_summary_total_load_power
+          - entity: sensor.deyeinvertermaster_summary_total_load
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -835,10 +847,10 @@ views:
             filters:
               - filter: i>0
               - force_numeric
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverter_summary_total_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_total_grid_import_buy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -847,13 +859,13 @@ views:
             type: bar
             width: $fn() => 1000*60*60*3
             offset: $fn() => 1000*60*60*10.5
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - filter: i>0
               - force_numeric
             marker:
               color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverter_summary_total_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_total_battery_discharge
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -862,13 +874,13 @@ views:
             type: bar
             width: $fn() => 1000*60*60*3
             offset: $fn() => 1000*60*60*14
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - filter: i>0
               - force_numeric
             marker:
               color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverter_summary_total_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_total_battery_charge
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -877,7 +889,7 @@ views:
             type: bar
             width: $fn() => 1000*60*60*3
             offset: $fn() => 1000*60*60*17.5
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - filter: i>0
               - force_numeric
@@ -896,7 +908,7 @@ views:
           xaxis:
             nticks: 1
           height: 410
-        time_offset: '-1m'
+        time_offset: "-1m"
         config:
           displayModeBar: false
           scrollZoom: false
@@ -904,31 +916,31 @@ views:
         view_layout:
           grid-area: sg
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv
+          - entity: sensor.deyeinvertermaster_summary_day_pv
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Solar" + "🔆" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - filter: i>0
             marker:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
                 "Grid Import" + "💡" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - filter: i>0
             marker:
               color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverter_summary_day_load
+          - entity: sensor.deyeinvertermaster_summary_day_load
             statistic: state
             show_value: true
             name: |
@@ -936,7 +948,7 @@ views:
                 "Load" + "⚡" + "(" +ys[ys.length - 1]+"kWh)"
             period: day
             type: line
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             line:
               color: rgb(95, 182, 173)
               width: 4
@@ -957,7 +969,7 @@ views:
           barmode: stack
           xaxis:
             rangeselector:
-              'y': 1.05
+              "y": 1.05
               buttons:
                 - count: 7
                   step: day
@@ -972,19 +984,19 @@ views:
         view_layout:
           grid-area: m
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv
+          - entity: sensor.deyeinvertermaster_summary_day_pv
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
                 "Solar" + "🔆"
             period: month
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - delta
             marker:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverter_summary_day_load
+          - entity: sensor.deyeinvertermaster_summary_day_load
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
@@ -993,42 +1005,42 @@ views:
             type: bar
             filters:
               - delta
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             marker:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
                 "Grid Import" + "💡"
             period: month
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - delta
             marker:
               color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverter_summary_day_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
                 "Battery Discharge" + "🖱️"
             period: month
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - delta
               - filter: i>0
             marker:
               color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverter_summary_day_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_charge
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
                 "Battery Charge" + "🔋"
             period: month
             type: bar
-            texttemplate: '%{y}'
+            texttemplate: "%{y}"
             filters:
               - delta
             marker:
@@ -1057,7 +1069,7 @@ views:
     badges: []
     cards:
       - type: gauge
-        entity: sensor.deyeinverter_pv_power
+        entity: sensor.deyeinvertermaster_pv_power
         min: 0
         max: 6000
         needle: true
@@ -1069,10 +1081,10 @@ views:
       - graph: line
         hours_to_show: 8
         type: sensor
-        entity: sensor.deyeinverter_battery_soc
+        entity: sensor.deyeinvertermaster_battery_soc
         detail: 2
       - type: gauge
-        entity: sensor.deyeinverter_pv1_power
+        entity: sensor.deyeinvertermaster_pv1_power
         min: 0
         max: 2000
         needle: true
@@ -1083,23 +1095,23 @@ views:
         name: PV1
       - type: entities
         entities:
-          - entity: binary_sensor.deyeinverter_grid_connected_status
+          - entity: binary_sensor.deyeinvertermaster_grid_connected_status
             name: Grid Connected Status
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
-          - entity: sensor.deyeinverter_load_power
-          - entity: sensor.deyeinverter_grid_frequency
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_load_power
+          - entity: sensor.deyeinvertermaster_grid_frequency
             name: Grid Frequency
-          - entity: sensor.deyeinverter_grid_load
+          - entity: sensor.deyeinvertermaster_grid_load
             name: Grid Load
-          - entity: sensor.deyeinverter_grid_power
+          - entity: sensor.deyeinvertermaster_grid_power
             name: Grid Power
-          - entity: sensor.deyeinverter_grid_power_ct_clamp
+          - entity: sensor.deyeinvertermaster_grid_power_ct_clamp
             name: Grid Power (CT Clamp)
-          - entity: sensor.deyeinverter_grid_voltage
+          - entity: sensor.deyeinvertermaster_grid_voltage
             name: Grid Voltage
         title: Grid
       - type: gauge
-        entity: sensor.deyeinverter_pv2_power
+        entity: sensor.deyeinvertermaster_pv2_power
         needle: true
         min: 0
         max: 3500
@@ -1110,37 +1122,37 @@ views:
         name: PV2
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_day_pv
+          - entity: sensor.deyeinvertermaster_summary_day_pv
             name: Day PV Energy
-          - entity: sensor.deyeinverter_summary_day_pv1
+          - entity: sensor.deyeinvertermaster_summary_day_pv1
             name: Day PV1 Energy
-          - entity: sensor.deyeinverter_summary_day_pv2
-            name: ' Day PV2 Energy'
-          - entity: sensor.deyeinverter_temperature_ac_transformer
+          - entity: sensor.deyeinvertermaster_summary_day_pv2
+            name: " Day PV2 Energy"
+          - entity: sensor.deyeinvertermaster_temperature_ac_transformer
             name: Temperature AC Transformer
-          - entity: sensor.deyeinverter_temperature_dc_transformer
-          - entity: sensor.deyeinverter_summary_total_grid_export_sell
-          - entity: sensor.deyeinverter_pv_power
+          - entity: sensor.deyeinvertermaster_temperature_dc_transformer
+          - entity: sensor.deyeinvertermaster_summary_total_grid_export_sell
+          - entity: sensor.deyeinvertermaster_pv_power
             name: PV Power
-          - entity: sensor.deyeinverter_pv1_current
+          - entity: sensor.deyeinvertermaster_pv1_current
             name: PV1 Current
-          - entity: sensor.deyeinverter_pv1_power
+          - entity: sensor.deyeinvertermaster_pv1_power
             name: PV1 Power
-          - entity: sensor.deyeinverter_pv1_voltage
+          - entity: sensor.deyeinvertermaster_pv1_voltage
             name: PV1 Voltage
-          - entity: sensor.deyeinverter_pv2_current
+          - entity: sensor.deyeinvertermaster_pv2_current
             name: PV2 Current
-          - entity: sensor.deyeinverter_pv2_power
+          - entity: sensor.deyeinvertermaster_pv2_power
             name: PV2 Power
-          - entity: sensor.deyeinverter_pv2_voltage
+          - entity: sensor.deyeinvertermaster_pv2_voltage
             name: PV2 Voltage
         title: Solar Panels
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_month_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_month_grid_import_buy
             secondary_info: none
-          - entity: sensor.deyeinverter_summary_month_load
-          - entity: sensor.deyeinverter_summary_month_pv
+          - entity: sensor.deyeinvertermaster_summary_month_load
+          - entity: sensor.deyeinvertermaster_summary_month_pv
           - entity: sensor.heatpump_monthly_energy_wh
           - entity: sensor.tasmota_energy_today
           - entity: sensor.tasmota_energy_yesterday
@@ -1149,134 +1161,134 @@ views:
       - graph: line
         hours_to_show: 10
         type: sensor
-        entity: sensor.deyeinverter_summary_day_pv2
+        entity: sensor.deyeinvertermaster_summary_day_pv2
         detail: 1
       - graph: line
         hours_to_show: 10
         type: sensor
-        entity: sensor.deyeinverter_summary_day_pv1
+        entity: sensor.deyeinvertermaster_summary_day_pv1
         detail: 1
         unit: Wh
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_battery_soc
+          - entity: sensor.deyeinvertermaster_battery_soc
             name: Battery SOC
           - entity: sensor.min_soc_battery
-          - entity: sensor.deyeinverter_summary_day_battery_charge
-            name: ' Day Battery Charge'
-          - entity: sensor.deyeinverter_summary_day_battery_discharge
-          - entity: number.deyeinverter_battery_max_charge
-          - entity: sensor.deyeinverter_battery_temperature
-          - entity: sensor.deyeinverter_battery_charge_voltage
+          - entity: sensor.deyeinvertermaster_summary_day_battery_charge
+            name: " Day Battery Charge"
+          - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
+          - entity: number.deyeinvertermaster_battery_max_charge
+          - entity: sensor.deyeinvertermaster_battery_temperature
+          - entity: sensor.deyeinvertermaster_battery_charge_voltage
             name: Battery Charge Voltage
-          - entity: sensor.deyeinverter_battery_output_current
+          - entity: sensor.deyeinvertermaster_battery_output_current
             name: Battery Output Current
-          - entity: sensor.deyeinverter_battery_output_power
+          - entity: sensor.deyeinvertermaster_battery_output_power
             name: Battery Output Power
-          - entity: sensor.deyeinverter_battery_temperature
+          - entity: sensor.deyeinvertermaster_battery_temperature
             name: Battery Temperature
-          - entity: sensor.deyeinverter_battery_voltage
+          - entity: sensor.deyeinvertermaster_battery_voltage
             name: Battery Voltage
         title: Battery
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_day_inverter_daily_energy_calc
+          - entity: sensor.deyeinvertermaster_summary_day_inverter_daily_energy_calc
           - entity: sensor.daily_power_used
-          - entity: sensor.deyeinverter_load_power
-          - entity: sensor.deyeinverter_grid_load
-          - entity: select.deyeinverter_energy_management_model
+          - entity: sensor.deyeinvertermaster_load_power
+          - entity: sensor.deyeinvertermaster_grid_load
+          - entity: select.deyeinvertermaster_energy_management_model
         title: Inverter
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_aux_output_power
+          - entity: sensor.deyeinvertermaster_aux_output_power
             name: Aux Output Power
-          - entity: sensor.deyeinverter_inverter_output_current
+          - entity: sensor.deyeinvertermaster_inverter_output_current
             name: Inverter Output Current
-          - entity: sensor.deyeinverter_inverter_output_power
+          - entity: sensor.deyeinvertermaster_inverter_output_power
             name: Inverter Output Power
-          - entity: sensor.deyeinverter_inverter_rated_power
+          - entity: sensor.deyeinvertermaster_inverter_rated_power
             name: Inverter Rated Power
-          - entity: sensor.deyeinverter_inverter_serial_number
+          - entity: sensor.deyeinvertermaster_inverter_serial_number
             name: Inverter Serial Number
-          - entity: sensor.deyeinverter_inverter_system_state
+          - entity: sensor.deyeinvertermaster_inverter_system_state
             name: Inverter System State
-          - entity: sensor.deyeinverter_inverter_voltage
+          - entity: sensor.deyeinvertermaster_inverter_voltage
             name: Inverter Voltage
-          - entity: sensor.deyeinverter_load_frequency
+          - entity: sensor.deyeinvertermaster_load_frequency
             name: Load Frequency
-          - entity: sensor.deyeinverter_load_power
+          - entity: sensor.deyeinvertermaster_load_power
             name: Load Power
-          - entity: sensor.deyeinverter_temperature_ac_transformer
+          - entity: sensor.deyeinvertermaster_temperature_ac_transformer
             name: Temperature AC Transformer
-          - entity: sensor.deyeinverter_temperature_dc_transformer
+          - entity: sensor.deyeinvertermaster_temperature_dc_transformer
             name: Temperature DC Transformer
-          - entity: sensor.deyeinverter_wifi_logger_signal
+          - entity: sensor.deyeinvertermaster_wifi_logger_signal
             name: Wifi logger signal
-          - entity: sensor.deyeinverter_summary_day_inverter_daily_energy_calc
-          - entity: sensor.deyeinverter_grid_load
-          - entity: select.deyeinverter_energy_management_model
-          - entity: sensor.deyeinverter_inverter_fault
+          - entity: sensor.deyeinvertermaster_summary_day_inverter_daily_energy_calc
+          - entity: sensor.deyeinvertermaster_grid_load
+          - entity: select.deyeinvertermaster_energy_management_model
+          - entity: sensor.deyeinvertermaster_inverter_fault
             name: Inverter fault
-          - entity: sensor.deyeinverter_inverter_warning
+          - entity: sensor.deyeinvertermaster_inverter_warning
             name: Inverter Warning
-        title: DeyeInverter
+        title: deyeinvertermaster
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_total_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_total_battery_charge
             name: Summary Total Battery Charge
-          - entity: sensor.deyeinverter_summary_total_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_total_battery_discharge
             name: Summary Total Battery Discharge
-          - entity: sensor.deyeinverter_summary_total_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_total_grid_export_sell
             name: Summary Total Grid Export(Sell)
-          - entity: sensor.deyeinverter_summary_total_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_total_grid_import_buy
             name: Summary Total Grid Import(Buy)
-          - entity: sensor.deyeinverter_summary_total_load
+          - entity: sensor.deyeinvertermaster_summary_total_load
             name: Summary Total Load Energy
-          - entity: sensor.deyeinverter_summary_total_pv
-            name: ' PV'
+          - entity: sensor.deyeinvertermaster_summary_total_pv
+            name: " PV"
         title: Inverter Lifetime Totals
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_day_aux_energy
+          - entity: sensor.deyeinvertermaster_summary_day_aux_energy
             name: Aux Energy
-          - entity: sensor.deyeinverter_summary_day_battery_charge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_charge
             name: Battery Charge
-          - entity: sensor.deyeinverter_summary_day_battery_discharge
+          - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             name: Battery Discharge
-          - entity: sensor.deyeinverter_summary_day_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_day_grid_export_sell
             name: Grid Export(Sell)
-          - entity: sensor.deyeinverter_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             name: Grid Import(Buy)
-          - entity: sensor.deyeinverter_summary_day_inverter_daily_energy_calc
+          - entity: sensor.deyeinvertermaster_summary_day_inverter_daily_energy_calc
             name: Inverter Daily Energy calc
-          - entity: sensor.deyeinverter_summary_day_load
+          - entity: sensor.deyeinvertermaster_summary_day_load
             name: Load
-          - entity: sensor.deyeinverter_summary_day_pv
+          - entity: sensor.deyeinvertermaster_summary_day_pv
             name: PV Energy
-          - entity: sensor.deyeinverter_summary_day_pv_calc
+          - entity: sensor.deyeinvertermaster_summary_day_pv_calc
             name: PV Energy Calc
-          - entity: sensor.deyeinverter_summary_day_pv1
+          - entity: sensor.deyeinvertermaster_summary_day_pv1
             name: PV1
-          - entity: sensor.deyeinverter_summary_day_pv2
+          - entity: sensor.deyeinvertermaster_summary_day_pv2
             name: PV2
         title: Today totals
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_month_grid_delta
+          - entity: sensor.deyeinvertermaster_summary_month_grid_delta
             name: Grid Delta
-          - entity: sensor.deyeinverter_summary_month_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_month_grid_import_buy
             name: Grid Import(Buy)
-          - entity: sensor.deyeinverter_summary_month_load
+          - entity: sensor.deyeinvertermaster_summary_month_load
             name: Load
-          - entity: sensor.deyeinverter_summary_month_pv
-            name: 'PV '
+          - entity: sensor.deyeinvertermaster_summary_month_pv
+            name: "PV "
         title: Month Totals
       - type: entities
         entities:
-          - entity: sensor.deyeinverter_summary_year_load
+          - entity: sensor.deyeinvertermaster_summary_year_load
             name: Summary Year Load
-          - entity: sensor.deyeinverter_summary_year_pv
-            name: 'Summary Year PV '
+          - entity: sensor.deyeinvertermaster_summary_year_pv
+            name: "Summary Year PV "
         title: Year Totals
   - theme: Backend-selected
     title: Config
@@ -1287,129 +1299,129 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: number.deyeinverter_battery_low_warning
+          - entity: number.deyeinvertermaster_battery_low_warning
             name: Low warning
-          - entity: number.deyeinverter_battery_shutdown
+          - entity: number.deyeinvertermaster_battery_shutdown
             name: Battery Shutdown
-          - entity: number.deyeinverter_battery_restart
+          - entity: number.deyeinvertermaster_battery_restart
             name: Battery Restart
-          - entity: number.deyeinverter_battery_capacity_ah
+          - entity: number.deyeinvertermaster_battery_capacity_ah
             name: Battery Capacity Ah
-          - entity: number.deyeinverter_battery_charge_low_temp_protect
+          - entity: number.deyeinvertermaster_battery_charge_low_temp_protect
             name: Low Temp Charge Protection
-          - entity: select.deyeinverter_battery_control_mode
+          - entity: select.deyeinvertermaster_battery_control_mode
             name: Battery control mode
-          - entity: select.deyeinverter_battery_operation_mode
-          - entity: select.deyeinverter_battery_wake_up_lithium
+          - entity: select.deyeinvertermaster_battery_operation_mode
+          - entity: select.deyeinvertermaster_battery_wake_up_lithium
             name: Battery Wake Up Lithium
-          - entity: number.deyeinverter_battery_absorption_voltage
+          - entity: number.deyeinvertermaster_battery_absorption_voltage
             name: Battery Absorption Voltage
-          - entity: number.deyeinverter_battery_equalization_voltage
+          - entity: number.deyeinvertermaster_battery_equalization_voltage
             name: Battery Equalization Voltage
-          - entity: number.deyeinverter_battery_float_voltage
+          - entity: number.deyeinvertermaster_battery_float_voltage
             name: Battery Float Voltage
-          - entity: number.deyeinverter_battery_max_charge
+          - entity: number.deyeinvertermaster_battery_max_charge
             name: Battery Max Charge
-          - entity: number.deyeinverter_battery_max_discharge
+          - entity: number.deyeinvertermaster_battery_max_discharge
             name: Battery Max Discharge
-          - entity: number.deyeinverter_grid_charge_current
+          - entity: number.deyeinvertermaster_grid_charge_current
             name: Grid Charge Current
-          - entity: switch.deyeinverter_battery_grid_charge_enabled
+          - entity: switch.deyeinvertermaster_battery_grid_charge_enabled
             name: Battery Grid Charge Enabled
-          - entity: switch.deyeinverter_battery_generator_charge_enabled
+          - entity: switch.deyeinvertermaster_battery_generator_charge_enabled
             name: Battery Generator Charge Enabled
         title: Battery Options
       - type: entities
         entities:
-          - entity: select.deyeinverter_energy_management_model
+          - entity: select.deyeinvertermaster_energy_management_model
             name: Energy Management Model
-          - entity: select.deyeinverter_load_limit_exp_ess_non_ess
+          - entity: select.deyeinvertermaster_load_limit_exp_ess_non_ess
             name: Load Limit Exp/Ess/Non-Ess
-          - entity: number.deyeinverter_export_limit
+          - entity: number.deyeinvertermaster_export_limit
             name: Export Limit
-          - entity: switch.deyeinverter_export_solar_enabled
+          - entity: switch.deyeinvertermaster_export_solar_enabled
             name: Export Solar Enabled
-          - entity: select.deyeinverter_peak_shaving
+          - entity: select.deyeinvertermaster_peak_shaving
             name: Peak Shaving
-          - entity: number.deyeinverter_peak_shaving_power
+          - entity: number.deyeinvertermaster_peak_shaving_power
             name: Peak shaving power
-          - entity: sensor.deyeinverter_inverter_remote_lock
+          - entity: sensor.deyeinvertermaster_inverter_remote_lock
             name: Inverter remote lock
         title: Power Management
       - type: entities
         entities:
-          - entity: select.deyeinverter_aux_port_function
+          - entity: select.deyeinvertermaster_aux_port_function
             name: Aux Port function
-          - entity: number.deyeinverter_smart_load_off
+          - entity: number.deyeinvertermaster_smart_load_off
             name: Smart Load Off
-          - entity: number.deyeinverter_smart_load_on
+          - entity: number.deyeinvertermaster_smart_load_on
             name: Smart Load On
-          - entity: number.deyeinverter_smart_load_power
+          - entity: number.deyeinvertermaster_smart_load_power
             name: Smart Load Power
         title: Aux Port
       - type: entities
         entities:
-          - entity: switch.deyeinverter_time_of_use
+          - entity: switch.deyeinvertermaster_time_of_use
             name: Time of Use
-          - entity: select.deyeinverter_timezone1_charge
+          - entity: select.deyeinvertermaster_timezone1_charge
             name: Timezone1 Charge
-          - entity: number.deyeinverter_timezone1_power
+          - entity: number.deyeinvertermaster_timezone1_power
             name: Timezone1 power
-          - entity: number.deyeinverter_timezone1_soc
+          - entity: number.deyeinvertermaster_timezone1_soc
             name: Timezone1 SoC
-          - entity: number.deyeinverter_timezone1_time
+          - entity: number.deyeinvertermaster_timezone1_time
             name: Timezone1 Time
-          - entity: number.deyeinverter_timezone1_voltage
+          - entity: number.deyeinvertermaster_timezone1_voltage
             name: Timezone1 Voltage
-          - entity: select.deyeinverter_timezone2_charge
+          - entity: select.deyeinvertermaster_timezone2_charge
             name: Timezone2 Charge
-          - entity: number.deyeinverter_timezone2_power
+          - entity: number.deyeinvertermaster_timezone2_power
             name: Timezone2 power
-          - entity: number.deyeinverter_timezone2_soc
+          - entity: number.deyeinvertermaster_timezone2_soc
             name: Timezone2 SoC
-          - entity: number.deyeinverter_timezone2_time
+          - entity: number.deyeinvertermaster_timezone2_time
             name: Timezone2 Time
-          - entity: number.deyeinverter_timezone2_voltage
+          - entity: number.deyeinvertermaster_timezone2_voltage
             name: Timezone2 Voltage
-          - entity: select.deyeinverter_timezone3_charge
+          - entity: select.deyeinvertermaster_timezone3_charge
             name: Timezone3 Charge
-          - entity: number.deyeinverter_timezone3_power
+          - entity: number.deyeinvertermaster_timezone3_power
             name: Timezone3 power
-          - entity: number.deyeinverter_timezone3_soc
+          - entity: number.deyeinvertermaster_timezone3_soc
             name: Timezone3 SoC
-          - entity: number.deyeinverter_timezone3_time
+          - entity: number.deyeinvertermaster_timezone3_time
             name: Timezone3 Time
-          - entity: number.deyeinverter_timezone3_voltage
+          - entity: number.deyeinvertermaster_timezone3_voltage
             name: Timezone3 Voltage
-          - entity: select.deyeinverter_timezone4_charge
+          - entity: select.deyeinvertermaster_timezone4_charge
             name: Timezone4 Charge
-          - entity: number.deyeinverter_timezone4_power
+          - entity: number.deyeinvertermaster_timezone4_power
             name: Timezone4 power
-          - entity: number.deyeinverter_timezone4_soc
+          - entity: number.deyeinvertermaster_timezone4_soc
             name: Timezone4 SoC
-          - entity: number.deyeinverter_timezone4_time
+          - entity: number.deyeinvertermaster_timezone4_time
             name: Timezone4 time
-          - entity: number.deyeinverter_timezone4_voltage
+          - entity: number.deyeinvertermaster_timezone4_voltage
             name: Timezone4 Voltage
-          - entity: select.deyeinverter_timezone5_charge
+          - entity: select.deyeinvertermaster_timezone5_charge
             name: Timezone5 Charge
-          - entity: number.deyeinverter_timezone5_power
+          - entity: number.deyeinvertermaster_timezone5_power
             name: Timezone5 power
-          - entity: number.deyeinverter_timezone5_soc
+          - entity: number.deyeinvertermaster_timezone5_soc
             name: Timezone5 SoC
-          - entity: number.deyeinverter_timezone5_time
+          - entity: number.deyeinvertermaster_timezone5_time
             name: Timezone5 time
-          - entity: number.deyeinverter_timezone5_voltage
+          - entity: number.deyeinvertermaster_timezone5_voltage
             name: Timezone5 Voltage
-          - entity: select.deyeinverter_timezone6_charge
+          - entity: select.deyeinvertermaster_timezone6_charge
             name: Timezone6 Charge
-          - entity: number.deyeinverter_timezone6_power
+          - entity: number.deyeinvertermaster_timezone6_power
             name: Timezone6 power
-          - entity: number.deyeinverter_timezone6_soc
+          - entity: number.deyeinvertermaster_timezone6_soc
             name: Timezone6 SoC
-          - entity: number.deyeinverter_timezone6_time
+          - entity: number.deyeinvertermaster_timezone6_time
             name: Timezone6 time
-          - entity: number.deyeinverter_timezone6_voltage
+          - entity: number.deyeinvertermaster_timezone6_voltage
             name: Timezone6 Voltage
         title: Time Of Use
   - theme: Backend-selected
@@ -1425,7 +1437,7 @@ views:
         ". prog3 prog4 ."
         ". prog5 prog6 ."
       mediaquery:
-        '(max-width: 800px)':
+        "(max-width: 800px)":
           grid-template-columns: auto
           grid-template-areas: |
             "header"
@@ -1441,7 +1453,7 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: switch.deyeinverter_time_of_use
+          - entity: switch.deyeinvertermaster_time_of_use
         show_header_toggle: false
         view_layout:
           grid-area: system
@@ -1468,14 +1480,14 @@ views:
                   - entity: input_datetime.timezone2_time
           - type: entities
             entities:
-              - entity: number.deyeinverter_timezone1_power
+              - entity: number.deyeinvertermaster_timezone1_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverter_timezone1_soc
+              - entity: number.deyeinvertermaster_timezone1_soc
                 name: Battery SOC
-              - entity: number.deyeinverter_timezone1_voltage
+              - entity: number.deyeinvertermaster_timezone1_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverter_timezone1_charge
+              - entity: select.deyeinvertermaster_timezone1_charge
                 name: Charge option
         view_layout:
           grid-area: prog1
@@ -1502,14 +1514,14 @@ views:
                   - entity: input_datetime.timezone3_time
           - type: entities
             entities:
-              - entity: number.deyeinverter_timezone2_power
+              - entity: number.deyeinvertermaster_timezone2_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverter_timezone2_soc
+              - entity: number.deyeinvertermaster_timezone2_soc
                 name: Battery SOC
-              - entity: number.deyeinverter_timezone2_voltage
+              - entity: number.deyeinvertermaster_timezone2_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverter_timezone2_charge
+              - entity: select.deyeinvertermaster_timezone2_charge
                 name: Charge from
         view_layout:
           grid-area: prog2
@@ -1536,14 +1548,14 @@ views:
                   - entity: input_datetime.timezone4_time
           - type: entities
             entities:
-              - entity: number.deyeinverter_timezone3_power
+              - entity: number.deyeinvertermaster_timezone3_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverter_timezone3_soc
+              - entity: number.deyeinvertermaster_timezone3_soc
                 name: Battery SOC
-              - entity: number.deyeinverter_timezone3_voltage
+              - entity: number.deyeinvertermaster_timezone3_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverter_timezone3_charge
+              - entity: select.deyeinvertermaster_timezone3_charge
                 name: Charge Options
         view_layout:
           grid-area: prog3
@@ -1570,14 +1582,14 @@ views:
                   - entity: input_datetime.timezone5_time
           - type: entities
             entities:
-              - entity: number.deyeinverter_timezone4_power
+              - entity: number.deyeinvertermaster_timezone4_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverter_timezone4_soc
+              - entity: number.deyeinvertermaster_timezone4_soc
                 name: Battery SOC
-              - entity: number.deyeinverter_timezone4_voltage
+              - entity: number.deyeinvertermaster_timezone4_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverter_timezone4_charge
+              - entity: select.deyeinvertermaster_timezone4_charge
                 name: Charge Options
         view_layout:
           grid-area: prog4
@@ -1604,14 +1616,14 @@ views:
                   - entity: input_datetime.timezone6_time
           - type: entities
             entities:
-              - entity: number.deyeinverter_timezone5_power
+              - entity: number.deyeinvertermaster_timezone5_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverter_timezone5_soc
+              - entity: number.deyeinvertermaster_timezone5_soc
                 name: Battery SOC
-              - entity: number.deyeinverter_timezone5_voltage
+              - entity: number.deyeinvertermaster_timezone5_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverter_timezone5_charge
+              - entity: select.deyeinvertermaster_timezone5_charge
                 name: Charge Options
         view_layout:
           grid-area: prog5
@@ -1638,14 +1650,14 @@ views:
                   - entity: input_datetime.timezone1_time
           - type: entities
             entities:
-              - entity: number.deyeinverter_timezone6_power
+              - entity: number.deyeinvertermaster_timezone6_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverter_timezone6_soc
+              - entity: number.deyeinvertermaster_timezone6_soc
                 name: Battery SOC
-              - entity: number.deyeinverter_timezone6_voltage
+              - entity: number.deyeinvertermaster_timezone6_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverter_timezone6_charge
+              - entity: select.deyeinvertermaster_timezone6_charge
                 name: Charge Options
         view_layout:
           grid-area: prog6
@@ -1656,7 +1668,7 @@ views:
           grid-area: header
       - type: entities
         entities:
-          - entity: select.deyeinverter_energy_management_model
+          - entity: select.deyeinvertermaster_energy_management_model
         view_layout:
           grid-area: priority
   - theme: Backend-selected
@@ -1683,21 +1695,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone1_power
+                  - entity: number.deyeinvertermaster_timezone1_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone1_soc
+                  - entity: number.deyeinvertermaster_timezone1_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverter_timezone1_charge
+                  - entity: select.deyeinvertermaster_timezone1_charge
                     name: Charge
         view_layout:
           grid-area: 2
@@ -1719,21 +1731,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone2_power
+                  - entity: number.deyeinvertermaster_timezone2_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone2_soc
+                  - entity: number.deyeinvertermaster_timezone2_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverter_timezone2_charge
+                  - entity: select.deyeinvertermaster_timezone2_charge
                     name: Charge
         view_layout:
           grid-area: 3
@@ -1755,21 +1767,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone3_power
+                  - entity: number.deyeinvertermaster_timezone3_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone3_soc
+                  - entity: number.deyeinvertermaster_timezone3_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverter_timezone3_charge
+                  - entity: select.deyeinvertermaster_timezone3_charge
                     name: Charge
         view_layout:
           grid-area: 4
@@ -1791,21 +1803,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone4_power
+                  - entity: number.deyeinvertermaster_timezone4_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone4_soc
+                  - entity: number.deyeinvertermaster_timezone4_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverter_timezone4_charge
+                  - entity: select.deyeinvertermaster_timezone4_charge
                     name: Charge
         view_layout:
           grid-area: 5
@@ -1827,21 +1839,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone5_power
+                  - entity: number.deyeinvertermaster_timezone5_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone5_soc
+                  - entity: number.deyeinvertermaster_timezone5_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverter_timezone5_charge
+                  - entity: select.deyeinvertermaster_timezone5_charge
                     name: Charge
         view_layout:
           grid-area: 6
@@ -1863,21 +1875,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone6_power
+                  - entity: number.deyeinvertermaster_timezone6_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverter_timezone6_soc
+                  - entity: number.deyeinvertermaster_timezone6_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverter_timezone6_charge
+                  - entity: select.deyeinvertermaster_timezone6_charge
                     name: Charge
         view_layout:
           grid-area: 7
@@ -1887,4 +1899,4 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: switch.deyeinverter_time_of_use
+                  - entity: switch.deyeinvertermaster_time_of_use
