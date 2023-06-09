@@ -20,7 +20,7 @@ Compatible hardware: This desktop was built for Deye inverters (which includes a
 
 The backup file should contain all the home assistant plugins and integrations pre-configured to get you started plus the DeyeSolarDesktop
 Steps:
-1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC)
+1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC) It is opensource and free software [https://www.home-assistant.io/installation/]
 2. Restore the latest backup file in your new home assistant (found in https://github.com/tomatensaus/DeyeSolarDesktop/releases)
 3. Login with user: solar password: solar123 (be sure to delete this user and create your own user)
    ![image](https://raw.githubusercontent.com/tomatensaus/DeyeSolarDesktop/main/EmptyDesktop.png)
@@ -72,10 +72,18 @@ Getting the Data from your inverter
 
 * You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ https://github.com/kellerza/sunsynk  (provides real-time data, works via MQTT)
 
-* Last option is also the cheapest but requires no additional cables to be purchased. You could pull the values from the solarman dongle (delayed 5-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
+* Last option is also the cheapest but requires no additional cables to be purchased. You could pull the values from the Solarman dongle (delayed 2-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
+
+* If you have a sunsynk inverter that does not have a Solarman dongle then this project might work for you as it collects the data from the sunsynk cloud service. You do not need any cable for this. https://github.com/gdwaterworth/Home-Assistant---E-Linter-Logger---Sunsynk
 
 Telegram integration:
 see [https://github.com/tomatensaus/DeyeSolarDesktop/blob/main/TELEGRAM_SETUP.md]
+
+* New automation added:
+Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises
+Automation is disabled
+This stops the export to non-essentials from the battery when the sun is not shining, but during the day solar power is sent to non-essentials
+
 
 Why this project:
 I believe that knowledge is power. Once you understand your power usage you will be able to optimise it. We are rapidly moving towards a future where there is a need to have a smart home with smart power usage. Since the platform allows automations that is the next logical step towards a greener future. If this project can enable every house to save just 5% of power sourced from dirty generation (such as coal) and replace it with power from panels already installed we have achieved our goal. Now if that saves the user money that can be seen as a bonus. Helping people to move towards a sustainable future
