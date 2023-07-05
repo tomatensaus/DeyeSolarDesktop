@@ -13,7 +13,7 @@ Let's get your desktop up and running, once entities are populating with data it
 
 If you are new to home assistant then the DeyeSolarDesktop (Home Assistant backup file) is a quick and sure way to get your solar monitoring desktop up and running within minutes.
 
-This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [a relative link](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](# Fetching Data).
+This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [a relative link](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](# fetching data).
 
 Compatible hardware: This desktop was built for Deye inverters (which includes all the rebranded inverters Sunsynk/Sol-Ark etc). There is no reason why you could not use some parts of the desktop and integrations for another inverter.
 
@@ -27,7 +27,7 @@ Steps:
    ![image](./EmptyDesktop.png)    
    This is what the empty desktop looks like before any solar data is populated from the inverter.
 4. Consult this youtube video I made describing the steps below
-[![Watch the video](Install your Dongle video)](https://www.youtube.com/watch?v=sfhMm31nhoE)
+[![Watch the video](https://www.youtube.com/watch?v=sfhMm31nhoE)]
 
 Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network.
 5. Home Assistant will detect a new device called "DeyeInverterMaster", click "configure" and input the decryption key provided with your purchase. Your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data which might take Days/Weeks)
