@@ -13,7 +13,7 @@ Let's get your desktop up and running, once entities are populating with data it
 
 If you are new to home assistant then the DeyeSolarDesktop (Home Assistant backup file) is a quick and sure way to get your solar monitoring desktop up and running within minutes.
 
-This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [a relative link](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](# fetching data).
+This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [a relative link](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](#fetching-data).
 
 Compatible hardware: This desktop was built for Deye inverters (which includes all the rebranded inverters Sunsynk/Sol-Ark etc). There is no reason why you could not use some parts of the desktop and integrations for another inverter.
 
@@ -30,11 +30,11 @@ Steps:
 4. Consult this youtube video I made describing the steps below
 [![Watch the video](https://img.youtube.com/vi/sfhMm31nhoE/maxresdefault.jpg)](https://www.youtube.com/watch?v=sfhMm31nhoE)
 
-Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network.
-5. Home Assistant will detect a new device called "DeyeInverterMaster", click "configure" and input the decryption key provided with your purchase. Your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data which might take Days/Weeks)
-6. Modify and delete what does not suit you, it is your desktop after all. Feel free to suggest improvements and fix any wrong values.
-7. Look at the various automations documented. Issues commonly reported by other users of this inverter can be fixed by various automations. Someone has already suggested the solution to your problem.
-8. Be sure to report any issues you find. Now optimise your power usage towards a more sustainable future and share your breakthroughs to help other people.
+* Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network.
+* Home Assistant will detect a new device called "DeyeInverterMaster", click "configure" and input the decryption key provided with your purchase. Your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data which might take Days/Weeks)
+* Modify and delete what does not suit you, it is your desktop after all. Feel free to suggest improvements and fix any wrong values.
+* Look at the various automations documented. Issues commonly reported by other users of this inverter can be fixed by various automations. Someone has already suggested the solution to your problem.
+* Be sure to report any issues you find. Now optimise your power usage towards a more sustainable future and share your breakthroughs to help other people.
 
 
 In the case that you already have Home Assistant server, do not restore the backup, consult this file for a rough guide how to copy bits and pieces to your desktop.[a relative link](./JustGrabbingSomeIdeas.md)
@@ -43,7 +43,7 @@ In the case that you already have Home Assistant server, do not restore the back
 Getting the Data from your inverter
 * Preferred way is to buy the [a relative link](./SmartDeyeDongle.md), it plugs into your inverter and translates all the data to home assistant directly, you can expect real time data updated every 3s and the ability to change settings via the screen or automations.
 
-* You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ https://github.com/kellerza/sunsynk  (provides real-time data, works via MQTT)
+* You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ https://github.com/kellerza/sunsynk   it provides real-time data, works via MQTT
 
 * For people with the SolarMan Dongle, it requires no additional cables to be purchased. You could pull the values from the Solarman dongle (delayed 1-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
 
