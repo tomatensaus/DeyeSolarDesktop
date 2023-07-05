@@ -11,7 +11,7 @@ Let's get your desktop up and running, once entities are populating with data it
 ![image](./TimeOfUseTab2.png)
 ![image](./StandardEnergyDashboard.png)
 
-If you are new to home assistant then the DeyeSolarDesktop (Home Assistant backup file) is a quick and sure way to get your solar monitoring desktop up and running within minutes. 
+If you are new to home assistant then the DeyeSolarDesktop (Home Assistant backup file) is a quick and sure way to get your solar monitoring desktop up and running within minutes.
 
 This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [SmartDeyeDongle.md](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](#fetching-data).
 
@@ -56,11 +56,11 @@ see [TELEGRAM_SETUP.md](./TELEGRAM_SETUP.md)
 
 * New automation added:
 Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises
-Automation is disabled
+Automation is disabled (by default)
 This stops the export to non-essentials from the battery when the sun is not shining, but during the day solar power is sent to non-essentials
 
-#Why this project:
+### Why this project:
 I believe that knowledge is power. Once you understand your power usage you will be able to optimise it. We are rapidly moving towards a future where there is a need to have a smart home with smart power usage. Since the platform allows automations that is the next logical step towards a greener future. If this project can enable every house to save just 5% of power sourced from dirty generation (such as coal) and replace it with power from panels already installed we have achieved our goal. Now if that saves the user money that can be seen as a bonus. Helping people to move towards a sustainable future
 
-Special mentions:
+### Special mentions:
 [https://github.com/slipx06] for sharing a large portion of the desktop and the brilliant sunsunk power flow card that shows you instantly what your inverter is doing.
