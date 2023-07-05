@@ -24,10 +24,11 @@ Steps:
 1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC) It is opensource and free software [https://www.home-assistant.io/installation/]
 2. Restore the latest backup file in your new home assistant (found in https://github.com/tomatensaus/DeyeSolarDesktop/releases)
 3. Login with user: solar password: solar123 (be sure to delete this user and create your own user)
-   ![image](./EmptyDesktop.png)    
+   ![image](./EmptyDesktop.png)   
    This is what the empty desktop looks like before any solar data is populated from the inverter.
+
 4. Consult this youtube video I made describing the steps below
-[![Watch the video](https://www.youtube.com/watch?v=sfhMm31nhoE)]
+[![Watch the video](https://img.youtube.com/vi/sfhMm31nhoE/maxresdefault.jpg)](https://www.youtube.com/watch?v=sfhMm31nhoE)
 
 Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network.
 5. Home Assistant will detect a new device called "DeyeInverterMaster", click "configure" and input the decryption key provided with your purchase. Your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data which might take Days/Weeks)
