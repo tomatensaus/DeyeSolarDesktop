@@ -28,7 +28,7 @@ Steps:
    This is what the empty desktop looks like before any solar data is populated from the inverter.
 
 4. Consult this youtube video I made describing the steps below
-[![Watch the video](https://img.youtube.com/vi/sfhMm31nhoE/maxresdefault.jpg)](https://www.youtube.com/watch?v=sfhMm31nhoE)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sfhMm31nhoE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 * Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network.
 * Home Assistant will detect a new device called "DeyeInverterMaster", click "configure" and input the decryption key provided with your purchase. Your desktop will start recording data (Some parts like eg. graphs will only populate once there is enough data which might take Days/Weeks)
