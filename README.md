@@ -21,7 +21,7 @@ The backup file contains all the home assistant plugins and integrations pre-con
 
 Steps:
 
-1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC) It is opensource and free software [https://www.home-assistant.io/installation/]
+1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC) It is opensource and free software [https://www.home-assistant.io/installation/] [Quick guide](./InstallHomeAssistant.md)
 2. Restore the latest backup file in your new home assistant (found in https://github.com/tomatensaus/DeyeSolarDesktop/releases)
 3. Login with user: solar password: solar123 (be sure to delete this user and create your own user)
    ![image](./EmptyDesktop.png)   
@@ -37,11 +37,11 @@ Steps:
 * Be sure to report any issues you find. Now optimise your power usage towards a more sustainable future and share your breakthroughs to help other people.
 
 
-In the case that you already have Home Assistant server, do not restore the backup, consult this file for a rough guide how to copy bits and pieces to your desktop.[JustGrabbingSomeIdeas.md](./JustGrabbingSomeIdeas.md)
+In the case that you already have Home Assistant server, do not restore the backup, consult this file for a rough guide how to copy bits and pieces to your desktop.[JustGrabbingSomeIdeas](./JustGrabbingSomeIdeas.md)
 
 ### Fetching Data
 Getting the Data from your inverter
-* Preferred way is to buy the [SmartDeyeDongle.md](./SmartDeyeDongle.md), it plugs into your inverter and translates all the data to home assistant directly, you can expect real time data updated every 3s and the ability to change settings via the screen or automations.
+* Preferred way is to buy the [SmartDeyeDongle](./SmartDeyeDongle.md), it plugs into your inverter and translates all the data to home assistant directly, you can expect real time data updated every 3s and the ability to change settings via the screen or automations.
 
 * You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ https://github.com/kellerza/sunsynk   it provides real-time data, works via MQTT
 
@@ -52,7 +52,7 @@ Getting the Data from your inverter
 ### Automations and integrations to note
 
 * Telegram integration with notifications about power outages:
-see [TELEGRAM_SETUP.md](./TELEGRAM_SETUP.md)
+see [TELEGRAM_SETUP Guide](./TELEGRAM_SETUP.md)
 
 * New automation added:
 Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises
