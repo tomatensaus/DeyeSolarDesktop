@@ -236,7 +236,7 @@
         data:
           option: Essentials
         target:
-          entity_id: select.deyeinverter_load_limit_exp_ess_non_ess
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
     - conditions:
       - condition: trigger
         id: powernonessentials
@@ -245,5 +245,5 @@
         data:
           option: Zero Export
         target:
-          entity_id: select.deyeinverter_load_limit_exp_ess_non_ess
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
   mode: single
