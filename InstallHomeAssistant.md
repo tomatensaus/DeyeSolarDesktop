@@ -1,6 +1,6 @@
 There are many ways to install home assistant.
 If you are new to Home Assistant stick to the Home Assistant OS. (You will thank me later)
-This is my favourite method as I mainly install on old laptops/desktops/mini pc (The processor can be fairly old but must support 64bit). Eufi boot would be nice but not strictly required (instructions below to boot with grub)
+This is my favourite method as I mainly install on old laptops/desktops/mini pc (The processor can be fairly old but must support 64bit). Uefi boot would be nice but not strictly required (instructions below to boot with grub)
 
 Write a bootable USB disk with Ventoy (usb boot utility) and the Latest Manjaro ISO. Other tools work just as well.
 Plug in the network card (we need the network and home assistant needs a wired connection)
@@ -23,7 +23,7 @@ wget https://github.com/home-assistant/operating-system/releases/download/10.3/h
 xzcat haos_generic-x86-64-10.3.img.xz | dd of=/dev/sda bs=1m
 ```
 If your machine supports UEFI you can reboot and it should boot
-If UEFI is not supported the load grub below
+If UEFI is not supported then load grub below
 
 ```
 # assume /dev/sda is the hard drive of your home assistant
