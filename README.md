@@ -13,7 +13,7 @@ Let's get your desktop up and running, once entities are populating with data it
 
 If you are new to home assistant then the DeyeSolarDesktop (Home Assistant backup file) is a quick and sure way to get your solar monitoring desktop up and running within minutes.
 
-This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [SmartDeyeDongle.md](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](#fetching-data).
+This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [SmartDeyeDongle](./SmartDeyeDongle.md) You can still use this desktop without the smartDeyeDongle [Alternative ways of fetching data](#fetching-data).
 
 Compatible hardware: This desktop was built for Deye inverters (which includes all the rebranded inverters Sunsynk/Sol-Ark etc). There is no reason why you could not use some parts of the desktop and integrations for another inverter as many entities are similar between inverters.
 
@@ -36,8 +36,8 @@ Steps:
 * Look at the various automations documented. Issues commonly reported by other users of this inverter can be fixed by various automations. Someone has already suggested the solution to your problem.
 * Be sure to report any issues you find. Now optimise your power usage towards a more sustainable future and share your breakthroughs to help other people.
 
-
-In the case that you already have Home Assistant server, do not restore the backup, consult this file for a rough guide how to copy bits and pieces to your desktop.[JustGrabbingSomeIdeas](./JustGrabbingSomeIdeas.md)
+## I already have a running Home Assistant
+In the case that you already have Home Assistant server, do not restore the backup, you will lose your existing desktop. Here is a rough guide how to copy the bits and pieces to your desktop.[JustGrabbingSomeIdeas](./JustGrabbingSomeIdeas.md)
 
 ### Fetching Data
 Getting the Data from your inverter
