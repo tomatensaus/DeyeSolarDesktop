@@ -24,10 +24,10 @@ Please consult the yaml file [solarDesktop.yaml](./solarDesktop.yaml) that conta
 
 ## Config files
 Configuration.yaml needed [configuration.yaml](./configuration.yaml)
-and also copy the [templates.yaml](./templates.yaml)
+and also copy the [template.yaml](./template.yaml)
 
 # Automations:
-Here [automation.yaml](automation.yaml)
+Here [automations.yaml](automations.yaml)
 
 Automations: Needed for the time of use configuration (that will copy the values from the inverter to dateTime objects(in home assistant), and when the user edits the time, it will convert the time to the format the inverter expects and update the inverter values via the smartDeyeDongle
 
