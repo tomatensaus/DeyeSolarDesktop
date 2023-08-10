@@ -2,6 +2,9 @@
 * This is for people that bought the [SmartDeyeDongle](./SmartDeyeDongle.yaml) with an exsting home assistant server.
 * This is for anyone with anyone looking to copy some bits and pieces of this desktop for their own solar setup
 
+## Consult this youtube video I made (especially if you are new to home assistant)
+[![Watch the video](https://img.youtube.com/vi/Cqktgvu0ob0/0.jpg)](https://www.youtube.com/watch?v=Cqktgvu0ob0)
+
 ## UI Layout and Display
 Please consult the yaml file [solarDesktop.yaml](./solarDesktop.yaml) that contains all the UI tabs provided in the screenshots, you could just create a new empty desktop and copy the whole contents.
 
