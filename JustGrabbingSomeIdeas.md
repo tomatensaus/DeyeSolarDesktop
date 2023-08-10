@@ -18,6 +18,7 @@ Please consult the yaml file [solarDesktop.yaml](./solarDesktop.yaml) that conta
 * Flexible Horseshoe Card
 * Plotly Graph Card
 * ApexCharts
+* Atomic Calendar Revive
 
 ## Custom plugins
  * https://github.com/slipx06/sunsynk-power-flow-card
