@@ -7,37 +7,38 @@ views:
     cards:
       - type: custom:sunsynk-power-flow-card
         cardstyle: full
-        show_daily: 'yes'
-        panel_mode: 'yes'
-        show_solar: 'yes'
+        show_solar: true
+        card_height: 410px
         solar:
-          mppts: two
+          mppts: 2
           colour: orange
-          show_daily: 'yes'
+          show_daily: true
           animation_speed: 6
           max_power: 5600
+          auto_scale: true
         inverter:
-          modern: 'yes'
+          modern: true
           colour: grey
         battery:
           energy: 10000
           shutdown_soc: 8
-          invert_power: 'no'
+          invert_power: false
           colour: green
-          show_daily: 'yes'
+          show_daily: true
           animation_speed: 6
           max_power: 5000
         load:
           colour: '#5fb6ad'
-          show_daily: 'yes'
-          show_aux: 'no'
+          show_daily: true
+          show_aux: false
           animation_speed: 4
           max_power: 4000
         grid:
           colour: '#5490c2'
-          show_daily_buy: 'yes'
+          show_daily_buy: true
+          show_daily_sell: false
           no_grid_colour: red
-          show_nonessential: 'no'
+          show_nonessential: true
           animation_speed: 9
           max_power: 6000
         entities:
@@ -47,6 +48,7 @@ views:
           day_battery_discharge_71: sensor.deyeinvertermaster_summary_day_battery_discharge
           day_load_energy_84: sensor.deyeinvertermaster_summary_day_load
           day_grid_import_76: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          day_grid_export_77: sensor.deyeinvertermaster_summary_day_grid_exportsell
           day_pv_energy_108: sensor.deyeinvertermaster_summary_day_pv
           inverter_voltage_154: sensor.deyeinvertermaster_grid_voltage_l1
           load_frequency_192: sensor.deyeinvertermaster_grid_frequency
@@ -65,18 +67,19 @@ views:
           battery_current_191: sensor.deyeinvertermaster_battery_output_current
           battery_temp_182: sensor.deyeinvertermaster_battery_temperature
           grid_ct_power_172: sensor.deyeinvertermaster_grid_power_ct_clamp
-          pv1_v_109: sensor.deyeinvertermaster_pv1_voltage
-          pv1_i_110: sensor.deyeinvertermaster_pv1_current
-          pv2_v_111: sensor.deyeinvertermaster_pv2_voltage
-          pv2_i_112: sensor.deyeinvertermaster_pv2_current
-          pv3_v_113: none
-          pv3_i_114: none
-          pv4_v_115: none
-          pv4_i_116: none
+          pv1_voltage_109: sensor.deyeinvertermaster_pv1_voltage
+          pv1_current_110: sensor.deyeinvertermaster_pv1_current
+          pv2_voltage_111: sensor.deyeinvertermaster_pv2_voltage
+          pv2_current_112: sensor.deyeinvertermaster_pv2_current
+          pv3_voltage_113: none
+          pv3_current_114: none
+          pv4_voltage_115: none
+          pv4_current_116: none
           grid_connected_status_194: binary_sensor.deyeinvertermaster_grid_connected_status
           inverter_status_59: sensor.deyeinvertermaster_inverter_system_state
           aux_power_166: sensor.deyeinvertermaster_aux_output_power
           remaining_solar: sensor.energy_production_today_remaining
+          solar_sell_247: switch.deyeinvertermaster_export_solar_enabled
       - type: custom:flex-horseshoe-card
         view_layout:
           grid-area: g2
@@ -260,7 +263,7 @@ views:
           - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             name: Battery
             color: rgb(151, 90, 182)
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             name: Grid
             color: rgb(84, 144, 194)
       - type: custom:flex-horseshoe-card
@@ -499,7 +502,7 @@ views:
             name: Self Consumption
           - entity: sensor.deyeinvertermaster_summary_day_battery_charge
             name: Battery Charging
-          - entity: sensor.deyeinvertermaster_summary_day_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_day_grid_exportsell
             name: Sold to Grid
       - type: custom:flex-horseshoe-card
         entities:
@@ -517,7 +520,7 @@ views:
             decimals: 0
             unit: W
             name: Grid
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             decimals: 2
             unit: kWh
             name: Import
@@ -865,7 +868,7 @@ views:
               color: rgb(95, 182, 173)
             filters:
               - filter: i>0
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -951,7 +954,7 @@ views:
             texttemplate: '%{y}'
             marker:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinvertermaster_summary_total_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_total_grid_importbuy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -1029,7 +1032,7 @@ views:
               - filter: i>0
             marker:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -1095,7 +1098,6 @@ views:
             texttemplate: '%{y}'
             filters:
               - delta
-              - filter: i>0
             marker:
               color: rgb(255, 155, 48)
           - entity: sensor.deyeinvertermaster_summary_day_load
@@ -1111,7 +1113,7 @@ views:
             texttemplate: '%{y}'
             marker:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
@@ -1195,7 +1197,7 @@ views:
               - filter: i>0
             marker:
               color: rgb(151, 90, 182)
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             statistic: state
             name: |
               $fn ({ ys,meta }) =>
@@ -1282,7 +1284,7 @@ views:
         entities:
           - entity: binary_sensor.deyeinvertermaster_grid_connected_status
             name: Grid Connected Status
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
           - entity: sensor.deyeinvertermaster_load_power
           - entity: sensor.deyeinvertermaster_grid_frequency
             name: Grid Frequency
@@ -1317,7 +1319,7 @@ views:
           - entity: sensor.deyeinvertermaster_temperature_ac_transformer
             name: Temperature AC Transformer
           - entity: sensor.deyeinvertermaster_temperature_dc_transformer
-          - entity: sensor.deyeinvertermaster_summary_total_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_total_grid_exportsell
           - entity: sensor.deyeinvertermaster_pv_power
             name: PV Power
           - entity: sensor.deyeinvertermaster_pv1_current
@@ -1335,7 +1337,7 @@ views:
         title: Solar Panels
       - type: entities
         entities:
-          - entity: sensor.deyeinvertermaster_summary_month_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_month_grid_importbuy
             secondary_info: none
           - entity: sensor.deyeinvertermaster_summary_month_load
           - entity: sensor.deyeinvertermaster_summary_month_pv
@@ -1374,7 +1376,6 @@ views:
         title: Battery
       - type: entities
         entities:
-          - entity: sensor.daily_power_used
           - entity: sensor.deyeinvertermaster_load_power
           - entity: sensor.deyeinvertermaster_grid_load
           - entity: select.deyeinvertermaster_energy_management_model
@@ -1411,16 +1412,16 @@ views:
             name: Inverter fault
           - entity: sensor.deyeinvertermaster_inverter_warning
             name: Inverter Warning
-        title: deyeinvertermaster
+        title: DeyeInverter
       - type: entities
         entities:
           - entity: sensor.deyeinvertermaster_summary_total_battery_charge
             name: Summary Total Battery Charge
           - entity: sensor.deyeinvertermaster_summary_total_battery_discharge
             name: Summary Total Battery Discharge
-          - entity: sensor.deyeinvertermaster_summary_total_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_total_grid_exportsell
             name: Summary Total Grid Export(Sell)
-          - entity: sensor.deyeinvertermaster_summary_total_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_total_grid_importbuy
             name: Summary Total Grid Import(Buy)
           - entity: sensor.deyeinvertermaster_summary_total_load
             name: Summary Total Load Energy
@@ -1435,9 +1436,9 @@ views:
             name: Battery Charge
           - entity: sensor.deyeinvertermaster_summary_day_battery_discharge
             name: Battery Discharge
-          - entity: sensor.deyeinvertermaster_summary_day_grid_export_sell
+          - entity: sensor.deyeinvertermaster_summary_day_grid_exportsell
             name: Grid Export(Sell)
-          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
             name: Grid Import(Buy)
           - entity: sensor.deyeinvertermaster_summary_day_load
             name: Load
@@ -1452,7 +1453,7 @@ views:
         entities:
           - entity: sensor.deyeinvertermaster_summary_month_grid_delta
             name: Grid Delta
-          - entity: sensor.deyeinvertermaster_summary_month_grid_import_buy
+          - entity: sensor.deyeinvertermaster_summary_month_grid_importbuy
             name: Grid Import(Buy)
           - entity: sensor.deyeinvertermaster_summary_month_load
             name: Load
@@ -1511,7 +1512,7 @@ views:
         entities:
           - entity: select.deyeinvertermaster_energy_management_model
             name: Energy Management Model
-          - entity: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+          - entity: select.deyeinvertermaster_load_limit_expessnon_ess
             name: Load Limit Exp/Ess/Non-Ess
           - entity: number.deyeinvertermaster_export_limit
             name: Export Limit
