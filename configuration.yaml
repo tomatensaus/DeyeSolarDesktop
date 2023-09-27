@@ -9,6 +9,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 template: !include template.yaml    #we include template file here
+ #template: !include template_MasterSlave_System.yaml  #change the config file depending on your system
 
 # Example configuration.yaml entry for the Telegram Bot
 telegram_bot:
