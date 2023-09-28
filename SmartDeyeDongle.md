@@ -13,9 +13,9 @@ The new SmartDeyeDongle V4 has passed tests.
 
 #### Not included (must supply your own):
 Either
-* You need to have an old micro-USB (type B  )   phone charger to supply power, even if it is a slo-o-o-ow charger, 500mA it is fine. These are still common even today for most electronic devices
+* You need to have an old micro-USB (type B) phone charger to supply power, even if it is a slo-o-o-ow charger, 500mA it is fine. These are still common even today for most electronic devices
 OR Alternatively
-* The SmartDeyeDongle V4 also supports input from 5V-16V so we can actually power it directly from the inverter 12V power supply (pin 11&12)
+* The SmartDeyeDongle V4 also supports input from 5V-16V so we can actually power it directly from the inverter 12V power supply (pin 11&12 on my 8kW marked as RST, consult your inverter documentation) **Note that the 5kW might not have this output. There is no mention in any of the documentation
 
 ### Cost
 I have an online store at https://smarthomeintegrations.co.za where you can order the SmartDeyeDongle. My contact details are on the website if you need to contact me.
