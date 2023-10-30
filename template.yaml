@@ -5,16 +5,16 @@ sensor:
     device_class: energy
     state_class: total_increasing
 
-  #essential = inverter_power_175 + grid_power_169 - aux_power_166
+  #essential = inverter_power_175 + grid_power_169  - aux_power_166
   - name: "deyeinvertermaster_essential_load"
     state: "{{ (states('sensor.deyeinvertermaster_inverter_output_power') |float(0)  + (states('sensor.deyeinvertermaster_grid_load') |float(0) - states('sensor.deyeinvertermaster_aux_output_power') |float(0) )) | round(0)}}"
     unit_of_measurement: "W"
     device_class: power
     state_class: measurement
 
-  #nonessential = grid_ct_power_172 - grid_power_169
+  #nonessential = grid_ct_power_172 - grid_power_167 (L1)
   - name: "deyeinvertermaster_non_essential_load"
-    state: "{{ (states('sensor.deyeinvertermaster_grid_power_ct_clamp') |float(0)  - (states('sensor.deyeinvertermaster_grid_load') |float(0))) | round(0)}}"
+    state: "{{ (states('sensor.deyeinvertermaster_grid_power_ct_clamp') |float(0)  - (states('sensor.deyeinvertermaster_grid_load_l1') |float(0))) | round(0)}}"
     unit_of_measurement: "W"
     device_class: power
     state_class: measurement

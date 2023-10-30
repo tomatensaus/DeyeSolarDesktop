@@ -54,7 +54,7 @@ views:
           load_frequency_192: sensor.deyeinvertermaster_grid_frequency
           inverter_current_164: sensor.deyeinvertermaster_inverter_output_current_l1
           inverter_power_175: sensor.deyeinvertermaster_inverter_output_power
-          grid_power_169: sensor.deyeinvertermaster_grid_load
+          grid_power_169: sensor.deyeinvertermaster_grid_load_l1
           radiator_temp_91: sensor.deyeinvertermaster_temperature_ac_transformer
           dc_transformer_temp_90: sensor.deyeinvertermaster_temperature_dc_transformer
           pv1_power_186: sensor.deyeinvertermaster_pv1_power
@@ -433,13 +433,13 @@ views:
                 - font-size: 0.5em;
         horseshoe_scale:
           min: 0
-          max: 6000
+          max: 9000
           width: 3
         color_stops:
           '0': green
-          '1000': blue
-          '2500': orange
-          '4000': red
+          '2000': blue
+          '3000': orange
+          '6000': red
         show:
           horseshoe_style: colorstopgradient
         card_mod:
@@ -506,7 +506,7 @@ views:
             name: Sold to Grid
       - type: custom:flex-horseshoe-card
         entities:
-          - entity: sensor.deyeinvertermaster_essential_load
+          - entity: sensor.deyeinvertermaster_load_power
             unit: W
             name: AC
           - entity: sensor.deyeinvertermaster_grid_voltage_l1
@@ -759,10 +759,9 @@ views:
           - entity: sensor.deyeinvertermaster_pv1_power
           - entity: sensor.deyeinvertermaster_pv2_power
         hours_to_show: 12
-      - show_current: true
-        show_forecast: false
-        type: weather-forecast
-        entity: weather.home_2
+      - type: weather-forecast
+        entity: weather.forecast_home
+        forecast_type: daily
   - theme: Backend-selected
     title: Graphs
     path: graphs
@@ -780,13 +779,27 @@ views:
             fill: tozeroy
             line:
               color: rgb(255, 155, 48)
-          - entity: sensor.deyeinvertermaster_essential_load
+          - entity: sensor.deyeinvertermaster_inverter_output_power
             name: |
               $fn ({ ys,meta }) =>
                 "Load" + "⚡" + "(" +ys[ys.length - 1]+"W)"
             fill: tozeroy
             line:
               color: rgb(95, 182, 173)
+          - entity: sensor.deyeinvertermaster_essential_load
+            name: |
+              $fn ({ ys,meta }) =>
+                "Ess" + "⚡" + "(" +ys[ys.length - 1]+"W)"
+            fill: tozeroy
+            line:
+              color: yellow
+          - entity: sensor.deyeinvertermaster_non_essential_load
+            name: |
+              $fn ({ ys,meta }) =>
+                "NonEss" + "⚡" + "(" +ys[ys.length - 1]+"W)"
+            fill: tozeroy
+            line:
+              color: purple
           - entity: sensor.deyeinvertermaster_grid_power_ct_clamp
             name: |
               $fn ({ ys,meta }) =>
@@ -1098,6 +1111,7 @@ views:
             texttemplate: '%{y}'
             filters:
               - delta
+              - filter: i>0
             marker:
               color: rgb(255, 155, 48)
           - entity: sensor.deyeinvertermaster_summary_day_load
@@ -1113,7 +1127,7 @@ views:
             texttemplate: '%{y}'
             marker:
               color: rgb(95, 182, 173)
-          - entity: sensor.deyeinvertermaster_summary_day_grid_importbuy
+          - entity: sensor.deyeinvertermaster_summary_day_grid_import_buy
             statistic: sum
             name: |
               $fn ({ ys,meta }) =>
@@ -1339,6 +1353,7 @@ views:
         entities:
           - entity: sensor.deyeinvertermaster_summary_month_grid_importbuy
             secondary_info: none
+            name: Month Grid Import
           - entity: sensor.deyeinvertermaster_summary_month_load
           - entity: sensor.deyeinvertermaster_summary_month_pv
         title: Monthly Totals
@@ -1376,6 +1391,7 @@ views:
         title: Battery
       - type: entities
         entities:
+          - entity: sensor.deye_daily_load_consumption
           - entity: sensor.deyeinvertermaster_load_power
           - entity: sensor.deyeinvertermaster_grid_load
           - entity: select.deyeinvertermaster_energy_management_model
@@ -1412,7 +1428,7 @@ views:
             name: Inverter fault
           - entity: sensor.deyeinvertermaster_inverter_warning
             name: Inverter Warning
-        title: DeyeInverter
+        title: deyeinvertermaster
       - type: entities
         entities:
           - entity: sensor.deyeinvertermaster_summary_total_battery_charge
