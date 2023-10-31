@@ -23,3 +23,8 @@ I have an online store at https://smarthomeintegrations.co.za where you can orde
 Shipping R100 via The Courier Guy (3-4 business days economy, but most of the times they deliver the next day) Only available in South Africa for now.
 
 Plug and play device for home assistant that allows most settings on the inverter to be changed via UI/automations.
+
+### 3D printed designs
+Thanks to mrfrikkie on carbonite I have some designs for a 3D printed case.
+[Base stl](./SmartDeyeDongle-Base.stl)
+[Lid stl](./SmartDeyeDongle-Lid.stl)
