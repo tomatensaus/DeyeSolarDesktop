@@ -5,9 +5,12 @@ The new SmartDeyeDongle V4 has passed tests.
 
 
 ### What you need to have already:
-* You need to be running a 5kW/8kW/16kW single phase Deye/Sunsynk inverter (Master & Slave also supported).
+* You need to be running a 5kW/8kW/16kW single phase Deye/Sunsynk hybrid inverter (Master & Slave also supported).
 (Not currently tested split-phase/bi-phase though the code was completed)
-(3Phase not currently supported)
+* 3Phase phase has been tested and is now suported.
+* 3Phase hight Voltage is also supported.
+* (String inverters and micro inverters are not currently supported)
+
 * You need to run your own home assistant (https://www.home-assistant.io/installation/) on an old PC/VM/Laptop/Rasp Pi or similar must support 64bit.
 * You need to have a 2.4GHz wifi network at the inverter with reasonable network coverage.
 
@@ -20,9 +23,11 @@ OR Alternatively
 ### Cost
 I have an online store at https://smarthomeintegrations.co.za where you can order the SmartDeyeDongle. My contact details are on the website if you need to contact me.
 
-Shipping R100 via The Courier Guy (3-4 business days economy, but most of the times they deliver the next day) Only available in South Africa for now.
+Shipping R100 via The Courier Guy (3-4 business days economy, but most of the times they deliver the next day)
+I added a few international options, I can ship limited numbers and items (for now only the Dongle & ESP32)
+My website now includes an online flasher to allow anyone to purchase and flash the firmware.
+This will open up up possibilities for international sales.
 
-Plug and play device for home assistant that allows most settings on the inverter to be changed via UI/automations.
 
 ### 3D printed designs
 Thanks to mrfrikkie on carbonite I have some designs for a 3D printed case.
