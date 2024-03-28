@@ -65,3 +65,26 @@ input_datetime:
     name: Timezone 6 Time
     has_date: false
     has_time: true
+
+sensor:
+  - platform: integration
+    name: deyeinvertermaster_summary_total_battery_charge_grid
+    source: sensor.deyeinvertermaster_battery_charge_grid_power
+    method: left
+
+  - platform: integration
+    name: deyeinverterslave_summary_total_battery_charge_grid
+    source: sensor.deyeinverterslave_battery_charge_grid_power
+    method: left
+
+utility_meter:
+  master_energy_battery_charge_grid:
+    name: deyeinvertermaster_summary_day_battery_charge_grid
+    source: sensor.deyeinvertermaster_summary_total_battery_charge_grid
+    cycle: daily
+
+  slave_energy_battery_charge_grid:
+    name: deyeinverterslave_summary_day_battery_charge_grid
+    source: sensor.deyeinverterslave_summary_total_battery_charge_grid
+    cycle:
+      daily
