@@ -5,79 +5,6 @@ views:
     path: deye
     subview: false
     cards:
-      - type: custom:sunsynk-power-flow-card
-        cardstyle: full
-        show_daily: true
-        panel_mode: true
-        show_solar: true
-        solar:
-          mppts: 2
-          colour: orange
-          show_daily: true
-          animation_speed: 6
-          max_power: 5600
-        inverter:
-          modern: true
-          colour: grey
-        battery:
-          energy: 10000
-          shutdown_soc: 8
-          invert_power: false
-          colour: green
-          show_daily: true
-          animation_speed: 6
-          max_power: 5000
-        load:
-          colour: '#5fb6ad'
-          show_daily: true
-          show_aux: false
-          animation_speed: 4
-          max_power: 4000
-        grid:
-          colour: '#5490c2'
-          show_daily_buy: true
-          no_grid_colour: red
-          show_nonessential: true
-          animation_speed: 9
-          max_power: 6000
-        entities:
-          use_timer_248: switch.deyeinverterslave_time_of_use
-          priority_load_243: sensor.deyeinverterslave_priority_charge_or_load
-          day_battery_charge_70: sensor.deyeinverterslave_summary_day_battery_charge
-          day_battery_discharge_71: sensor.deyeinverterslave_summary_day_battery_discharge
-          day_load_energy_84: sensor.deyeinverterslave_summary_day_load
-          day_grid_import_76: sensor.deyeinverterslave_summary_day_grid_import_buy
-          day_pv_energy_108: sensor.deyeinverterslave_summary_day_pv
-          inverter_voltage_154: sensor.deyeinverterslave_grid_voltage_l1
-          load_frequency_192: sensor.deyeinverterslave_grid_frequency
-          inverter_current_164: sensor.deyeinverterslave_inverter_output_current_l1
-          inverter_power_175: sensor.deyeinverterslave_inverter_output_power
-          grid_power_169: sensor.deyeinverterslave_grid_load
-          radiator_temp_91: sensor.deyeinverterslave_temperature_ac_transformer
-          dc_transformer_temp_90: sensor.deyeinverterslave_temperature_dc_transformer
-          pv1_power_186: sensor.deyeinverterslave_pv1_power
-          pv2_power_187: sensor.deyeinverterslave_pv2_power
-          pv3_power_188: none
-          pv4_power_189: none
-          battery_voltage_183: sensor.deyeinverterslave_battery_voltage
-          battery_soc_184: sensor.deyeinverterslave_battery_soc
-          battery_power_190: sensor.deyeinverterslave_battery_output_power
-          battery_current_191: sensor.deyeinverterslave_battery_output_current
-          battery_temp_182: sensor.deyeinverterslave_battery_temperature
-          ess_power: sensor.deyeinverterslave_essential_load
-          grid_ct_power_172: sensor.deyeinverterslave_grid_power_ct_clamp
-          pv1_voltage_109: sensor.deyeinverterslave_pv1_voltage
-          pv1_current_110: sensor.deyeinverterslave_pv1_current
-          pv2_voltage_111: sensor.deyeinverterslave_pv2_voltage
-          pv2_current_112: sensor.deyeinverterslave_pv2_current
-          pv3_voltage_113: none
-          pv3_current_114: none
-          pv4_voltage_115: none
-          pv4_current_116: none
-          grid_connected_status_194: binary_sensor.deyeinverterslave_grid_connected_status
-          inverter_status_59: sensor.deyeinverterslave_inverter_system_state
-          aux_power_166: sensor.deyeinverterslave_aux_output_power
-          remaining_solar: sensor.energy_production_today_remaining
       - type: custom:flex-horseshoe-card
         view_layout:
           grid-area: g2
@@ -210,60 +137,6 @@ views:
               --ha-card-background: var(--card-background-color);
               color: var(--primary-color);
             }
-      - type: custom:apexcharts-card
-        view_layout:
-          grid-area: stats1
-        chart_type: donut
-        header:
-          show: true
-          title: Consumption Today
-          show_states: true
-          colorize_states: true
-        apex_config:
-          chart:
-            toolbar:
-              show: false
-              autoSelected: zoom
-          plotOptions:
-            pie:
-              donut:
-                labels:
-                  show: true
-                  total:
-                    show: true
-                    label: Total kWh
-                    formatter: |
-                      EVAL:function(w) {
-                        return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " kWh"
-                        }
-          stroke:
-            width: 1
-            curve: smooth
-          legend:
-            show: false
-          responsive:
-            - breakpoint: 800
-              options:
-                chart:
-                  height: 360px
-            - breakpoint: 1300
-              options:
-                chart:
-                  height: 320px
-            - breakpoint: 10000
-              options:
-                chart:
-                  height: 354px
-        series:
-          - entity: sensor.deyeinverterslave_solar_power_used
-            name: Solar consumed
-            color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverterslave_summary_day_battery_discharge
-            name: Battery
-            color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverterhalf_summary_day_grid_import_buy
-            name: Grid
-            color: rgb(84, 144, 194)
       - type: custom:flex-horseshoe-card
         view_layout:
           grid-area: g1
@@ -275,31 +148,31 @@ views:
           - entity: sensor.deyeinverterslave_pv1_power
             decimals: 0
             unit: W
-            name: PV1
-          - entity: sensor.deyeinverterslave_pv2_power
-            decimals: 0
-            unit: W
-            name: PV2
-          - entity: sensor.deyeinverterslave_pv1_voltage
-            decimals: 0
-            unit: V
-          - entity: sensor.deyeinverterslave_pv2_voltage
-            decimals: 0
-            unit: V
-          - entity: sensor.deyeinverterslave_pv1_current
-            decimals: 1
-            unit: A
-          - entity: sensor.deyeinverterslave_pv2_current
-            decimals: 1
-            unit: A
-          - entity: sensor.deyeinverterslave_summary_day_pv
-            decimals: 2
-            unit: kWh
-            name: Daily
+            name: Output
           - entity: sensor.deyeinverterslave_summary_day_pv1
             decimals: 1
             unit: kWh
+            name: Produced
+          - entity: sensor.deyeinverterslave_pv2_power
+            decimals: 0
+            unit: W
           - entity: sensor.deyeinverterslave_summary_day_pv2
+            decimals: 1
+            unit: kWh
+          - entity: sensor.deyeinverterslave_pv3_power
+            decimals: 0
+            unit: W
+          - entity: sensor.deyeinverterslave_summary_day_pv3
+            decimals: 1
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_day_pv
+            decimals: 1
+            unit: kWh
+            name: Daily
+          - entity: sensor.deyeinverterslave_pv4_power
+            decimals: 0
+            unit: W
+          - entity: sensor.deyeinverterslave_summary_day_pv4
             decimals: 1
             unit: kWh
         layout:
@@ -321,7 +194,7 @@ views:
             - id: 0
               entity_index: 0
               xpos: 50
-              ypos: 33
+              ypos: 35
               styles:
                 - font-size: 3em;
                 - opacity: 0.9;
@@ -395,12 +268,6 @@ views:
               ypos: 53
               align: start
               size: 1
-            - id: 1
-              entity_index: 2
-              xpos: 53
-              ypos: 65
-              align: end
-              size: 0.5
           names:
             - id: 0
               entity_index: 0
@@ -431,7 +298,7 @@ views:
                 - font-size: 0.5em;
         horseshoe_scale:
           min: 0
-          max: 6000
+          max: 110000
           width: 3
         color_stops:
           '0': green
@@ -446,71 +313,15 @@ views:
               --ha-card-background: var(--card-background-color);
               color: var(--primary-color);
             }
-      - type: custom:apexcharts-card
-        view_layout:
-          grid-area: stats
-        chart_type: donut
-        header:
-          show: true
-          title: Solar Power usage
-          show_states: true
-          colorize_states: true
-        apex_config:
-          chart:
-            toolbar:
-              show: false
-              autoSelected: zoom
-          dataLabels:
-            formatter: |
-              EVAL:function(value) {
-                return value.toFixed(0) + " %";
-              }
-          plotOptions:
-            pie:
-              donut:
-                labels:
-                  show: true
-                  total:
-                    show: true
-                    label: Total kWh
-                    formatter: |
-                      EVAL:function(w) {
-                        return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " kWh"
-                        }
-          stroke:
-            width: 1
-            curve: smooth
-          legend:
-            show: false
-          responsive:
-            - breakpoint: 800
-              options:
-                chart:
-                  height: 360px
-            - breakpoint: 1300
-              options:
-                chart:
-                  height: 265px
-            - breakpoint: 10000
-              options:
-                chart:
-                  height: 363px
-        series:
-          - entity: sensor.deyeinverterslave_solar_power_used
-            name: Self Consumption
-          - entity: sensor.deyeinverterslave_summary_day_battery_charge
-            name: Battery Charging
-          - entity: sensor.deyeinverterslave_summary_day_grid_export_sell
-            name: Sold to Grid
       - type: custom:flex-horseshoe-card
         entities:
-          - entity: sensor.deyeinverterslave_essential_load
+          - entity: sensor.deyeinverterslave_inverter_output_power
             unit: W
             name: AC
-          - entity: sensor.deyeinverterslave_grid_voltage_l1
+          - entity: sensor.deyeinvertermaster_grid_voltage_l1
             decimals: 0
             unit: V
-          - entity: sensor.deyeinverterslave_grid_frequency
+          - entity: sensor.deyeinvertermaster_grid_frequency
             decimals: 2
             unit: Hz
             name: Grid
@@ -629,7 +440,7 @@ views:
                 - text-anchor: start;
         horseshoe_scale:
           min: 0
-          max: 8000
+          max: 100000
           width: 6
         color_stops:
           '0': '#5fb6ad'
@@ -640,6 +451,208 @@ views:
               --ha-card-background: var(--card-background-color);
               color: var(--primary-color);
             }
+      - type: custom:sunsynk-power-flow-card
+        cardstyle: full
+        show_solar: true
+        card_height: 410px
+        show_grid: true
+        solar:
+          mppts: 4
+          display_mode: 2
+          colour: orange
+          show_daily: true
+          animation_speed: 6
+          max_power: 50000
+          auto_scale: true
+        inverter:
+          modern: true
+          colour: grey
+          three_phase: false
+        battery:
+          energy: 121000
+          shutdown_soc: 30
+          invert_power: false
+          colour: green
+          show_daily: true
+          animation_speed: 6
+          max_power: 50000
+        load:
+          colour: '#5fb6ad'
+          show_daily: true
+          show_aux: true
+          animation_speed: 4
+          max_power: 80000
+          aux_name: Aux
+          aux_colour:
+            - 0
+            - 238
+            - 255
+          aux_type: mdi:air-conditioner
+          show_daily_aux: true
+          invert_aux: false
+          show_absolute_aux: false
+        grid:
+          colour: '#5490c2'
+          show_daily_buy: true
+          show_daily_sell: false
+          no_grid_colour: red
+          show_nonessential: false
+          animation_speed: 9
+          max_power: 6000
+        entities:
+          use_timer_248: switch.deyeinvertermaster_time_of_use
+          priority_load_243: sensor.deyeinvertermaster_priority_charge_or_load
+          day_battery_charge_70: sensor.deyeinverterslave_summary_day_battery_charge
+          day_battery_discharge_71: sensor.deyeinverterslave_summary_day_battery_discharge
+          day_load_energy_84: sensor.deyeinverterslave_summary_day_load
+          day_grid_import_76: sensor.deyeinverterslave_summary_day_grid_import_buy
+          day_grid_export_77: sensor.deyeinverterslave_summary_day_grid_export_sell
+          day_pv_energy_108: sensor.deyeinverterslave_summary_day_pv
+          inverter_voltage_154: sensor.deyeinvertermaster_grid_voltage_l1
+          load_frequency_192: sensor.deyeinvertermaster_grid_frequency
+          inverter_current_164: sensor.deyeinvertermaster_inverter_output_current_l1
+          inverter_power_175: sensor.deyeinverterslave_inverter_output_power
+          grid_power_169: sensor.deyeinverterslave_grid_load
+          radiator_temp_91: sensor.deyeinvertermaster_temperature_ac_transformer
+          dc_transformer_temp_90: sensor.deyeinvertermaster_temperature_dc_transformer
+          pv1_power_186: sensor.deyeinverterslave_pv1_power
+          pv2_power_187: sensor.deyeinverterslave_pv2_power
+          pv3_power_188: sensor.deyeinverterslave_pv3_power
+          pv4_power_189: sensor.deyeinverterslave_pv4_power
+          battery_voltage_183: sensor.deyeinverterslave_battery_voltage
+          battery_soc_184: sensor.deyeinverterslave_battery_soc
+          battery_power_190: sensor.deyeinverterslave_battery_output_power
+          battery_current_191: sensor.deyeinverterslave_battery_output_current
+          battery_temp_182: sensor.deyeinverterslave_battery_temperature
+          grid_ct_power_172: sensor.deyeinverterslave_grid_power_ct_clamp
+          pv1_voltage_109: sensor.deyeinverterslave_pv1_voltage
+          pv1_current_110: sensor.deyeinverterslave_pv1_current
+          pv2_voltage_111: sensor.deyeinverterslave_pv2_voltage
+          pv2_current_112: sensor.deyeinverterslave_pv2_current
+          pv3_voltage_113: sensor.deyeinverterslave_pv3_voltage
+          pv3_current_114: sensor.deyeinverterslave_pv3_current
+          pv4_voltage_115: sensor.deyeinverterslave_pv4_voltage
+          pv4_current_116: sensor.deyeinverterslave_pv4_current
+          grid_connected_status_194: binary_sensor.deyeinvertermaster_grid_connected_status
+          inverter_status_59: sensor.deyeinvertercmaster_inverter_system_state
+          aux_power_166: sensor.deyeinvertermaster_generator_port_power
+          day_aux_energy: sensor.deyeinvertermaster_summary_day_generator
+          remaining_solar: sensor.energy_production_today_remaining
+          solar_sell_247: switch.deyeinverterslave_export_solar_enabled
+        decimal_places: 2
+        show_battery: true
+      - type: custom:apexcharts-card
+        view_layout:
+          grid-area: stats
+        chart_type: donut
+        header:
+          show: true
+          title: Solar Power usage
+          show_states: true
+          colorize_states: true
+        apex_config:
+          chart:
+            toolbar:
+              show: false
+              autoSelected: zoom
+          dataLabels:
+            formatter: |
+              EVAL:function(value) {
+                return value.toFixed(0) + " %";
+              }
+          plotOptions:
+            pie:
+              donut:
+                labels:
+                  show: true
+                  total:
+                    show: true
+                    label: Total kWh
+                    formatter: |
+                      EVAL:function(w) {
+                        return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " kWh"
+                        }
+          stroke:
+            width: 1
+            curve: smooth
+          legend:
+            show: false
+          responsive:
+            - breakpoint: 800
+              options:
+                chart:
+                  height: 360px
+            - breakpoint: 1300
+              options:
+                chart:
+                  height: 265px
+            - breakpoint: 10000
+              options:
+                chart:
+                  height: 363px
+        series:
+          - entity: sensor.deyeinverterslave_solar_power_used
+            name: Self Consumption
+          - entity: sensor.deyeinverterslave_summary_day_battery_charge
+            name: Battery Charging
+          - entity: sensor.deyeinverterslave_summary_day_grid_export_sell
+            name: Sold to Grid
+      - type: custom:apexcharts-card
+        view_layout:
+          grid-area: stats1
+        chart_type: donut
+        header:
+          show: true
+          title: Consumption Today
+          show_states: true
+          colorize_states: true
+        apex_config:
+          chart:
+            toolbar:
+              show: false
+              autoSelected: zoom
+          plotOptions:
+            pie:
+              donut:
+                labels:
+                  show: true
+                  total:
+                    show: true
+                    label: Total kWh
+                    formatter: |
+                      EVAL:function(w) {
+                        return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " kWh"
+                        }
+          stroke:
+            width: 1
+            curve: smooth
+          legend:
+            show: false
+          responsive:
+            - breakpoint: 800
+              options:
+                chart:
+                  height: 360px
+            - breakpoint: 1300
+              options:
+                chart:
+                  height: 320px
+            - breakpoint: 10000
+              options:
+                chart:
+                  height: 354px
+        series:
+          - entity: sensor.deyeinverterslave_solar_power_used
+            name: Solar consumed
+            color: rgb(255, 155, 48)
+          - entity: sensor.deyeinverterslave_summary_day_battery_discharge
+            name: Battery
+            color: rgb(151, 90, 182)
+          - entity: sensor.deyeinverterslave_summary_day_grid_import_buy
+            name: Grid
+            color: rgb(84, 144, 194)
+      - type: markdown
+        content: "  ## System Timer Settings\n<table width=\"100%\"  border=0>\n  <tbody> \n  <tr>\n    <td align=\"left\">\n    <b>Time Slot</b>\n    </td>\n    <td align=\"left\">\n    <b>Power</b>\n    </td>\n    <td align=\"left\">\n    <b>Bat SOC</b>\n    </td>\n    <td align=\"left\">\n\t<b>Charge</b>\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n     {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone1_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone1_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone1_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone2_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone3_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone4_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone4_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone4_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone5_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone6_charge')}}\n\t</td>\n  </tr>\n  </tbody>\n</table>"
       - type: vertical-stack
         cards:
           - type: custom:mushroom-chips-card
@@ -746,8 +759,6 @@ views:
             showMultiDay: false
             showLoader: false
             maxDaysToShow: 3
-      - type: markdown
-        content: "  ## System Timer Settings\n<table width=\"100%\"  border=0>\n  <tbody> \n  <tr>\n    <td align=\"left\">\n    <b>Time Slot</b>\n    </td>\n    <td align=\"left\">\n    <b>Power</b>\n    </td>\n    <td align=\"left\">\n    <b>Bat SOC</b>\n    </td>\n    <td align=\"left\">\n\t<b>Charge</b>\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n     {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone1_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone1_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverterslave_timezone1_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone2_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone2_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverterslave_timezone2_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone3_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone3_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverterslave_timezone3_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone4_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone4_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverterslave_timezone4_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone5_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone5_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverterslave_timezone5_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone6_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinverterslave_timezone6_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinverterslave_timezone6_charge')}}\n\t</td>\n  </tr>\n  </tbody>\n</table>"
       - type: history-graph
         entities:
           - entity: sensor.deyeinverterslave_load_power
@@ -757,637 +768,9 @@ views:
           - entity: sensor.deyeinverterslave_pv1_power
           - entity: sensor.deyeinverterslave_pv2_power
         hours_to_show: 12
-      - show_current: true
-        show_forecast: false
-        type: weather-forecast
-        entity: weather.home_2
-  - theme: Backend-selected
-    title: Graphs
-    path: graphs
-    type: sidebar
-    badges: []
-    cards:
-      - type: custom:plotly-graph
-        view_layout:
-          grid-area: graph
-        entities:
-          - entity: sensor.deyeinverterslave_pv_power
-            name: |
-              $fn ({ ys,meta }) =>
-                "Solar" + "🔆" + "(" +ys[ys.length - 1]+"W)"
-            fill: tozeroy
-            fillcolor: rgba(255, 155, 48, 0.9)
-            line:
-              color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverterslave_essential_load
-            name: |
-              $fn ({ ys,meta }) =>
-                "Load" + "⚡" + "(" +ys[ys.length - 1]+"W)"
-            fill: tozeroy
-            line:
-              color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverterslave_grid_power_ct_clamp
-            name: |
-              $fn ({ ys,meta }) =>
-                "Grid" + "💡" + "(" +ys[ys.length - 1]+"W)"
-            fill: tozeroy
-            line:
-              color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverterslave_battery_output_power
-            fill: tozeroy
-            name: |
-              $fn ({ ys,meta }) =>
-                "Battery" + "🔋" + "(" +ys[ys.length - 1]+"W)"
-            line:
-              color: rgb(43, 259, 82)
-          - entity: sensor.deyeinverterslave_battery_soc
-            name: |
-              $fn ({ ys,meta }) =>
-                "SOC" + "⚠️" + "(" +ys[ys.length - 1]+"%)"
-            yaxis: y2
-            line:
-              color: red
-              width: 2
-              shape: spline
-            fill: none
-            filters:
-              - sliding_window_moving_average:
-                  window_size: 1
-                  extended: true
-        hours_to_show: 18
-        refresh_interval: 60
-        title: null
-        defaults:
-          entity:
-            show_value: false
-          yaxes:
-            fixedrange: true
-        layout:
-          legend:
-            bgcolor: rgba(0,0,0,0)
-            itemsizing: constant
-            font:
-              size: 11
-          yaxis2:
-            range:
-              - 20
-              - 105
-            fixedrange: true
-          height: 405
-          yaxis:
-            tickmode: linear
-            dtick: 1000
-        config:
-          scrollZoom: false
-      - type: custom:plotly-graph
-        view_layout:
-          grid-area: daily
-        entities:
-          - entity: sensor.deyeinverterslave_summary_day_pv
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Solar" + "🔆" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            marker:
-              color: rgb(255, 155, 48)
-            filters:
-              - filter: i>0
-          - entity: sensor.deyeinverterslave_summary_day_load
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Load" + "⚡" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            marker:
-              color: rgb(95, 182, 173)
-            filters:
-              - filter: i>0
-          - entity: deyeinverterhalf_summary_day_grid_import_buy
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Grid Import" + "💡" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            marker:
-              color: rgb(84, 144, 194)
-            filters:
-              - filter: i>0
-          - entity: sensor.deyeinverterslave_summary_day_battery_discharge
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Battery Discharge" + "🖱️" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            marker:
-              color: rgb(151, 90, 182)
-            filters:
-              - filter: i>0
-          - entity: sensor.deyeinverterslave_summary_day_battery_charge
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Battery Charge" + "🔋" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            marker:
-              color: yellow
-            filters:
-              - filter: i>0
-        hours_to_show: 5d
-        title: Daily Performance
-        refresh_interval: 10
-        defaults:
-          yaxes:
-            fixedrange: true
-        layout:
-          legend:
-            bgcolor: rgba(0,0,0,0)
-            itemsizing: constant
-            font:
-              size: 11
-          height: 410
-        config:
-          displayModeBar: false
-          scrollZoom: true
-      - type: custom:plotly-graph
-        view_layout:
-          grid-area: total
-        entities:
-          - entity: sensor.deyeinverterslave_summary_total_pv
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Solar" + "🔆" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            width: $fn() => 1000*60*60*3
-            offset: $fn() => 1000*60*60*3.5
-            texttemplate: '%{y}'
-            filters:
-              - filter: i>0
-              - force_numeric
-            marker:
-              color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverterslave_summary_total_load
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Load" + "⚡" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            width: $fn() => 1000*60*60*3
-            offset: $fn() => 1000*60*60*7
-            filters:
-              - filter: i>0
-              - force_numeric
-            texttemplate: '%{y}'
-            marker:
-              color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Grid Import" + "💡" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            width: $fn() => 1000*60*60*3
-            offset: $fn() => 1000*60*60*10.5
-            texttemplate: '%{y}'
-            filters:
-              - filter: i>0
-              - force_numeric
-            marker:
-              color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Bat Discharge" + "🖱️" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            width: $fn() => 1000*60*60*3
-            offset: $fn() => 1000*60*60*14
-            texttemplate: '%{y}'
-            filters:
-              - filter: i>0
-              - force_numeric
-            marker:
-              color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverterslave_summary_total_battery_charge
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Bat Charge" + "🔋" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            width: $fn() => 1000*60*60*3
-            offset: $fn() => 1000*60*60*17.5
-            texttemplate: '%{y}'
-            filters:
-              - filter: i>0
-              - force_numeric
-            marker:
-              color: yellow
-        hours_to_show: current_day
-        defaults:
-          entity:
-            line:
-              width: 2
-          yaxes:
-            fixedrange: true
-        title: Inverter Lifetime Totals
-        layout:
-          barmode: group
-          xaxis:
-            nticks: 1
-          height: 410
-        time_offset: '-1m'
-        config:
-          displayModeBar: false
-          scrollZoom: false
-      - type: custom:plotly-graph
-        view_layout:
-          grid-area: sg
-        entities:
-          - entity: sensor.deyeinverterslave_summary_day_pv
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Solar" + "🔆" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            filters:
-              - filter: i>0
-            marker:
-              color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverterslave_summary_day_grid_import_buy
-            statistic: state
-            name: |
-              $fn ({ ys,meta }) =>
-                "Grid Import" + "💡" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: bar
-            texttemplate: '%{y}'
-            filters:
-              - filter: i>0
-            marker:
-              color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverterslave_summary_day_load
-            statistic: state
-            show_value: true
-            name: |
-              $fn ({ ys,meta }) =>
-                "Load" + "⚡" + "(" +ys[ys.length - 1]+"kWh)"
-            period: day
-            type: line
-            texttemplate: '%{y}'
-            line:
-              color: rgb(95, 182, 173)
-              width: 4
-        hours_to_show: 30d
-        title: Solar vs Grid
-        refresh_interval: 100
-        defaults:
-          yaxes:
-            fixedrange: true
-        layout:
-          legend:
-            bgcolor: rgba(0,0,0,0)
-            itemsizing: constant
-            font:
-              size: 11
-            x: 0.4
-          height: 410
-          barmode: stack
-          xaxis:
-            rangeselector:
-              'y': 1.05
-              buttons:
-                - count: 7
-                  step: day
-                - count: 30
-                  step: day
-                - count: 90
-                  step: day
-        config:
-          displayModeBar: false
-          scrollZoom: true
-      - type: custom:plotly-graph
-        view_layout:
-          grid-area: m
-        entities:
-          - entity: sensor.deyeinverterslave_summary_day_pv
-            statistic: sum
-            name: |
-              $fn ({ ys,meta }) =>
-                "Solar" + "🔆"
-            period: month
-            type: bar
-            texttemplate: '%{y}'
-            filters:
-              - delta
-              - filter: i>0
-            marker:
-              color: rgb(255, 155, 48)
-          - entity: sensor.deyeinverterslave_summary_day_load
-            statistic: sum
-            name: |
-              $fn ({ ys,meta }) =>
-                "Load" + "⚡"
-            period: month
-            type: bar
-            filters:
-              - delta
-              - filter: i>0
-            texttemplate: '%{y}'
-            marker:
-              color: rgb(95, 182, 173)
-          - entity: sensor.deyeinverterslave_summary_day_grid_import_buy
-            statistic: sum
-            name: |
-              $fn ({ ys,meta }) =>
-                "Grid Import" + "💡"
-            period: month
-            type: bar
-            texttemplate: '%{y}'
-            filters:
-              - delta
-              - filter: i>0
-            marker:
-              color: rgb(84, 144, 194)
-          - entity: sensor.deyeinverterslave_summary_day_battery_discharge
-            statistic: sum
-            name: |
-              $fn ({ ys,meta }) =>
-                "Battery Discharge" + "🖱️"
-            period: month
-            type: bar
-            texttemplate: '%{y}'
-            filters:
-              - delta
-              - filter: i>0
-            marker:
-              color: rgb(151, 90, 182)
-          - entity: sensor.deyeinverterslave_summary_day_battery_charge
-            statistic: sum
-            name: |
-              $fn ({ ys,meta }) =>
-                "Battery Charge" + "🔋"
-            period: month
-            type: bar
-            texttemplate: '%{y}'
-            filters:
-              - delta
-              - filter: i>0
-            marker:
-              color: yellow
-        hours_to_show: 6M
-        title: Monthly Production
-        refresh_interval: 600
-        defaults:
-          yaxes:
-            fixedrange: true
-        layout:
-          legend:
-            bgcolor: rgba(0,0,0,0)
-            itemsizing: constant
-            font:
-              size: 11
-          height: 410
-        config:
-          displayModeBar: false
-          scrollZoom: false
-        time_offset: 1M
-  - theme: Backend-selected
-    type: custom:masonry-layout
-    title: Inverter Numbers
-    path: inverter
-    badges: []
-    cards:
-      - type: gauge
-        entity: sensor.deyeinverterslave_pv_power
-        min: 0
-        max: 6000
-        needle: true
-        severity:
-          green: 1000
-          yellow: 2500
-          red: 4000
-        name: Total PV
-      - graph: line
-        hours_to_show: 8
-        type: sensor
-        entity: sensor.deyeinverterslave_battery_soc
-        detail: 2
-      - type: gauge
-        entity: sensor.deyeinverterslave_pv1_power
-        min: 0
-        max: 2000
-        needle: true
-        severity:
-          green: 500
-          yellow: 900
-          red: 1500
-        name: PV1
-      - type: entities
-        entities:
-          - entity: binary_sensor.deyeinverterslave_grid_connected_status
-            name: Grid Connected Status
-          - entity: sensor.deyeinverterslave_summary_day_grid_import_buy
-          - entity: sensor.deyeinverterslave_load_power
-          - entity: sensor.deyeinverterslave_grid_frequency
-            name: Grid Frequency
-          - entity: sensor.deyeinverterslave_grid_load
-            name: Grid Load
-          - entity: sensor.deyeinverterslave_grid_load_l1
-            name: Grid Power
-          - entity: sensor.deyeinverterslave_grid_load_l2
-          - entity: sensor.deyeinverterslave_grid_power_ct_clamp
-            name: Grid Power (CT Clamp)
-          - entity: sensor.deyeinverterslave_grid_voltage_l1
-            name: Grid Voltage
-        title: Grid
-      - type: gauge
-        entity: sensor.deyeinverterslave_pv2_power
-        needle: true
-        min: 0
-        max: 3500
-        severity:
-          green: 500
-          yellow: 1600
-          red: 2500
-        name: PV2
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_summary_day_pv
-            name: Day PV Energy
-          - entity: sensor.deyeinverterslave_summary_day_pv1
-            name: Day PV1 Energy
-          - entity: sensor.deyeinverterslave_summary_day_pv2
-            name: ' Day PV2 Energy'
-          - entity: sensor.deyeinverterslave_temperature_ac_transformer
-            name: Temperature AC Transformer
-          - entity: sensor.deyeinverterslave_temperature_dc_transformer
-          - entity: sensor.deyeinverterslave_summary_total_grid_export_sell
-          - entity: sensor.deyeinverterslave_pv_power
-            name: PV Power
-          - entity: sensor.deyeinverterslave_pv1_current
-            name: PV1 Current
-          - entity: sensor.deyeinverterslave_pv1_power
-            name: PV1 Power
-          - entity: sensor.deyeinverterslave_pv1_voltage
-            name: PV1 Voltage
-          - entity: sensor.deyeinverterslave_pv2_current
-            name: PV2 Current
-          - entity: sensor.deyeinverterslave_pv2_power
-            name: PV2 Power
-          - entity: sensor.deyeinverterslave_pv2_voltage
-            name: PV2 Voltage
-        title: Solar Panels
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_summary_month_grid_import_buy
-            secondary_info: none
-          - entity: sensor.deyeinverterslave_summary_month_load
-          - entity: sensor.deyeinverterslave_summary_month_pv
-        title: Monthly Totals
-      - graph: line
-        hours_to_show: 10
-        type: sensor
-        entity: sensor.deyeinverterslave_summary_day_pv2
-        detail: 1
-      - graph: line
-        hours_to_show: 10
-        type: sensor
-        entity: sensor.deyeinverterslave_summary_day_pv1
-        detail: 1
-        unit: Wh
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_battery_soc
-            name: Battery SOC
-          - entity: sensor.min_soc_battery
-          - entity: sensor.deyeinverterslave_summary_day_battery_charge
-            name: ' Day Battery Charge'
-          - entity: sensor.deyeinverterslave_summary_day_battery_discharge
-          - entity: number.deyeinverterslave_battery_max_charge
-          - entity: sensor.deyeinverterslave_battery_temperature
-          - entity: sensor.deyeinverterslave_battery_charge_voltage
-            name: Battery Charge Voltage
-          - entity: sensor.deyeinverterslave_battery_output_current
-            name: Battery Output Current
-          - entity: sensor.deyeinverterslave_battery_output_power
-            name: Battery Output Power
-          - entity: sensor.deyeinverterslave_battery_temperature
-            name: Battery Temperature
-          - entity: sensor.deyeinverterslave_battery_voltage
-            name: Battery Voltage
-        title: Battery
-      - type: entities
-        entities:
-          - entity: sensor.daily_power_used
-          - entity: sensor.deyeinverterslave_load_power
-          - entity: sensor.deyeinverterslave_grid_load
-          - entity: select.deyeinverterslave_energy_management_model
-        title: Inverter
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_aux_output_power
-            name: Aux Output Power
-          - entity: sensor.deyeinverterslave_inverter_output_current_l1
-            name: Inverter Output Current
-          - entity: sensor.deyeinverterslave_inverter_output_power
-            name: Inverter Output Power
-          - entity: sensor.deyeinverterslave_inverter_rated_power
-            name: Inverter Rated Power
-          - entity: sensor.deyeinverterslave_inverter_serial_number
-            name: Inverter Serial Number
-          - entity: sensor.deyeinverterslave_inverter_system_state
-            name: Inverter System State
-          - entity: sensor.deyeinverterslave_inverter_output_voltage_l1
-            name: Inverter Voltage
-          - entity: sensor.deyeinverterslave_load_frequency
-            name: Load Frequency
-          - entity: sensor.deyeinverterslave_load_power
-            name: Load Power
-          - entity: sensor.deyeinverterslave_temperature_ac_transformer
-            name: Temperature AC Transformer
-          - entity: sensor.deyeinverterslave_temperature_dc_transformer
-            name: Temperature DC Transformer
-          - entity: sensor.deyeinverterslave_wifi_logger_signal
-            name: Wifi logger signal
-          - entity: sensor.deyeinverterslave_grid_load
-          - entity: select.deyeinverterslave_energy_management_model
-          - entity: sensor.deyeinverterslave_inverter_fault
-            name: Inverter fault
-          - entity: sensor.deyeinverterslave_inverter_warning
-            name: Inverter Warning
-        title: deyeinverterslave
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_summary_total_battery_charge
-            name: Summary Total Battery Charge
-          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
-            name: Summary Total Battery Discharge
-          - entity: sensor.deyeinverterslave_summary_total_grid_export_sell
-            name: Summary Total Grid Export(Sell)
-          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
-            name: Summary Total Grid Import(Buy)
-          - entity: sensor.deyeinverterslave_summary_total_load
-            name: Summary Total Load Energy
-          - entity: sensor.deyeinverterslave_summary_total_pv
-            name: ' PV'
-        title: Inverter Lifetime Totals
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_summary_day_aux_energy
-            name: Aux Energy
-          - entity: sensor.deyeinverterslave_summary_day_battery_charge
-            name: Battery Charge
-          - entity: sensor.deyeinverterslave_summary_day_battery_discharge
-            name: Battery Discharge
-          - entity: sensor.deyeinverterslave_summary_day_grid_export_sell
-            name: Grid Export(Sell)
-          - entity: sensor.deyeinverterslave_summary_day_grid_import_buy
-            name: Grid Import(Buy)
-          - entity: sensor.deyeinverterslave_summary_day_load
-            name: Load
-          - entity: sensor.deyeinverterslave_summary_day_pv
-            name: PV Energy
-          - entity: sensor.deyeinverterslave_summary_day_pv1
-            name: PV1
-          - entity: sensor.deyeinverterslave_summary_day_pv2
-            name: PV2
-        title: Today totals
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_summary_month_grid_delta
-            name: Grid Delta
-          - entity: sensor.deyeinverterslave_summary_month_grid_import_buy
-            name: Grid Import(Buy)
-          - entity: sensor.deyeinverterslave_summary_month_load
-            name: Load
-          - entity: sensor.deyeinverterslave_summary_month_pv
-            name: 'PV '
-        title: Month Totals
-      - type: entities
-        entities:
-          - entity: sensor.deyeinverterslave_summary_year_load
-            name: Summary Year Load
-          - entity: sensor.deyeinverterslave_summary_year_pv
-            name: 'Summary Year PV '
-        title: Year Totals
+      - type: weather-forecast
+        entity: weather.forecast_home
+        forecast_type: daily
   - theme: Backend-selected
     title: Config
     path: config
@@ -1397,131 +780,172 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: number.deyeinverterslave_battery_low_warning
+          - entity: number.deyeinvertermaster_battery_low_warning
             name: Low warning
-          - entity: number.deyeinverterslave_battery_shutdown
+          - entity: number.deyeinvertermaster_battery_shutdown
             name: Battery Shutdown
-          - entity: number.deyeinverterslave_battery_restart
+          - entity: number.deyeinvertermaster_battery_restart
             name: Battery Restart
-          - entity: number.deyeinverterslave_battery_capacity_ah
+          - entity: number.deyeinvertermaster_battery_capacity_ah
             name: Battery Capacity Ah
-          - entity: number.deyeinverterslave_battery_charge_low_temp_protect
-            name: Low Temp Charge Protection
-          - entity: select.deyeinverterslave_battery_control_mode
+          - entity: select.deyeinvertermaster_battery_control_mode
             name: Battery control mode
-          - entity: select.deyeinverterslave_battery_operation_mode
-          - entity: select.deyeinverterslave_battery_wake_up_lithium
+          - entity: select.deyeinvertermaster_battery_operation_mode
+          - entity: select.deyeinvertermaster_battery_wake_up_lithium
             name: Battery Wake Up Lithium
-          - entity: number.deyeinverterslave_battery_absorption_voltage
+          - entity: number.deyeinvertermaster_battery_absorption_voltage
             name: Battery Absorption Voltage
-          - entity: number.deyeinverterslave_battery_equalization_voltage
+          - entity: number.deyeinvertermaster_battery_equalization_voltage
             name: Battery Equalization Voltage
-          - entity: number.deyeinverterslave_battery_float_voltage
+          - entity: number.deyeinvertermaster_battery_float_voltage
             name: Battery Float Voltage
-          - entity: number.deyeinverterslave_battery_max_charge
+          - entity: number.deyeinvertermaster_battery_max_charge
             name: Battery Max Charge
-          - entity: number.deyeinverterslave_battery_max_discharge
+          - entity: number.deyeinvertermaster_battery_max_discharge
             name: Battery Max Discharge
-          - entity: number.deyeinverterslave_grid_charge_current
+          - entity: number.deyeinvertermaster_grid_charge_current
             name: Grid Charge Current
-          - entity: switch.deyeinverterslave_battery_grid_charge_enabled
+          - entity: number.deyeinvertermaster_generator_charge_current
+            name: Generator Charge Current
+          - entity: switch.deyeinvertermaster_battery_grid_charge_enabled
             name: Battery Grid Charge Enabled
-          - entity: switch.deyeinverterslave_battery_generator_charge_enabled
+          - entity: switch.deyeinvertermaster_battery_generator_charge_enabled
             name: Battery Generator Charge Enabled
         title: Battery Options
+        show_header_toggle: false
       - type: entities
         entities:
-          - entity: select.deyeinverterslave_energy_management_model
+          - entity: select.deyeinvertermaster_energy_management_model
             name: Energy Management Model
-          - entity: select.deyeinverterslave_load_limit_exp_ess_non_ess
+          - entity: select.deyeinvertermaster_load_limit_exp_ess_non_ess
             name: Load Limit Exp/Ess/Non-Ess
-          - entity: number.deyeinverterslave_export_limit
+          - entity: number.deyeinvertermaster_export_limit
             name: Export Limit
-          - entity: switch.deyeinverterslave_export_solar_enabled
+          - entity: switch.deyeinvertermaster_export_solar_enabled
             name: Export Solar Enabled
-          - entity: select.deyeinverterslave_peak_shaving
-            name: Peak Shaving
-          - entity: number.deyeinverterslave_peak_shaving_power
-            name: Peak shaving power
-          - entity: sensor.deyeinverterslave_inverter_remote_lock
+          - entity: select.deyeinvertermaster_generator_peak_shaving
+            name: ' Generator Peak Shaving'
+          - entity: number.deyeinvertermaster_generator_peak_shaving_power
+            name: Generator Peak shaving power
+          - entity: select.deyeinvertermaster_grid_peak_shaving
+            name: Grid Peak Shaving
+          - entity: number.deyeinvertermaster_grid_peak_shaving_power
+            name: Grid Peak shaving power
+          - entity: number.deyeinvertermaster_zero_export_grid_feed
+            name: ' Zero export Grid Feed'
+          - entity: sensor.deyeinvertermaster_inverter_remote_lock
             name: Inverter remote lock
+          - entity: select.deyeinvertermaster_grid_signal
+            name: Grid Signal
+          - entity: switch.deyeinvertermaster_signal_island_mode
+            name: Signal Island Mode
         title: Power Management
+        show_header_toggle: false
       - type: entities
         entities:
-          - entity: select.deyeinverterslave_aux_port_function
-            name: Aux Port function
-          - entity: number.deyeinverterslave_smart_load_off
-            name: Smart Load Off
-          - entity: number.deyeinverterslave_smart_load_on
-            name: Smart Load On
-          - entity: number.deyeinverterslave_smart_load_power
-            name: Smart Load Power
-        title: Aux Port
-      - type: entities
-        entities:
-          - entity: switch.deyeinverterslave_time_of_use
+          - entity: sensor.deyeinvertermaster_inverter_time
+            name: Inverter time
+          - entity: switch.deyeinvertermaster_time_of_use
             name: Time of Use
-          - entity: select.deyeinverterslave_timezone1_charge
+          - entity: select.deyeinvertermaster_timezone1_charge
             name: Timezone1 Charge
-          - entity: number.deyeinverterslave_timezone1_power
+          - entity: number.deyeinvertermaster_timezone1_power
             name: Timezone1 power
-          - entity: number.deyeinverterslave_timezone1_soc
+          - entity: number.deyeinvertermaster_timezone1_soc
             name: Timezone1 SoC
-          - entity: number.deyeinverterslave_timezone1_time
+          - entity: number.deyeinvertermaster_timezone1_time
             name: Timezone1 Time
-          - entity: number.deyeinverterslave_timezone1_voltage
+          - entity: number.deyeinvertermaster_timezone1_voltage
             name: Timezone1 Voltage
-          - entity: select.deyeinverterslave_timezone2_charge
+          - entity: select.deyeinvertermaster_timezone2_charge
             name: Timezone2 Charge
-          - entity: number.deyeinverterslave_timezone2_power
+          - entity: number.deyeinvertermaster_timezone2_power
             name: Timezone2 power
-          - entity: number.deyeinverterslave_timezone2_soc
+          - entity: number.deyeinvertermaster_timezone2_soc
             name: Timezone2 SoC
-          - entity: number.deyeinverterslave_timezone2_time
+          - entity: number.deyeinvertermaster_timezone2_time
             name: Timezone2 Time
-          - entity: number.deyeinverterslave_timezone2_voltage
+          - entity: number.deyeinvertermaster_timezone2_voltage
             name: Timezone2 Voltage
-          - entity: select.deyeinverterslave_timezone3_charge
+          - entity: select.deyeinvertermaster_timezone3_charge
             name: Timezone3 Charge
-          - entity: number.deyeinverterslave_timezone3_power
+          - entity: number.deyeinvertermaster_timezone3_power
             name: Timezone3 power
-          - entity: number.deyeinverterslave_timezone3_soc
+          - entity: number.deyeinvertermaster_timezone3_soc
             name: Timezone3 SoC
-          - entity: number.deyeinverterslave_timezone3_time
+          - entity: number.deyeinvertermaster_timezone3_time
             name: Timezone3 Time
-          - entity: number.deyeinverterslave_timezone3_voltage
+          - entity: number.deyeinvertermaster_timezone3_voltage
             name: Timezone3 Voltage
-          - entity: select.deyeinverterslave_timezone4_charge
+          - entity: select.deyeinvertermaster_timezone4_charge
             name: Timezone4 Charge
-          - entity: number.deyeinverterslave_timezone4_power
+          - entity: number.deyeinvertermaster_timezone4_power
             name: Timezone4 power
-          - entity: number.deyeinverterslave_timezone4_soc
+          - entity: number.deyeinvertermaster_timezone4_soc
             name: Timezone4 SoC
-          - entity: number.deyeinverterslave_timezone4_time
+          - entity: number.deyeinvertermaster_timezone4_time
             name: Timezone4 time
-          - entity: number.deyeinverterslave_timezone4_voltage
+          - entity: number.deyeinvertermaster_timezone4_voltage
             name: Timezone4 Voltage
-          - entity: select.deyeinverterslave_timezone5_charge
+          - entity: select.deyeinvertermaster_timezone5_charge
             name: Timezone5 Charge
-          - entity: number.deyeinverterslave_timezone5_power
+          - entity: number.deyeinvertermaster_timezone5_power
             name: Timezone5 power
-          - entity: number.deyeinverterslave_timezone5_soc
+          - entity: number.deyeinvertermaster_timezone5_soc
             name: Timezone5 SoC
-          - entity: number.deyeinverterslave_timezone5_time
+          - entity: number.deyeinvertermaster_timezone5_time
             name: Timezone5 time
-          - entity: number.deyeinverterslave_timezone5_voltage
+          - entity: number.deyeinvertermaster_timezone5_voltage
             name: Timezone5 Voltage
-          - entity: select.deyeinverterslave_timezone6_charge
+          - entity: select.deyeinvertermaster_timezone6_charge
             name: Timezone6 Charge
-          - entity: number.deyeinverterslave_timezone6_power
+          - entity: number.deyeinvertermaster_timezone6_power
             name: Timezone6 power
-          - entity: number.deyeinverterslave_timezone6_soc
+          - entity: number.deyeinvertermaster_timezone6_soc
             name: Timezone6 SoC
-          - entity: number.deyeinverterslave_timezone6_time
+          - entity: number.deyeinvertermaster_timezone6_time
             name: Timezone6 time
-          - entity: number.deyeinverterslave_timezone6_voltage
+          - entity: number.deyeinvertermaster_timezone6_voltage
             name: Timezone6 Voltage
         title: Time Of Use
+      - type: entities
+        entities:
+          - entity: select.deyeinvertermaster_aux_port_function
+            name: Aux Port function
+          - entity: number.deyeinvertermaster_smart_load_off
+            name: Smart Load Off
+          - entity: number.deyeinvertermaster_smart_load_on
+            name: Smart Load On
+          - entity: select.deyeinvertermaster_on_grid_always_on
+          - entity: number.deyeinvertermaster_smart_load_power
+            name: Smart Load Power
+          - entity: number.deyeinvertermaster_generator_charge_current
+            name: Generator Charge Current
+          - entity: select.deyeinvertermaster_generator_peak_shaving
+            name: ' Generator Peak Shaving'
+          - entity: number.deyeinvertermaster_generator_peak_shaving_power
+            name: Generator Peak shaving power
+          - entity: sensor.deyeinvertermaster_generator_port_power
+            name: Generator Port Power
+          - entity: binary_sensor.deyeinvertermaster_generator_connected_status
+          - entity: switch.deyeinvertermaster_force_generator
+            name: Force Generator
+          - entity: switch.deyeinvertermaster_battery_generator_charge_enabled
+            name: Generator Charge Enabled
+          - entity: select.deyeinvertermaster_generator_signal
+            name: Generator Signal
+          - entity: number.deyeinvertermaster_generator_run_time
+            name: Generator Run Time
+          - entity: number.deyeinvertermaster_generator_down_time
+            name: Generator Down Time
+        title: Aux Port/Generator
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - entity: sensor.deyeinvertermaster_inverter_time
+          - entity: select.deyeinvertermaster_inverter_basic_settings_beep
+          - entity: select.deyeinvertermaster_inverter_basic_settings_sync_clock
+          - entity: button.deyeinvertermaster_inverter_sync_clock
   - theme: Backend-selected
     title: Time of Use
     type: custom:grid-layout
@@ -1551,7 +975,7 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: switch.deyeinverterslave_time_of_use
+          - entity: switch.deyeinvertermaster_time_of_use
         show_header_toggle: false
         view_layout:
           grid-area: system
@@ -1578,14 +1002,14 @@ views:
                   - entity: input_datetime.timezone2_time
           - type: entities
             entities:
-              - entity: number.deyeinverterslave_timezone1_power
+              - entity: number.deyeinvertermaster_timezone1_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverterslave_timezone1_soc
+              - entity: number.deyeinvertermaster_timezone1_soc
                 name: Battery SOC
-              - entity: number.deyeinverterslave_timezone1_voltage
+              - entity: number.deyeinvertermaster_timezone1_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverterslave_timezone1_charge
+              - entity: select.deyeinvertermaster_timezone1_charge
                 name: Charge option
         view_layout:
           grid-area: prog1
@@ -1612,14 +1036,14 @@ views:
                   - entity: input_datetime.timezone3_time
           - type: entities
             entities:
-              - entity: number.deyeinverterslave_timezone2_power
+              - entity: number.deyeinvertermaster_timezone2_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverterslave_timezone2_soc
+              - entity: number.deyeinvertermaster_timezone2_soc
                 name: Battery SOC
-              - entity: number.deyeinverterslave_timezone2_voltage
+              - entity: number.deyeinvertermaster_timezone2_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverterslave_timezone2_charge
+              - entity: select.deyeinvertermaster_timezone2_charge
                 name: Charge from
         view_layout:
           grid-area: prog2
@@ -1646,14 +1070,14 @@ views:
                   - entity: input_datetime.timezone4_time
           - type: entities
             entities:
-              - entity: number.deyeinverterslave_timezone3_power
+              - entity: number.deyeinvertermaster_timezone3_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverterslave_timezone3_soc
+              - entity: number.deyeinvertermaster_timezone3_soc
                 name: Battery SOC
-              - entity: number.deyeinverterslave_timezone3_voltage
+              - entity: number.deyeinvertermaster_timezone3_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverterslave_timezone3_charge
+              - entity: select.deyeinvertermaster_timezone3_charge
                 name: Charge Options
         view_layout:
           grid-area: prog3
@@ -1680,14 +1104,14 @@ views:
                   - entity: input_datetime.timezone5_time
           - type: entities
             entities:
-              - entity: number.deyeinverterslave_timezone4_power
+              - entity: number.deyeinvertermaster_timezone4_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverterslave_timezone4_soc
+              - entity: number.deyeinvertermaster_timezone4_soc
                 name: Battery SOC
-              - entity: number.deyeinverterslave_timezone4_voltage
+              - entity: number.deyeinvertermaster_timezone4_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverterslave_timezone4_charge
+              - entity: select.deyeinvertermaster_timezone4_charge
                 name: Charge Options
         view_layout:
           grid-area: prog4
@@ -1714,14 +1138,14 @@ views:
                   - entity: input_datetime.timezone6_time
           - type: entities
             entities:
-              - entity: number.deyeinverterslave_timezone5_power
+              - entity: number.deyeinvertermaster_timezone5_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverterslave_timezone5_soc
+              - entity: number.deyeinvertermaster_timezone5_soc
                 name: Battery SOC
-              - entity: number.deyeinverterslave_timezone5_voltage
+              - entity: number.deyeinvertermaster_timezone5_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverterslave_timezone5_charge
+              - entity: select.deyeinvertermaster_timezone5_charge
                 name: Charge Options
         view_layout:
           grid-area: prog5
@@ -1748,14 +1172,14 @@ views:
                   - entity: input_datetime.timezone1_time
           - type: entities
             entities:
-              - entity: number.deyeinverterslave_timezone6_power
+              - entity: number.deyeinvertermaster_timezone6_power
                 name: Power
                 grow: true
-              - entity: number.deyeinverterslave_timezone6_soc
+              - entity: number.deyeinvertermaster_timezone6_soc
                 name: Battery SOC
-              - entity: number.deyeinverterslave_timezone6_voltage
+              - entity: number.deyeinvertermaster_timezone6_voltage
                 name: Battery Voltage
-              - entity: select.deyeinverterslave_timezone6_charge
+              - entity: select.deyeinvertermaster_timezone6_charge
                 name: Charge Options
         view_layout:
           grid-area: prog6
@@ -1766,7 +1190,7 @@ views:
           grid-area: header
       - type: entities
         entities:
-          - entity: select.deyeinverterslave_energy_management_model
+          - entity: select.deyeinvertermaster_energy_management_model
         view_layout:
           grid-area: priority
   - theme: Backend-selected
@@ -1793,21 +1217,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone1_power
+                  - entity: number.deyeinvertermaster_timezone1_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone1_soc
+                  - entity: number.deyeinvertermaster_timezone1_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverterslave_timezone1_charge
+                  - entity: select.deyeinvertermaster_timezone1_charge
                     name: Charge
         view_layout:
           grid-area: 2
@@ -1829,21 +1253,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone2_power
+                  - entity: number.deyeinvertermaster_timezone2_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone2_soc
+                  - entity: number.deyeinvertermaster_timezone2_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverterslave_timezone2_charge
+                  - entity: select.deyeinvertermaster_timezone2_charge
                     name: Charge
         view_layout:
           grid-area: 3
@@ -1865,21 +1289,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone3_power
+                  - entity: number.deyeinvertermaster_timezone3_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone3_soc
+                  - entity: number.deyeinvertermaster_timezone3_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverterslave_timezone3_charge
+                  - entity: select.deyeinvertermaster_timezone3_charge
                     name: Charge
         view_layout:
           grid-area: 4
@@ -1901,21 +1325,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone4_power
+                  - entity: number.deyeinvertermaster_timezone4_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone4_soc
+                  - entity: number.deyeinvertermaster_timezone4_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverterslave_timezone4_charge
+                  - entity: select.deyeinvertermaster_timezone4_charge
                     name: Charge
         view_layout:
           grid-area: 5
@@ -1937,21 +1361,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone5_power
+                  - entity: number.deyeinvertermaster_timezone5_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone5_soc
+                  - entity: number.deyeinvertermaster_timezone5_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverterslave_timezone5_charge
+                  - entity: select.deyeinvertermaster_timezone5_charge
                     name: Charge
         view_layout:
           grid-area: 6
@@ -1973,21 +1397,21 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone6_power
+                  - entity: number.deyeinvertermaster_timezone6_power
                     name: Power
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: number.deyeinverterslave_timezone6_soc
+                  - entity: number.deyeinvertermaster_timezone6_soc
                     name: SoC
                     mode: box
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
-                  - entity: select.deyeinverterslave_timezone6_charge
+                  - entity: select.deyeinvertermaster_timezone6_charge
                     name: Charge
         view_layout:
           grid-area: 7
@@ -1997,4 +1421,787 @@ views:
             cards:
               - type: entities
                 entities:
-                  - entity: switch.deyeinverterslave_time_of_use
+                  - entity: switch.deyeinvertermaster_time_of_use
+  - theme: Backend-selected
+    title: Graphs
+    path: graphs
+    type: sidebar
+    badges: []
+    cards:
+      - type: custom:plotly-graph
+        view_layout:
+          grid-area: graph
+        entities:
+          - entity: sensor.deyeinverterslave_pv_power
+            name: |
+              $fn ({ ys,meta }) =>
+                "Solar" + "🔆" + "(" +ys[ys.length - 1]+"W)"
+            fill: tozeroy
+            line:
+              color: rgb(255, 155, 48, 20)
+          - entity: sensor.deyeinverterslave_inverter_output_power
+            name: |
+              $fn ({ ys,meta }) =>
+                "Load" + "⚡" + "(" +ys[ys.length - 1]+"W)"
+            fill: tozeroy
+            line:
+              color: rgb(95, 182, 173,20)
+          - entity: sensor.deyeinverterslave_non_essential_load
+            name: |
+              $fn ({ ys,meta }) =>
+                "NonEss" + "⚡" + "(" +ys[ys.length - 1]+"W)"
+            fill: tozeroy
+            line:
+              color: purple
+          - entity: sensor.deyeinverterslave_grid_power_ct_clamp
+            name: |
+              $fn ({ ys,meta }) =>
+                "Grid" + "💡" + "(" +ys[ys.length - 1]+"W)"
+            fill: tozeroy
+            line:
+              color: rgb(84, 144, 194,20)
+          - entity: sensor.deyeinverterslave_battery_output_power
+            fill: tozeroy
+            name: |
+              $fn ({ ys,meta }) =>
+                "Battery" + "🔋" + "(" +ys[ys.length - 1]+"W)"
+            line:
+              color: rgb(43, 259, 5)
+          - entity: sensor.deyeinvertermaster_generator_port_power
+            fill: tozeroy
+            name: |
+              $fn ({ ys,meta }) =>
+                "Generator" + "(" +ys[ys.length - 1]+"W)"
+            line:
+              color: rgb(30, 60, 60, 13)
+          - entity: sensor.deyeinverterslave_battery_soc
+            name: |
+              $fn ({ ys,meta }) =>
+                "SOC" + "⚠️" + "(" +ys[ys.length - 1]+"%)"
+            yaxis: y2
+            line:
+              color: red
+              width: 2
+              shape: spline
+            fill: none
+        hours_to_show: 18
+        refresh_interval: 60
+        title: null
+        defaults:
+          entity:
+            show_value: false
+          yaxes:
+            fixedrange: true
+        layout:
+          legend:
+            bgcolor: rgba(0,0,0,0)
+            itemsizing: constant
+            font:
+              size: 11
+          yaxis2:
+            range:
+              - 10
+              - 110
+            fixedrange: true
+          height: 405
+          yaxis:
+            tickmode: linear
+            dtick: 1000
+        config:
+          scrollZoom: false
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          show_states: false
+          colorize_states: true
+          title: Inverter Temperature
+        experimental:
+          color_threshold: true
+          brush: false
+        yaxis:
+          - min: 0
+            max: ~100
+        all_series_config:
+          stroke_width: 1
+          opacity: 0.2
+          type: area
+          min: 0
+          color_threshold:
+            - value: 50
+              color: yellow
+            - value: 60
+              color: orange
+            - value: 70
+              color: red
+        graph_span: 24h
+        apex_config:
+          chart:
+            height: 350px
+        series:
+          - entity: sensor.deyeinvertermaster_battery_temperature
+            color: orange
+            fill_raw: last
+          - entity: sensor.deyeinvertermaster_temperature_ac_transformer
+            color: turquoise
+          - entity: sensor.deyeinvertermaster_temperature_dc_transformer
+            color: blue
+  - title: Daily
+    path: daily
+    type: sidebar
+    badges: []
+    cards:
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 450px
+        stacked: true
+        graph_span: 15day
+        span:
+          end: day
+        show:
+          last_updated: true
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Daily Power Needs
+        yaxis:
+          - min: 0
+            max: '|+300|'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            show:
+              datalabels: true
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            type: column
+            name: PV
+            show:
+              datalabels: true
+            color: rgb(255, 155, 48)
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            type: column
+            name: Discharge
+            color: purple
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+            show:
+              datalabels: total
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 450px
+        graph_span: 15day
+        span:
+          end: day
+        show:
+          last_updated: true
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Daily Totals
+        yaxis:
+          - min: 0
+            max: '|+10|'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            show:
+              datalabels: true
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            type: column
+            name: PV
+            show:
+              datalabels: true
+            color: rgb(255, 155, 48)
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_load
+            type: column
+            name: Load
+            color: turquoise
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            type: column
+            name: Discharge
+            color: purple
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_charge
+            type: column
+            name: Charge
+            color: yellow
+            group_by:
+              func: diff
+              duration: 1day
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+  - title: Weekly
+    path: weekly
+    type: sidebar
+    badges: []
+    cards:
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 450px
+        stacked: true
+        graph_span: 4week
+        span:
+          end: week
+        show:
+          last_updated: true
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Weekly Power Needs
+        yaxis:
+          - min: 0
+            max: '| +2000 |'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            show:
+              datalabels: percent
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            type: column
+            name: PV
+            show:
+              datalabels: percent
+            color: rgb(255, 155, 48)
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            type: column
+            name: Discharge
+            color: purple
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+            show:
+              datalabels: total
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 400px
+        graph_span: 4week
+        span:
+          end: week
+        show:
+          last_updated: false
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Weekly Totals
+        yaxis:
+          - min: 0
+            max: '|+20|'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            show:
+              datalabels: true
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            show:
+              datalabels: true
+            type: column
+            color: rgb(255, 155, 48)
+            name: PV
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_load
+            show:
+              datalabels: true
+            type: column
+            name: Load
+            color: rgb(95, 182, 173)
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            type: column
+            name: Discharge
+            color: rgb(151, 90, 182)
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_charge
+            type: column
+            name: Charge
+            color: yellow
+            group_by:
+              func: diff
+              duration: 1week
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+  - title: Monthly
+    path: monthly
+    type: sidebar
+    badges: []
+    cards:
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 450px
+        stacked: true
+        graph_span: 4month
+        span:
+          end: month
+        show:
+          last_updated: true
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Monthly Power Needs
+        yaxis:
+          - min: 0
+            max: '| +5000 |'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            show:
+              datalabels: percent
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            type: column
+            name: PV
+            show:
+              datalabels: percent
+            color: rgb(255, 155, 48)
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            type: column
+            name: Discharge
+            color: purple
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: hour
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+            show:
+              datalabels: total
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 400px
+        experimental:
+          color_threshold: true
+        graph_span: 3month
+        span:
+          end: month
+        show:
+          last_updated: false
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Monthly Totals
+        yaxis:
+          - min: 0
+            max: '|+100|'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            show:
+              datalabels: true
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            show:
+              datalabels: true
+            type: column
+            color: rgb(255, 155, 48)
+            name: PV
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_load
+            show:
+              datalabels: true
+            type: column
+            name: Load
+            color: rgb(95, 182, 173)
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            type: column
+            name: Discharge
+            color: rgb(151, 90, 182)
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_charge
+            type: column
+            name: Charge
+            color: yellow
+            group_by:
+              func: diff
+              duration: 1month
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+  - title: Total
+    path: total
+    cards:
+      - type: custom:plotly-graph
+        view_layout:
+          grid-area: total
+        entities:
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            statistic: state
+            name: |
+              $fn ({ ys,meta }) =>
+                "Solar" + "🔆" + "(" +ys[ys.length - 1]+"MWh)"
+            period: day
+            type: bar
+            width: $fn() => 1000*60*60*3
+            offset: $fn() => 1000*60*60*3.5
+            texttemplate: '%{y}'
+            filters:
+              - filter: i>0
+              - force_numeric
+            marker:
+              color: rgb(255, 155, 48)
+          - entity: sensor.deyeinverterslave_summary_total_load
+            statistic: state
+            name: |
+              $fn ({ ys,meta }) =>
+                "Load" + "⚡" + "(" +ys[ys.length - 1]+"MWh)"
+            period: day
+            type: bar
+            width: $fn() => 1000*60*60*3
+            offset: $fn() => 1000*60*60*7
+            filters:
+              - filter: i>0
+              - force_numeric
+            texttemplate: '%{y}'
+            marker:
+              color: rgb(95, 182, 173)
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            statistic: state
+            name: |
+              $fn ({ ys,meta }) =>
+                "Grid Import" + "💡" + "(" +ys[ys.length - 1]+"MWh)"
+            period: day
+            type: bar
+            width: $fn() => 1000*60*60*3
+            offset: $fn() => 1000*60*60*10.5
+            texttemplate: '%{y}'
+            filters:
+              - filter: i>0
+              - force_numeric
+            marker:
+              color: rgb(84, 144, 194)
+          - entity: sensor.deyeinverterslave_summary_total_grid_export_sell
+            statistic: state
+            name: |
+              $fn ({ ys,meta }) =>
+                "Grid export" + "💡" + "(" +ys[ys.length - 1]+"MWh)"
+            period: day
+            type: bar
+            width: $fn() => 1000*60*60*3
+            offset: $fn() => 1000*60*60*14
+            texttemplate: '%{y}'
+            filters:
+              - filter: i>0
+              - force_numeric
+            marker:
+              color: rgb(244, 44, 94)
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            statistic: state
+            name: |
+              $fn ({ ys,meta }) =>
+                "Bat Discharge" + "🖱️" + "(" +ys[ys.length - 1]+"MWh)"
+            period: day
+            type: bar
+            width: $fn() => 1000*60*60*3
+            offset: $fn() => 1000*60*60*17.5
+            texttemplate: '%{y}'
+            filters:
+              - filter: i>0
+              - force_numeric
+            marker:
+              color: rgb(151, 90, 182)
+          - entity: sensor.deyeinverterslave_summary_total_battery_charge
+            statistic: state
+            name: |
+              $fn ({ ys,meta }) =>
+                "Bat Charge" + "🔋" + "(" +ys[ys.length - 1]+"MWh)"
+            period: day
+            type: bar
+            width: $fn() => 1000*60*60*3
+            offset: $fn() => 1000*60*60*21
+            texttemplate: '%{y}'
+            filters:
+              - filter: i>0
+              - force_numeric
+            marker:
+              color: yellow
+        hours_to_show: current_day
+        defaults:
+          entity:
+            line:
+              width: 2
+          yaxes:
+            fixedrange: true
+        title: Inverter Lifetime Totals
+        layout:
+          barmode: group
+          xaxis:
+            nticks: 1
+          height: 410
+        time_offset: '-1m'
+        config:
+          displayModeBar: false
+          scrollZoom: false
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 400px
+          plotOptions:
+            bar:
+              columnWidth: 80%
+        show:
+          last_updated: false
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+          title: Plant Totals
+        graph_span: 18h
+        yaxis:
+          - min: 0
+            max: '|+500|'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+        series:
+          - entity: sensor.deyeinverterslave_summary_total_grid_import_buy
+            show:
+              datalabels: true
+            type: column
+            name: Grid/Gen
+            color: rgb(84, 144, 194)
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_pv
+            show:
+              datalabels: true
+            type: column
+            color: rgb(255, 155, 48)
+            name: PV
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_load
+            show:
+              datalabels: true
+            type: column
+            name: Load
+            color: rgb(95, 182, 173)
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_discharge
+            show:
+              datalabels: true
+            type: column
+            name: Discharge
+            color: rgb(151, 90, 182)
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+          - entity: sensor.deyeinverterslave_summary_total_battery_charge
+            show:
+              datalabels: true
+            type: column
+            name: Charge
+            color: yellow
+            statistics:
+              type: state
+              period: day
+            transform: return Number(x) * 1000.0;
+            unit: kWh
+    type: sidebar
