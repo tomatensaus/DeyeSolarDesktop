@@ -17,9 +17,9 @@ Steps:
 1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC) It is opensource and free software [https://www.home-assistant.io/installation/] [Quick guide](./InstallHomeAssistant.md)
 2. [JustGrabbingSomeIdeas](./JustGrabbingSomeIdeas.md) Follow this guide to install the Dashboard onto your
 existing Home Assistant Install
-3. ![image](./EmptyDesktop.png)   
-   This is what the empty desktop looks like before any solar data is populated from the inverter.
-4. Consult this youtube video I made describing the steps below
+3. This is what the empty desktop looks like before any solar data is populated from the inverter.
+  ![image](./EmptyDesktop.png)
+4. Consult this youtube video I made describing the steps to install you SmartDeyeDongle
 [![Watch the video](https://img.youtube.com/vi/sfhMm31nhoE/0.jpg)](https://www.youtube.com/watch?v=sfhMm31nhoE)
 
 * Plug in your smartDeyeDongle, connect to the wifi hot-spot it provides and configure your wifi network details, once saved it will reboot and join your wifi network.
