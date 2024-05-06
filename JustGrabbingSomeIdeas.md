@@ -22,9 +22,7 @@ Please consult the yaml file [solarDesktop.yaml](./solarDesktop.yaml) that conta
 * Plotly Graph Card
 * ApexCharts
 * Atomic Calendar Revive
-
-## Custom plugins
- * https://github.com/slipx06/sunsynk-power-flow-card
+* Sunsynk Power Flow Card  (Note that this is now available in HACS, the video shows it still as a custom plugin to be manually added, just search and install)
 
 ## Config files
 Configuration.yaml needed [configuration.yaml](./configuration.yaml)

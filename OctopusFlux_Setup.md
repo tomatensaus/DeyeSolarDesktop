@@ -28,7 +28,7 @@ Solcast has a free plan
 Octopus energy
 
 ## Steps:
-1. Install the Dashboard [https://github.com/tomatensaus/DeyeSolarDesktop/packages/octopus_dashboard_importexport.yaml]
+1. Install the Dashboard [octopus_dashboard_importexport.yaml](./packages/octopus_dashboard_importexport.yaml)
 2. Create the packages folder and copy the octopusflux.yaml file [https://github.com/tomatensaus/DeyeSolarDesktop/packages/octopusflux.yaml]
 3. Copy the contents of the octopusflux_automations.yaml [https://github.com/tomatensaus/DeyeSolarDesktop/packages/octopusflux_automations.yaml] to your automations.yaml file
 4. Copy the lines from configuration.yaml "homeassistant: packages: !include_dir_named packages"
