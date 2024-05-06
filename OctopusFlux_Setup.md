@@ -32,7 +32,7 @@ Octopus energy
 2. Create the packages folder and copy the octopusflux.yaml file [octopusflux.yaml](./packages/octopusflux.yaml)
 3. Copy the contents of the octopusflux_automations.yaml [octopusflux_automations.yaml](./packages/octopusflux_automations.yaml) to your automations.yaml file
 4. Copy the lines from configuration.yaml "homeassistant: packages: !include_dir_named packages"
-[configuration.yaml](./packages/configuration.yaml)
+[configuration.yaml](./configuration.yaml)
 5. Restart Home Assistant, make sure the configuration Changes are good before restarting
 
 ## Final Configuration:
