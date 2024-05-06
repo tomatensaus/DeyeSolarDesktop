@@ -22,14 +22,14 @@ Please consult the yaml file [solarDesktop.yaml](./solarDesktop.yaml) that conta
 * Plotly Graph Card
 * ApexCharts
 * Atomic Calendar Revive
-* Sunsynk Power Flow Card  (Note that this is now available in HACS, the video shows it still as a custom plugin to be manually added, just search and install)
+* Sunsynk-Power-Flow-Card  (Note that this is now available in HACS, the video shows it still as a custom plugin to be manually added, install is now similar to the others)
 
 ## Config files
 Configuration.yaml needed [configuration.yaml](./configuration.yaml)
 and also copy the [template.yaml](./template.yaml)
 
 # Automations:
-Here [automations.yaml](automations.yaml)
+Here [automations.yaml](./automations.yaml)
 
 Automations: Needed for the time of use configuration (that will copy the values from the inverter to dateTime objects(in home assistant), and when the user edits the time, it will convert the time to the format the inverter expects and update the inverter values via the smartDeyeDongle
 

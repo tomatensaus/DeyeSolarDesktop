@@ -6,7 +6,7 @@ New! : Dashboard 4.5 now available see Youtube Video below for a preview.
 
 [![Watch the video](https://img.youtube.com/vi/djIpEzQoppA/0.jpg)](https://www.youtube.com/watch?v=djIpEzQoppA)
 
-If you are new to home assistant then the DeyeSolarDesktop (Home Assistant backup file) is a quick and sure way to get your solar monitoring desktop up and running within minutes.
+If you are new to home assistant then the DeyeSolarDesktop is a quick and sure way to get your solar monitoring desktop up and running within minutes.
 
 This desktop was built to provide a plug and play integration with the smartDeyeDongle which can be purchased seperately ~~(available towards end of June 2023)~~ Now available [SmartDeyeDongle](./SmartDeyeDongle.md)
 
@@ -15,8 +15,7 @@ Compatible hardware: This desktop was built for Deye inverters (which includes a
 Steps:
 
 1. Install your own Home Assistant server  (you need an old PC/rasp pi/VM om your PC) It is opensource and free software [https://www.home-assistant.io/installation/] [Quick guide](./InstallHomeAssistant.md)
-2. [JustGrabbingSomeIdeas](./JustGrabbingSomeIdeas.md) Follow this guide to install the Dashboard onto your
-existing Home Assistant Install
+2. [JustGrabbingSomeIdeas](./JustGrabbingSomeIdeas.md) Follow this guide to install the Dashboard onto your existing Home Assistant Install
 3. This is what the empty desktop looks like before any solar data is populated from the inverter.
   ![image](./EmptyDesktop.png)
 4. Consult this youtube video I made describing the steps to install you SmartDeyeDongle
@@ -30,13 +29,13 @@ existing Home Assistant Install
 
 ### Fetching Data
 Getting the Data from your inverter
-* Preferred way is to buy the [SmartDeyeDongle](./SmartDeyeDongle.md), it plugs into your inverter and translates all the data to home assistant directly, you can expect real time data updated every 3s and the ability to change settings via the screen or automations.
+* You can order your [SmartDeyeDongle](./SmartDeyeDongle.md), it plugs into your inverter and translates all the data to home assistant directly, you can expect real time data updated every 3-4s and the ability to change settings via the screen or automations.
 
-* You need to buy an USB to RS485 cable and connect to your Home Assistant server, you will also need to map entities from this project as the names differ https://github.com/kellerza/sunsynk   it provides real-time data, works via MQTT
-
-* For people with the SolarMan Dongle, it requires no additional cables to be purchased. You could pull the values from the Solarman dongle (delayed 1-10 minutes) it is not ideal for integrations that need to get updates in real time but it could work for for you if you simply want to look at the graphs https://github.com/StephanJoubert/home_assistant_solarman
 
 ### Automations and integrations to note
+
+* Octopus flux [OctopusFlux_Setup.md](./OctopusFlux_Setup.md)
+A complete dashboard and automation to export to the grid during peak hours and charge during cheap hours. Sit back while your inverter buys and sells power
 
 * Telegram integration with notifications about power outages:
 see [TELEGRAM_SETUP Guide](./TELEGRAM_SETUP.md)
