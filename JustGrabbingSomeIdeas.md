@@ -25,11 +25,19 @@ Please consult the yaml file [solarDesktop.yaml](./solarDesktop.yaml) that conta
 * Sunsynk-Power-Flow-Card  (Note that this is now available in HACS, the video shows it still as a custom plugin to be manually added, install is now similar to the others)
 
 ## Config files
+Note that this config wil be moving to the packages folder.
+You need the lines "homeassistant: packages: !include_dir_named packages"
 Configuration.yaml needed [configuration.yaml](./configuration.yaml)
+
 and also copy the [template.yaml](./template.yaml)
+Changes: The templates will be moving to the packages folder [smartdeyedongle.yaml](./packages/smartdeyedongle.yaml)
+
+If you plan to use Telegram then also install [packages/telegram.yaml](./packages/telegram.yaml)
 
 # Automations:
-Here [automations.yaml](./automations.yaml)
+Still here [automations.yaml](./automations.yaml)
+Changes: This will be moving to the packages folder [smartdeyedongle_automations.yaml](./packages/smartdeyedongle_automations.yaml)
+
 
 Automations: Needed for the time of use configuration (that will copy the values from the inverter to dateTime objects(in home assistant), and when the user edits the time, it will convert the time to the format the inverter expects and update the inverter values via the smartDeyeDongle
 

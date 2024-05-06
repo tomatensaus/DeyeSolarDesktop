@@ -8,32 +8,18 @@ tts:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-template: !include template.yaml    #we include template file here
+template: !include template.yaml    #we include template file here, soon replaced by packages folder
  #template: !include template_MasterSlave_System.yaml  #change the config file depending on your system
 
 #The homeassistant packages will become the standard of loading configs going forward
-#be sure to add the packages folder and add the file in there called: smartdeyedongle.yaml
+#be sure to add the packages folder and the 2 lines
 homeassistant:
   packages: !include_dir_named packages
 
-# Example configuration.yaml entry for the Telegram Bot
-telegram_bot:
-  - platform: polling
-    api_key: 123456:ABCDEF_ETC_ETC  #your bot API KEY HERE
-    allowed_chat_ids:
-      - 123  #your username chatid here as supplied by telegram
-      - -12333321 #your chatgroup_for_bot chatid here, notice that groups start with minus
+# Telegram Bot config now in packages/telegram.yaml
 
-# this is needed for the Telegram Bot
-notify:
-  - platform: telegram
-    name: use_user_id_here  #Eg user: Heinz or  solar: Solar
-    chat_id: 123  #your username chatid here as supplied by telegram
-  - platform: telegram
-    name: chatgroup_for_bot
-    chat_id: -12333321  #your chatgroup for your bot chatid here as supplied by telegram, notice that groups start with minus
-
-# The sensor below keeps the minimum soc of the battery for the last 12 hours, only displayed on the DeyeSolarDesktop, not important
+# The sensor below keeps the minimum soc of the battery for the last 12 hours,
+#only removed from DeyeSolarDesktop, not important
 # sensor:
 #   - platform: statistics
 #     name: "min_soc_battery"
