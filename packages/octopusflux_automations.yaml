@@ -1,0 +1,249 @@
+- id: '1710562585517'
+  alias: Solcast_update
+  description: New API call Solcast
+  trigger:
+  - platform: time_pattern
+    hours: /4
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  action:
+  - service: solcast_solar.update_forecasts
+    data: {}
+  mode: single
+- id: '1712779724660'
+  alias: Energy - Start Charge
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.octopus_energy_state
+    to: start charge
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+  condition: []
+  action:
+  - service: number.set_value
+    metadata: {}
+    data:
+      value: '85'
+    target:
+      entity_id: number.deyeinvertermaster_grid_charge_current
+    enabled: false
+  - service: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.deyeinvertermaster_battery_grid_charge_enabled
+  - service: select.select_option
+    metadata: {}
+    data:
+      option: Grid
+    target:
+      entity_id: select.deyeinvertermaster_timezone1_charge
+  mode: single
+- id: '1712831382846'
+  alias: Energy Stop Charge
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.octopus_energy_state
+    to: stop charge
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+  condition: []
+  action:
+  - service: select.select_option
+    metadata: {}
+    data:
+      option: None
+    target:
+      entity_id: select.deyeinvertermaster_timezone1_charge
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: number.set_value
+    metadata: {}
+    data:
+      value: 85
+    target:
+      entity_id: number.deyeinvertermaster_grid_charge_current
+    enabled: true
+  mode: single
+- id: '1712832456126'
+  alias: Energy Start Export
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.octopus_energy_state
+    to: start discharge
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+  condition: []
+  action:
+  - service: select.select_option
+    metadata: {}
+    data:
+      option: Allow Export
+    target:
+      entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+  mode: single
+- id: '1712832480479'
+  alias: Energy Stop Export
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.octopus_energy_state
+    to: stop discharge
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+  condition: []
+  action:
+  - service: select.select_option
+    metadata: {}
+    data:
+      option: Zero Export
+    target:
+      entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: number.set_value
+    metadata: {}
+    data:
+      value: 5000
+    target:
+      entity_id: number.deyeinvertermaster_timezone4_power
+  mode: single
+- id: '1712838905064'
+  alias: Energy Time Trigger
+  description: ''
+  trigger:
+  - platform: time
+    at: 02:01:00
+    id: startCharge
+  - platform: time
+    at: 04:59:00
+    id: stopCharge
+  - platform: time
+    at: '16:00:00'
+    id: startExport
+  - platform: time
+    at: '19:00:00'
+    id: stopExport
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.octopus_energy_state
+      state: disable
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - startCharge
+      sequence:
+      - service: input_select.select_option
+        metadata: {}
+        data:
+          option: start charge
+        target:
+          entity_id: input_select.octopus_energy_state
+    - conditions:
+      - condition: trigger
+        id:
+        - stopCharge
+      sequence:
+      - service: input_select.select_option
+        metadata: {}
+        data:
+          option: stop charge
+        target:
+          entity_id: input_select.octopus_energy_state
+    - conditions:
+      - condition: trigger
+        id:
+        - startExport
+      sequence:
+      - service: input_select.select_option
+        metadata: {}
+        data:
+          option: start discharge
+        target:
+          entity_id: input_select.octopus_energy_state
+    - conditions:
+      - condition: trigger
+        id:
+        - stopExport
+      sequence:
+      - service: input_select.select_option
+        metadata: {}
+        data:
+          option: stop discharge
+        target:
+          entity_id: input_select.octopus_energy_state
+  mode: single
+- id: '1713294916505'
+  alias: Energy Update Discharge Rates
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /3
+    enabled: false
+  - platform: state
+    entity_id:
+    - sensor.deyeinvertermaster_battery_soc
+  condition:
+  - condition: state
+    entity_id: input_select.octopus_energy_state
+    state: start discharge
+    enabled: true
+  action:
+  - service: number.set_value
+    metadata: {}
+    data:
+      value: '{{states(''sensor.deyeinvertermaster_timezone4_estimate_export_power_filtered'')}}'
+    target:
+      entity_id: number.deyeinvertermaster_timezone4_power
+  mode: single
+- id: '1714048088646'
+  alias: Energy Update Charge Current
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /3
+    enabled: false
+  - platform: state
+    entity_id:
+    - sensor.deyeinvertermaster_battery_soc
+  condition:
+  - condition: state
+    entity_id: input_select.octopus_energy_state
+    state: start charge
+    enabled: true
+  action:
+  - service: number.set_value
+    metadata: {}
+    data:
+      value: '{{states(''sensor.deyeinvertermaster_timezone1_estimate_charge_current_filtered'')}}'
+    target:
+      entity_id: number.deyeinvertermaster_grid_charge_current
+    enabled: true
+  mode: single

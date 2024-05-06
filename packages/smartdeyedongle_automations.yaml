@@ -1,0 +1,122 @@
+- id: '1712558598799'
+  alias: InverterConfig send values to  HA time objects
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - number.deyeinvertermaster_timezone1_time
+    - number.deyeinvertermaster_timezone2_time
+    - number.deyeinvertermaster_timezone3_time
+    - number.deyeinvertermaster_timezone4_time
+    - number.deyeinvertermaster_timezone5_time
+    - number.deyeinvertermaster_timezone6_time
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state != ''unavailable'' }}'
+  action:
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.timezone1_time
+    data:
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone1_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone1_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.timezone2_time
+    data:
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone2_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone2_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.timezone3_time
+    data:
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone3_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone3_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.timezone4_time
+    data:
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone4_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone4_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.timezone5_time
+    data:
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone5_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone5_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.timezone6_time
+    data:
+      time: '{% set min = ((states(''number.deyeinvertermaster_timezone6_time'') |
+        int) % 100) %} {% set hour = ((states(''number.deyeinvertermaster_timezone6_time'')
+        | int) // 100) %} {{''%02d'' % hour}}:{{''%02d'' % min}}:00'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 4
+      milliseconds: 0
+  mode: single
+- id: '1712749733531'
+  alias: InverterConfig send update to inverter
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_datetime.timezone1_time
+    - input_datetime.timezone2_time
+    - input_datetime.timezone3_time
+    - input_datetime.timezone4_time
+    - input_datetime.timezone5_time
+    - input_datetime.timezone6_time
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state != ''unavailable'' }}'
+  action:
+  - service: number.set_value
+    target:
+      entity_id: number.deyeinvertermaster_timezone1_time
+    data:
+      value: '{{state_attr(''input_datetime.timezone1_time'', ''timestamp'') | timestamp_custom("%H%M",
+        false) | float}}'
+  - service: number.set_value
+    target:
+      entity_id: number.deyeinvertermaster_timezone2_time
+    data:
+      value: '{{state_attr(''input_datetime.timezone2_time'', ''timestamp'') | timestamp_custom("%H%M",
+        false) | float}}'
+  - service: number.set_value
+    target:
+      entity_id: number.deyeinvertermaster_timezone3_time
+    data:
+      value: '{{state_attr(''input_datetime.timezone3_time'', ''timestamp'') | timestamp_custom("%H%M",
+        false) | float}}'
+  - service: number.set_value
+    target:
+      entity_id: number.deyeinvertermaster_timezone4_time
+    data:
+      value: '{{state_attr(''input_datetime.timezone4_time'', ''timestamp'') | timestamp_custom("%H%M",
+        false) | float}}'
+  - service: number.set_value
+    target:
+      entity_id: number.deyeinvertermaster_timezone5_time
+    data:
+      value: '{{state_attr(''input_datetime.timezone5_time'', ''timestamp'') | timestamp_custom("%H%M",
+        false) | float}}'
+  - service: number.set_value
+    target:
+      entity_id: number.deyeinvertermaster_timezone6_time
+    data:
+      value: '{{state_attr(''input_datetime.timezone6_time'', ''timestamp'') | timestamp_custom("%H%M",
+        false) | float}}'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 4
+      milliseconds: 0
+  mode: single

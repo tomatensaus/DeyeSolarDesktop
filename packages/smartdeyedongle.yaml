@@ -1,0 +1,96 @@
+#These entries below define data fields to store the TimeOfUse values on home_assistant side
+#The automation will take a change in value and populate the value on the inverter accordingly
+input_datetime:
+  timezone1_time:
+    name: Timezone 1 Time
+    has_date: false
+    has_time: true
+  timezone2_time:
+    name: Timezone 2 Time
+    has_date: false
+    has_time: true
+  timezone3_time:
+    name: Timezone 3 Time
+    has_date: false
+    has_time: true
+  timezone4_time:
+    name: Timezone 4 Time
+    has_date: false
+    has_time: true
+  timezone5_time:
+    name: Timezone 5 Time
+    has_date: false
+    has_time: true
+  timezone6_time:
+    name: Timezone 6 Time
+    has_date: false
+    has_time: true
+
+template:
+  sensor:
+    - name: "deyeinvertermaster_solar_power_used"
+      state: "{{ (states('sensor.deyeinvertermaster_summary_day_pv') | float(1) - states('sensor.deyeinvertermaster_solar_power_battery_charge') | float(1)) |round(1) }}"
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+
+    - name: "deyeinvertermaster_solar_power_battery_charge"
+      state: "{{ ( states('sensor.deyeinvertermaster_summary_day_battery_charge') | float(1) - states('sensor.deyeinvertermaster_summary_day_battery_charge_grid') | float(1)) | round(1) }}"
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+
+    #essential = inverter_power_175 + grid_power_169  - aux_power_166
+    - name: "deyeinvertermaster_essential_load"
+      state: "{{ (states('sensor.deyeinvertermaster_inverter_output_power') |float(0)  + (states('sensor.deyeinvertermaster_grid_load_l1') |float(0) - states('sensor.deyeinvertermaster_aux_output_power') |float(0) )) | round(0)}}"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+
+    #nonessential = grid_ct_power_172 - grid_power_167 (L1)
+    - name: "deyeinvertermaster_non_essential_load"
+      state: "{{ (states('sensor.deyeinvertermaster_grid_power_ct_clamp') |float(0)  - (states('sensor.deyeinvertermaster_grid_load_l1') |float(0))) | round(0)}}"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+
+    - name: "deyeinvertermaster_priority_charge_or_load"
+      state: |
+        {% if is_state('select.deyeinvertermaster_energy_management_model', 'Battery Priority Mode') %}
+          off
+        {% else %}
+          on
+        {% endif %}
+
+    - name: deyeinvertermaster_battery_charge_grid_power
+      unit_of_measurement: "kW"
+      state_class: measurement
+      device_class: power
+      state: >-
+        {% if states('sensor.deyeinvertermaster_inverter_output_power')|float < 0.0 %}
+        {{ (states('sensor.deyeinvertermaster_battery_output_power') | float(4) | abs ) * 0.001  }}
+        {% else %}
+        0.0
+        {% endif %}
+
+sensor:
+  - platform: integration
+    name: deyeinvertermaster_summary_total_battery_charge_grid
+    source: sensor.deyeinvertermaster_battery_charge_grid_power
+    method: left
+
+  - platform: integration
+    name: deyeinverterslave_summary_total_battery_charge_grid
+    source: sensor.deyeinverterslave_battery_charge_grid_power
+    method: left
+
+utility_meter:
+  master_energy_battery_charge_grid:
+    name: deyeinvertermaster_summary_day_battery_charge_grid
+    source: sensor.deyeinvertermaster_summary_total_battery_charge_grid
+    cycle: daily
+
+  slave_energy_battery_charge_grid:
+    name: deyeinverterslave_summary_day_battery_charge_grid
+    source: sensor.deyeinverterslave_summary_total_battery_charge_grid
+    cycle: daily

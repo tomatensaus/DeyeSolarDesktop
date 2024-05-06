@@ -1,0 +1,544 @@
+views:
+  - title: Home
+    cards:
+      - type: entity
+        entity: input_select.octopus_energy_state
+      - type: entities
+        entities:
+          - entity: automation.energy_start_charge
+          - entity: automation.energy_stop_charge
+          - entity: automation.energy_start_export
+          - entity: automation.energy_stop_export
+          - entity: automation.energy_update_discharge_rates
+          - entity: automation.energy_update_charge_current
+        title: Settings Automations
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - entity: automation.energy_time_trigger
+        title: Time Triggers
+        show_header_toggle: false
+      - type: markdown
+        content: "  ## System Timer Settings\n<table width=\"100%\"  border=0>\n  <tbody> \n  <tr>\n    <td align=\"left\">\n    <b>Time Slot</b>\n    </td>\n    <td align=\"left\">\n    <b>Power</b>\n    </td>\n    <td align=\"left\">\n    <b>Bat SOC</b>\n    </td>\n    <td align=\"left\">\n\t<b>Charge</b>\n\t</td>\n  </tr>\n  \n  <tr >\n    <td align=\"left\"><font color = \"blue\"/>\n     {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\"><font color = \"blue\"/>\n    {{ states('number.deyeinvertermaster_timezone1_power') }}W\n    </td>\n    <td align=\"left\"><font color = \"blue\"/>\n    {{ states('number.deyeinvertermaster_timezone1_soc') }} %\n    </td>\n    <td align=\"left\"><font color = \"blue\"/>\n\t{{states('select.deyeinvertermaster_timezone1_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone2_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone3_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\"> <font color = \"orange\"/>\n    {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\"><font color = \"orange\"/>\n    {{ states('number.deyeinvertermaster_timezone4_power') }}W\n    </td>\n    <td align=\"left\"><font color = \"orange\"/>\n    {{ states('number.deyeinvertermaster_timezone4_soc') }} + \n    {{ states('input_number.deyeinvertermaster_discharge_reserve')  }} %\n    </td>\n    <td align=\"left\"><font color = \"orange\"/>\n\t{{states('select.deyeinvertermaster_timezone4_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone5_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone6_charge')}}\n\t</td>\n  </tr>\n  </tbody>\n</table>"
+      - type: entities
+        entities:
+          - entity: number.deyeinvertermaster_grid_charge_current
+            name: Grid Charge Amps
+          - entity: number.deyeinvertermaster_timezone1_soc
+            name: Max Grid Chrg SOC
+          - entity: sensor.deyeinvertermaster_timezone1_estimate_charge_current
+            name: Estimate Charge Current
+          - entity: >-
+              sensor.deyeinvertermaster_timezone1_estimate_charge_current_filtered
+            name: Estimate Charge Smoothed
+          - entity: sensor.solcast_pv_forecast_forecast_tomorrow
+            name: 'PV Forecast Tomorrow '
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            name: PV Forecast Today
+          - entity: sensor.deyeinvertermaster_summary_day_pv
+            name: Actual Generation Today
+        title: Charge Manual Options
+      - type: entities
+        entities:
+          - entity: number.deyeinvertermaster_timezone4_soc
+            name: Min Grid Disch %
+          - entity: input_number.deyeinvertermaster_discharge_reserve
+            name: Discharge Reserve
+          - entity: number.deyeinvertermaster_timezone4_power
+            name: Discharge Power
+          - entity: sensor.deyeinvertermaster_timezone4_estimate_export_power
+            name: Estimate Export Power
+          - entity: sensor.deyeinvertermaster_timezone4_estimate_export_power_filtered
+            name: Estimate Export Smoothed
+        title: Discharge Manual Options
+      - type: custom:sunsynk-power-flow-card
+        cardstyle: full
+        show_solar: true
+        card_height: 410px
+        show_grid: true
+        solar:
+          mppts: 2
+          display_mode: 2
+          colour: orange
+          show_daily: true
+          animation_speed: 6
+          max_power: 50000
+          auto_scale: true
+        inverter:
+          modern: true
+          colour: grey
+          three_phase: false
+        battery:
+          energy: 15000
+          shutdown_soc: 30
+          invert_power: false
+          colour: green
+          show_daily: true
+          animation_speed: 6
+          max_power: 50000
+        load:
+          colour: '#5fb6ad'
+          show_daily: true
+          show_aux: false
+          animation_speed: 4
+          max_power: 80000
+          aux_name: Aux
+          aux_colour:
+            - 0
+            - 238
+            - 255
+          aux_type: mdi:air-conditioner
+          show_daily_aux: true
+          invert_aux: false
+          show_absolute_aux: false
+        grid:
+          colour: '#5490c2'
+          show_daily_buy: true
+          show_daily_sell: true
+          no_grid_colour: red
+          show_nonessential: true
+          animation_speed: 9
+          max_power: 6000
+        entities:
+          use_timer_248: switch.deyeinvertermaster_time_of_use
+          priority_load_243: sensor.deyeinvertermaster_priority_charge_or_load
+          day_battery_charge_70: sensor.deyeinvertermaster_summary_day_battery_charge
+          day_battery_discharge_71: sensor.deyeinvertermaster_summary_day_battery_discharge
+          day_load_energy_84: sensor.deyeinvertermaster_summary_day_load
+          day_grid_import_76: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          day_grid_export_77: sensor.deyeinvertermaster_summary_day_grid_export_sell
+          day_pv_energy_108: sensor.deyeinvertermaster_summary_day_pv
+          inverter_voltage_154: sensor.deyeinvertermaster_grid_voltage_l1
+          load_frequency_192: sensor.deyeinvertermaster_grid_frequency
+          inverter_current_164: sensor.deyeinvertermaster_inverter_output_current_l1
+          inverter_power_175: sensor.deyeinvertermaster_inverter_output_power
+          grid_power_169: sensor.deyeinvertermaster_grid_load_l1
+          radiator_temp_91: sensor.deyeinvertermaster_temperature_ac_transformer
+          dc_transformer_temp_90: sensor.deyeinvertermaster_temperature_dc_transformer
+          pv1_power_186: sensor.deyeinvertermaster_pv1_power
+          pv2_power_187: sensor.deyeinvertermaster_pv2_power
+          pv3_power_188: sensor.deyeinvertermaster_pv3_power
+          pv4_power_189: sensor.deyeinvertermaster_pv4_power
+          battery_voltage_183: sensor.deyeinvertermaster_battery_voltage
+          battery_soc_184: sensor.deyeinvertermaster_battery_soc
+          battery_power_190: sensor.deyeinvertermaster_battery_output_power
+          battery_current_191: sensor.deyeinvertermaster_battery_output_current
+          battery_temp_182: sensor.deyeinvertermaster_battery_temperature
+          grid_ct_power_172: sensor.deyeinvertermaster_grid_power_ct_clamp
+          pv1_voltage_109: sensor.deyeinvertermaster_pv1_voltage
+          pv1_current_110: sensor.deyeinvertermaster_pv1_current
+          pv2_voltage_111: sensor.deyeinvertermaster_pv2_voltage
+          pv2_current_112: sensor.deyeinvertermaster_pv2_current
+          pv3_voltage_113: sensor.deyeinvertermaster_pv3_voltage
+          pv3_current_114: sensor.deyeinvertermaster_pv3_current
+          pv4_voltage_115: sensor.deyeinvertermaster_pv4_voltage
+          pv4_current_116: sensor.deyeinvertermaster_pv4_current
+          grid_connected_status_194: binary_sensor.deyeinvertermaster_grid_connected_status
+          inverter_status_59: sensor.deyeinvertercmaster_inverter_system_state
+          aux_power_166: sensor.deyeinvertermaster_generator_port_power
+          day_aux_energy: sensor.deyeinvertermaster_summary_day_generator
+          remaining_solar: sensor.energy_production_today_remaining
+          solar_sell_247: switch.deyeinvertermaster_export_solar_enabled
+        decimal_places: 2
+        show_battery: true
+      - type: custom:apexcharts-card
+        show:
+          loading: false
+        header:
+          title: Electricity tariffs with Octopus Flux Import
+          show: true
+          show_states: true
+          colorize_states: true
+        span:
+          start: day
+        graph_span: 24h
+        update_interval: 1mins
+        all_series_config:
+          type: line
+          float_precision: 4
+          extend_to: now
+          stroke_width: 2
+          fill_raw: 'null'
+        now:
+          show: true
+          color: '#ff0000'
+          label: Now
+        series:
+          - entity: >-
+              event.octopus_energy_electricity_ZZZZZZZZZZ_AAAAAAAAAAAAA_current_day_rates
+            yaxis_id: graph_display
+            name: Import today
+            curve: stepline
+            color: blue
+            show:
+              legend_value: false
+              in_header: false
+              in_chart: true
+            data_generator: |
+              return entity.attributes.rates.map((entry) => {
+                return [new Date(entry.start), entry.value_inc_vat];
+              });
+          - entity: >-
+              event.octopus_energy_electricity_ZZZZZZZZZZ_AAAAAAAAAAAAA_next_day_rates
+            yaxis_id: graph_display
+            name: Import tomorrow
+            color: blue
+            curve: stepline
+            data_generator: |
+              return entity.attributes.rates.map((entry) => {
+                return [new Date(entry.start), entry.value_inc_vat];
+              });
+            show:
+              legend_value: false
+              in_header: false
+              in_chart: true
+          - entity: >-
+              event.octopus_energy_electricity_ZZZZZZZZZZ_BBBBBBBBBBBBB_export_current_day_rates
+            yaxis_id: graph_display
+            name: Export today
+            color: orange
+            curve: stepline
+            data_generator: |
+              return entity.attributes.rates.map((entry) => {
+                return [new Date(entry.start), entry.value_inc_vat];
+              });
+            show:
+              legend_value: false
+              in_header: false
+              in_chart: true
+          - entity: >-
+              event.octopus_energy_electricity_ZZZZZZZZZZ_BBBBBBBBBBBBB_export_next_day_rates
+            yaxis_id: graph_display
+            name: Export tomorrow
+            color: orange
+            curve: stepline
+            data_generator: |
+              return entity.attributes.rates.map((entry) => {
+                return [new Date(entry.start), entry.value_inc_vat];
+              });
+            show:
+              legend_value: false
+              in_header: false
+              in_chart: true
+          - entity: >-
+              sensor.octopus_energy_electricity_ZZZZZZZZZZ_AAAAAAAAAAAAA_current_rate
+            yaxis_id: header_only
+            name: Import Rate
+            color: Blue
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: >-
+              sensor.octopus_energy_electricity_ZZZZZZZZZZ_BBBBBBBBBBBBB_export_current_rate
+            yaxis_id: header_only
+            name: Export Rate
+            color: Orange
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+        yaxis:
+          - id: graph_display
+            min: 0
+            max: '| +0.1 |'
+            decimals: 0
+            apex_config:
+              tickAmount: 4
+              labels:
+                formatter: |
+                  EVAL:function (val) {
+                   return "£" + val.toFixed(2);
+                  }
+              forceNiceScale: true
+          - id: header_only
+            show: false
+        apex_config:
+          tooltip:
+            x:
+              format: ddd dd MMM - HH:mm
+          xaxis:
+            axisBorder:
+              show: false
+            tooltip:
+              enabled: false
+          grid:
+            borderColor: '#7B7B7B'
+          legend:
+            show: true
+            toolbar:
+              show: false
+              autoSelected: zoom
+              tools:
+                zoom: false
+                zoomin: false
+                zoomout: false
+                pan: false
+                reset: true
+          annotations:
+            xaxis:
+              - x: ${ new Date().setHours(24,0,0,0) }
+                label:
+                  text: Tomorrow
+              - x: ${Date.now()}
+                label:
+                  text: Now
+                  borderColor: '#00E396'
+                  style:
+                    color: '#fff'
+                    background: '#00E396'
+                  borderWidth: 0
+          yaxis:
+            min: ~0
+            max: ~1.0
+            tickAmount: 4
+          chart:
+            height: 400
+            foreColor: '#7B7B7B'
+            zoom:
+              type: x
+              enabled: false
+              autoScaleYaxis: true
+  - theme: Backend-selected
+    title: Time Of Use 2
+    type: custom:grid-layout
+    layout: {}
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone1_time
+                    name: From
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone2_time
+                    name: To
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone1_power
+                    name: Power
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone1_soc
+                    name: SoC
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.deyeinvertermaster_timezone1_charge
+                    name: Charge
+        view_layout:
+          grid-area: 2
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone2_time
+                    name: From
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone3_time
+                    name: To
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone2_power
+                    name: Power
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone2_soc
+                    name: SoC
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.deyeinvertermaster_timezone2_charge
+                    name: Charge
+        view_layout:
+          grid-area: 3
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone3_time
+                    name: From
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone4_time
+                    name: To
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone3_power
+                    name: Power
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone3_soc
+                    name: SoC
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.deyeinvertermaster_timezone3_charge
+                    name: Charge
+        view_layout:
+          grid-area: 4
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone4_time
+                    name: From
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone5_time
+                    name: To
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone4_power
+                    name: Power
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone4_soc
+                    name: SoC
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.deyeinvertermaster_timezone4_charge
+                    name: Charge
+        view_layout:
+          grid-area: 5
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone5_time
+                    name: From
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone6_time
+                    name: To
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone5_power
+                    name: Power
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone5_soc
+                    name: SoC
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.deyeinvertermaster_timezone5_charge
+                    name: Charge
+        view_layout:
+          grid-area: 6
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone6_time
+                    name: From
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_datetime.timezone1_time
+                    name: To
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone6_power
+                    name: Power
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: number.deyeinvertermaster_timezone6_soc
+                    name: SoC
+                    mode: box
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: select.deyeinvertermaster_timezone6_charge
+                    name: Charge
+        view_layout:
+          grid-area: 7
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: switch.deyeinvertermaster_time_of_use
+  - title: Graphs
+    path: graphs
+    icon: mdi:chart-line
+    cards:
+      - type: custom:plotly-graph
+        entities:
+          - entity: number.deyeinvertermaster_grid_charge_current
+          - entity: sensor.deyeinvertermaster_battery_soc
+          - entity: sensor.deyeinvertermaster_battery_output_current
+        refresh_interval: 10
+        title: Grid Charge / SOC
+        hours_to_show: 24
+        max_y_axis: 110
+        min_y_axis: 0

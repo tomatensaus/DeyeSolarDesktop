@@ -11,6 +11,11 @@ scene: !include scenes.yaml
 template: !include template.yaml    #we include template file here
  #template: !include template_MasterSlave_System.yaml  #change the config file depending on your system
 
+#The homeassistant packages will become the standard of loading configs going forward
+#be sure to add the packages folder and add the file in there called: smartdeyedongle.yaml
+homeassistant:
+  packages: !include_dir_named packages
+
 # Example configuration.yaml entry for the Telegram Bot
 telegram_bot:
   - platform: polling
@@ -29,14 +34,14 @@ notify:
     chat_id: -12333321  #your chatgroup for your bot chatid here as supplied by telegram, notice that groups start with minus
 
 # The sensor below keeps the minimum soc of the battery for the last 12 hours, only displayed on the DeyeSolarDesktop, not important
-sensor:
-  - platform: statistics
-    name: "min_soc_battery"
-    entity_id: sensor.deyeinverter_battery_soc
-    state_characteristic: value_min
-    max_age:
-      hours: 12
-    sampling_size: 144
+# sensor:
+#   - platform: statistics
+#     name: "min_soc_battery"
+#     entity_id: sensor.deyeinverter_battery_soc
+#     state_characteristic: value_min
+#     max_age:
+#       hours: 12
+#     sampling_size: 144
 
 #These entries below define data fields to store the TimeOfUse values on home_assistant side
 #The automation will take a change in value and populate the value on the inverter accordingly
