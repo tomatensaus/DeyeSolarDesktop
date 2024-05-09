@@ -5,11 +5,10 @@ The new SmartDeyeDongle V4 has passed tests.
 
 
 ### What you need to have already:
-* You need to be running a 5kW/8kW/16kW single phase Deye/Sunsynk hybrid inverter (Master & Slave also supported).
-(Not currently tested split-phase/bi-phase though the code was completed)
-* 3Phase phase has been tested and is now suported.
-* 3Phase hight Voltage is also supported.
-* (String inverters and micro inverters are not currently supported)
+* You need to be running a 5/6/8/10/12/14/16kW single/split phase Deye/Sunsynk hybrid inverter (Master & Slave also supported).
+* 3Phase 6/8/10/12kW Low Voltage is now suported. (Master & Slave also supported)
+* 3Phase 12/20/30/50 Hight Voltage is also supported. (Master & Slave also supported)
+* String inverters and micro inverters are not currently supported
 
 * You need to run your own home assistant (https://www.home-assistant.io/installation/) on an old PC/VM/Laptop/Rasp Pi or similar must support 64bit.
 * You need to have a 2.4GHz wifi network at the inverter with reasonable network coverage.
@@ -30,6 +29,8 @@ This will open up up possibilities for international sales.
 
 
 ### 3D printed designs
-Thanks to mrfrikkie on carbonite I have some designs for a 3D printed case.
+The Official 3D Print design is available for sale on the website. Designed by an Engineering student to help pay for his tuituion.
+
+Thanks to mrfrikkie on carbonite these designs were shared for free. They might need some tweaking to get them perfect
 [Base stl](./SmartDeyeDongle-Base.stl)
 [Lid stl](./SmartDeyeDongle-Lid.stl)
