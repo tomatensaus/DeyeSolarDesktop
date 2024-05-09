@@ -11,7 +11,7 @@ This Guide goes along with a Youtube video -- TODO update the link after video r
 ## You will need:
 1. Deye/Sunsunk hybrid inverter
 2. Home Assistant Server
-3. SmartDeyeDongle + Dashboard setup (It relies some of the other components)
+3. [SmartDeyeDongle](./SmartDeyeDongle.md) + Dashboard setup (It relies some of the other components)
 4. The right plan from Octopus energy  
 You can support me by signing up with Octopus using my UK friend's Octopus referal code
 [https://share.octopus.energy/witty-ibis-586]
@@ -19,19 +19,19 @@ You can support me by signing up with Octopus using my UK friend's Octopus refer
 ## Step 1: Backup your configuration before you start, Full Backup + download it locally
 
 ## HACS Plugins Needed:
-1. All the plugins from the Standard Dashboard
+1. All the plugins from the Standard Dashboard [JustGrabbingSomeIdeas.md](./JustGrabbingSomeIdeas.md)
 2. Solcast PV Solar
 3. Octopus Energy
 
 Note that both of these require you to register for API Keys.
-Solcast has a free plan
-Octopus energy
+Solcast has a free plan.
+Octopus energy you need the API Key and Account ID
 
 ## Steps:
-1. Install the Dashboard [octopusflux_dashboard_importexport.yaml](./packages/octopusflux_dashboard_importexport.yaml)
-2. Create the packages folder and copy the octopusflux.yaml file [octopusflux.yaml](./packages/octopusflux.yaml)
-3. Copy the contents of the octopusflux_automations.yaml [octopusflux_automations.yaml](./packages/octopusflux_automations.yaml) to your automations.yaml file
-4. Copy the lines from configuration.yaml "homeassistant: packages: !include_dir_named packages"
+1. Install the Dashboard [octopusflux_dashboard_importexport.yaml](./packages/octopusflux_dashboard_importexport.yaml) Create empty dashboard and do raw copy.
+2. Create the packages folder and copy the octopusflux.yaml file to packages [octopusflux.yaml](./packages/octopusflux.yaml)
+3. Copy the contents of the octopusflux_automations.yaml to your automations.yaml file [octopusflux_automations.yaml](./packages/octopusflux_automations.yaml)
+4. Copy the lines from configuration.yaml "homeassistant: packages: !include_dir_named packages" to your configuration.yaml
 [configuration.yaml](./configuration.yaml)
 5. Restart Home Assistant, make sure the configuration Changes are good before restarting
 
@@ -44,3 +44,4 @@ Octopus energy
 - Setup your desired State of Charge in TimeZone 4 for Discharging
 - Setup a desired reserve percentage for discharging
 - When everything is ready then enable the automations again. Be sure to monitor it closely
+- Fix the dashboard graphs to point to your own octopus meter numbers
