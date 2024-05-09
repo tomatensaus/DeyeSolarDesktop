@@ -5,7 +5,7 @@ This is the guide to setup your own octopus Flux Dashbord for import/Export
 - discharges the battery 16:00 - 19:00 (configurable)
 - auto-Calculating both the charge rate and discharge rate to ensure that we do not use more current than needed (full code available in the yaml files)
 
-This Guide goes along with a Youtube video
+##This Guide goes along with a Youtube video
 [![Watch the video](https://img.youtube.com/vi/hrFTqnmWWso/0.jpg)](https://www.youtube.com/watch?v=hrFTqnmWWso)
 
 ## You will need:
@@ -24,8 +24,8 @@ You can support me by signing up with Octopus using my UK friend's Octopus refer
 3. Octopus Energy
 
 Note that both of these require you to register for API Keys.
-Solcast has a free plan.
-Octopus energy you need the API Key and Account ID
+1. Solcast has a free plan.
+2. Octopus energy you need the API Key and Account ID
 
 ## Steps:
 1. Install the Dashboard [octopusflux_dashboard_importexport.yaml](./packages/octopusflux_dashboard_importexport.yaml) Create empty dashboard and do raw copy.
