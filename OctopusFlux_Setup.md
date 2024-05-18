@@ -6,7 +6,7 @@ This is the guide to setup your own octopus Flux Dashbord for import/Export
 - auto-Calculating both the charge rate and discharge rate to ensure that we do not use more current than needed (full code available in the yaml files)
 
 ## This Guide goes along with a Youtube video
-[![Watch the video](https://img.youtube.com/vi/hrFTqnmWWso/0.jpg)](https://www.youtube.com/watch?v=hrFTqnmWWso)
+[![Watch the video](https://img.youtube.com/vi/IktkBl3inTA/0.jpg)](https://www.youtube.com/watch?v=IktkBl3inTA)
 
 ## You will need:
 1. Deye/Sunsunk hybrid inverter
