@@ -24,11 +24,6 @@
   - condition: template
     value_template: '{{ trigger.to_state.state != ''unavailable'' }}'
   action:
-  - service: telegram_bot.send_message
-    metadata: {}
-    data:
-      message: Update DATE received {{trigger.to_state.state}}
-      target: 85050583
   - delay:
       hours: 0
       minutes: 0
