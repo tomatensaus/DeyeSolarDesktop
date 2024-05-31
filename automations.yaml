@@ -247,3 +247,38 @@
         target:
           entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
   mode: single
+- id: '1717083464657'
+  alias: Server Sync Clock
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:50:00
+    id: enableSync
+  - platform: time
+    at: 01:10:00
+    id: disableSync
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - enableSync
+      sequence:
+      - service: select.select_option
+        target:
+          entity_id: select.deyeinvertermaster_inverter_basic_settings_sync_clock
+        data:
+          option: Enable
+    - conditions:
+      - condition: trigger
+        id:
+        - disableSync
+      sequence:
+      - service: select.select_option
+        metadata: {}
+        data:
+          option: Disable
+        target:
+          entity_id: select.deyeinvertermaster_inverter_basic_settings_sync_clock
+  mode: single
