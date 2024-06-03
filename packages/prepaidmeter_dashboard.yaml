@@ -1,0 +1,11 @@
+views:
+  - title: Home
+    cards:
+      - type: entities
+        entities:
+          - entity: input_number.prepaid_meter_units
+          - entity: automation.prepaid_meter_recharge
+      - type: glance
+        entities:
+          - entity: input_number.prepaid_meter_inverter_total_units
+          - entity: sensor.prepaid_units_left
