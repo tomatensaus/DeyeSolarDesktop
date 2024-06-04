@@ -34,6 +34,9 @@ Getting the Data from your inverter
 
 ### Automations and integrations to note
 
+* Prepaid Electricty Meter [Prepaid_electricity_meter.md](./Prepaid_electricity_meter.md)
+A basic dashboard to capture the current prepaid meter units remaining. It records the total grid usage of the inverter when entering the "prepaid meter units remaining" (with an automation). There is an entity that counts down the amount of units remaining. Add telegram notifications to get notified when you have X amount of units left.  
+
 * Octopus flux [OctopusFlux_Setup.md](./OctopusFlux_Setup.md)
 A complete dashboard and automation to export to the grid during peak hours and charge during cheap hours. Sit back while your inverter buys and sells power
 
