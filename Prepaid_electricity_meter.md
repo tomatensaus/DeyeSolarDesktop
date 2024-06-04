@@ -1,10 +1,9 @@
-##Some notes to integrate the prepaid meter:
+## Some notes to integrate the prepaid meter:
 
-## This Guide goes along with a Youtube video
-TODO, still need to make a video
-(the install should be similar to some of my other videos, if you are lost please look at the octupus flux video)[OctopusFlux_Setup.md](./OctopusFlux_Setup.md)
+## This Guide goes along with a Youtube video (TODO, still need to make a video)
+(the install should be similar to some of my other videos, if you are lost please look at the octupus flux video)[OctopusFlux_Setup.md](./OctopusFlux_Setup.md) Specifically the section to install the dashboard,automations and file in packages.
 
-This config stores the config files in "Packages", if you do not have this in config your need to manually create it
+This config stores the config files in "packages", if you do not have this in config your need to manually create it
 
 ## Steps:
 1. Install the Dashboard [prepaidmeter_dashboard.yaml](./packages/prepaidmeter_dashboard.yaml) Create empty dashboard and do raw copy.
