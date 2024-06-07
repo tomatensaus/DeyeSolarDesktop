@@ -73,7 +73,7 @@ template:
         0.0
         {% endif %}
 
-    - name: "deyeinverter_ha_time"
+    - name: "deyeinvertermaster_ha_time"
       state: |
         {{ now().strftime('%y%m%d%H%M') }}
 
