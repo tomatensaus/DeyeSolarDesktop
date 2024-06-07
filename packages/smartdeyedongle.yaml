@@ -73,6 +73,10 @@ template:
         0.0
         {% endif %}
 
+    - name: "deyeinverter_ha_time"
+      state: |
+        {{ now().strftime('%y%m%d%H%M') }}
+
 sensor:
   - platform: integration
     name: deyeinvertermaster_summary_total_battery_charge_grid
