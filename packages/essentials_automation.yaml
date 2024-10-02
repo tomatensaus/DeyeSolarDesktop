@@ -1,0 +1,36 @@
+- id: '1686299812078'
+  alias: 'Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises'
+  description: This stops the export to non-essentials from the battery when the sun
+    is not shining, but during the day solar power is sent to non-essentials
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:45:00
+    id: poweressentials
+  - platform: sun
+    event: sunrise
+    offset: 00:45:00
+    id: powernonessentials
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: poweressentials
+      sequence:
+      - service: select.select_option
+        data:
+          option: Essentials
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+    - conditions:
+      - condition: trigger
+        id: powernonessentials
+      sequence:
+      - service: select.select_option
+        data:
+          option: Zero Export
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+  mode: single
+

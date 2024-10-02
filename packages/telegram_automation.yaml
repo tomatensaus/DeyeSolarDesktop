@@ -1,0 +1,103 @@
+- id: '1685459034446'
+  alias: Telegram debug automation to see chatIDs
+  description: ''
+  trigger:
+  - platform: event
+    event_type: telegram_text
+    event_data:
+      text: command1
+    id: sampleCommand1
+  - platform: event
+    event_type: telegram_text
+    id: Unknown
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: Unknown
+      sequence:
+      - service: telegram_bot.send_message
+        data:
+          message: 'I got a message from chatID: {{ trigger.event.data.chat_id }}'
+          target: '{{ trigger.event.data.chat_id }}'
+    - conditions:
+      - condition: trigger
+        id: sampleCommand1
+      sequence:
+      - service: telegram_bot.send_message
+        data:
+          message: command1 was understood and I will action it now
+          target: '{{ trigger.event.data.chat_id }}'
+      - service: input_boolean.turn_on
+        data: {}
+  mode: parallel
+- id: '1685462793973'
+  alias: Telegram Loadshedding annoucement
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.deyeinvertermaster_grid_frequency
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    below: 49
+    id: power-off
+  - platform: numeric_state
+    entity_id: sensor.deyeinvertermaster_grid_frequency
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    above: 49.1
+    id: power-on
+  - platform: numeric_state
+    entity_id: sensor.deyeinvertermaster_battery_soc
+    below: 20
+    id: Battery below 20
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: power-on
+      - condition: template
+        value_template: '{{ trigger.from_state.state != ''unavailable'' }}'
+      sequence:
+      - service: telegram_bot.send_message
+        data:
+          message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
+      - service: telegram_bot.send_message
+        data:
+          message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
+          target: -12333321
+    - conditions:
+      - condition: trigger
+        id: power-off
+      - condition: template
+        value_template: '{{ trigger.from_state.state != ''unavailable'' }}'
+      sequence:
+      - service: telegram_bot.send_message
+        data:
+          message: 'Loadshedding started with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
+      - service: telegram_bot.send_message
+        data:
+          message: 'Loadshedding started with battery SOC: {{states("sensor.deyeinvertermaster_battery_soc")}}%'
+          target: -12333321
+    - conditions:
+      - condition: trigger
+        id: Battery below 20
+      - condition: numeric_state
+        entity_id: sensor.deyeinvertermaster_grid_frequency
+        below: 49
+      sequence:
+      - service: telegram_bot.send_message
+        data:
+          message: Grid down and battery below 20%
+      - service: telegram_bot.send_message
+        data:
+          message: Grid down and battery below 20%
+          target: -12333321
+  mode: single
+
