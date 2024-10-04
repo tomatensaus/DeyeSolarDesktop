@@ -27,7 +27,7 @@ input_datetime:
     has_time: true
 
 template:
-  sensor:
+  - sensor:
     - name: "deyeinvertermaster_solar_power_used"
       state: "{{ (states('sensor.deyeinvertermaster_summary_day_pv') | float(1) - states('sensor.deyeinvertermaster_solar_power_battery_charge') | float(1)) |round(1) }}"
       unit_of_measurement: "kWh"
