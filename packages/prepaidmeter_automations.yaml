@@ -9,7 +9,7 @@
   - condition: template
     value_template: '{{ states(''input_number.prepaid_meter_units'') | float > 0 }}'
   action:
-  - service: input_number.set_value
+  - action: input_number.set_value
     metadata: {}
     data:
       value: '{{ ((states(''sensor.deyeinvertermaster_summary_total_grid_import_buy'') |

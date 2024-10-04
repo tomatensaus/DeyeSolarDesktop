@@ -18,7 +18,7 @@
       - condition: trigger
         id: poweressentials
       sequence:
-      - service: select.select_option
+      - action: select.select_option
         data:
           option: Essentials
         target:
@@ -27,7 +27,7 @@
       - condition: trigger
         id: powernonessentials
       sequence:
-      - service: select.select_option
+      - action: select.select_option
         data:
           option: Zero Export
         target:

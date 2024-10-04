@@ -9,7 +9,7 @@
     before: sunset
     after: sunrise
   action:
-  - service: solcast_solar.update_forecasts
+  - action: solcast_solar.update_forecasts
     data: {}
   mode: single
 - id: '1712779724660'
@@ -26,19 +26,19 @@
       seconds: 15
   condition: []
   action:
-  - service: number.set_value
+  - action: number.set_value
     metadata: {}
     data:
       value: '85'
     target:
       entity_id: number.deyeinvertermaster_grid_charge_current
     enabled: false
-  - service: switch.turn_on
+  - action: switch.turn_on
     metadata: {}
     data: {}
     target:
       entity_id: switch.deyeinvertermaster_battery_grid_charge_enabled
-  - service: select.select_option
+  - action: select.select_option
     metadata: {}
     data:
       option: Grid
@@ -59,7 +59,7 @@
       seconds: 15
   condition: []
   action:
-  - service: select.select_option
+  - action: select.select_option
     metadata: {}
     data:
       option: None
@@ -70,7 +70,7 @@
       minutes: 1
       seconds: 0
       milliseconds: 0
-  - service: number.set_value
+  - action: number.set_value
     metadata: {}
     data:
       value: 85
@@ -92,7 +92,7 @@
       seconds: 15
   condition: []
   action:
-  - service: select.select_option
+  - action: select.select_option
     metadata: {}
     data:
       option: Allow Export
@@ -113,7 +113,7 @@
       seconds: 15
   condition: []
   action:
-  - service: select.select_option
+  - action: select.select_option
     metadata: {}
     data:
       option: Zero Export
@@ -124,7 +124,7 @@
       minutes: 1
       seconds: 0
       milliseconds: 0
-  - service: number.set_value
+  - action: number.set_value
     metadata: {}
     data:
       value: 5000
@@ -160,7 +160,7 @@
         id:
         - startCharge
       sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         metadata: {}
         data:
           option: start charge
@@ -171,7 +171,7 @@
         id:
         - stopCharge
       sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         metadata: {}
         data:
           option: stop charge
@@ -182,7 +182,7 @@
         id:
         - startExport
       sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         metadata: {}
         data:
           option: start discharge
@@ -193,7 +193,7 @@
         id:
         - stopExport
       sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         metadata: {}
         data:
           option: stop discharge
@@ -216,7 +216,7 @@
     state: start discharge
     enabled: true
   action:
-  - service: number.set_value
+  - action: number.set_value
     metadata: {}
     data:
       value: '{{states(''sensor.deyeinvertermaster_timezone4_estimate_export_power_filtered'')}}'
@@ -239,7 +239,7 @@
     state: start charge
     enabled: true
   action:
-  - service: number.set_value
+  - action: number.set_value
     metadata: {}
     data:
       value: '{{states(''sensor.deyeinvertermaster_timezone1_estimate_charge_current_filtered'')}}'
