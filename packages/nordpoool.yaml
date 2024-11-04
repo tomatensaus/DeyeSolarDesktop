@@ -1,0 +1,56 @@
+sensor:
+  - platform: nordpool
+    # Country/region to get the energy prices for.
+    region: "LT"
+
+    # Override HA local currency used to fetch the prices from the API.
+    currency: "EUR"
+
+    # Add Value Added Taxes (VAT)?
+    VAT: True
+
+    # Energy price rounding precision.
+    precision: 3
+
+    # Percentage of average price to set the low price attribute
+    # low_price = hour_price < average * low_price_cutoff
+    low_price_cutoff: 0.95
+
+    # Display price in cents in stead of (for example) Euros.
+    price_in_cents: false
+
+    # Price displayed for MWh, kWh or Wh
+    price_type: kWh
+
+    # Template to specify additional cost to be added to the tariff.
+    # The template price is in EUR, DKK, NOK or SEK (not in cents).
+    # For example: "{{ current_price * 0.19 + 0.023 | float}}"
+    additional_costs: "{{0.0|float}}"
+
+input_number:
+  charge_below_price:
+    name: Charge battery below price
+    min: 0.001
+    max: 0.15
+    step: 0.001
+    mode: box
+
+  discharge_above_price:
+    name: Discharge battery above price
+    min: 0.001
+    max: 5.0
+    step: 0.001
+    mode: box
+
+input_boolean:
+  charge_battery_switch:
+    name: Triggers Battery Charging
+
+  discharge_battery_switch:
+    name: Triggers Battery Discharging
+
+  charge_automation_enable:
+    name: Enable Charging
+
+  discharge_automation_enable:
+    name: Enable Discharging

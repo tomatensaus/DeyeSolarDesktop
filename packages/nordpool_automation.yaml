@@ -1,0 +1,257 @@
+- id: '1708977359107'
+  alias: 'Monitor Charge price automation '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.nordpool_kwh_lt_eur_3_095_021
+  - platform: state
+    entity_id:
+    - input_number.charge_below_price
+  - platform: state
+    entity_id:
+    - input_number.discharge_above_price
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ states("sensor.nordpool_kwh_lt_eur_3_095_021") <= states("input_number.charge_below_price")}}'
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.charge_battery_switch
+    - conditions:
+      - condition: template
+        value_template: '{{ states("sensor.nordpool_kwh_lt_eur_3_095_021") > states("input_number.charge_below_price")}}'
+      sequence:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.charge_battery_switch
+        data: {}
+  mode: single
+- id: '1709319682608'
+  alias: Discharge Settings Change
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.discharge_battery_switch
+    from: 'off'
+    to: 'on'
+    id: Enable Discharge
+  - platform: state
+    entity_id:
+    - input_boolean.discharge_battery_switch
+    id: Disable Discharge
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.discharge_automation_enable
+    state: 'on'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Enable Discharge
+      sequence:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.deyeinvertermaster_time_of_use
+        enabled: false
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Allow Export
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+      - action: scene.create
+        metadata: {}
+        data:
+          snapshot_entities:
+          - number.deyeinvertermaster_timezone1_soc
+          - number.deyeinvertermaster_timezone2_soc
+          - number.deyeinvertermaster_timezone3_soc
+          - number.deyeinvertermaster_timezone4_soc
+          - number.deyeinvertermaster_timezone5_soc
+          - number.deyeinvertermaster_timezone6_soc
+          scene_id: normal_settings
+      - action: number.set_value
+        metadata: {}
+        data:
+          value: '50'
+        target:
+          entity_id:
+          - number.deyeinvertermaster_timezone1_soc
+          - number.deyeinvertermaster_timezone2_soc
+          - number.deyeinvertermaster_timezone3_soc
+          - number.deyeinvertermaster_timezone4_soc
+          - number.deyeinvertermaster_timezone5_soc
+          - number.deyeinvertermaster_timezone6_soc
+    - conditions:
+      - condition: trigger
+        id:
+        - Disable Discharge
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.deyeinvertermaster_time_of_use
+        enabled: false
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Zero Export
+        target:
+          entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+      - service: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.normal_settings
+  mode: single
+- id: '1709319936727'
+  alias: Charge Settings Change
+  description: ''
+  triggers:
+  - entity_id:
+    - input_boolean.charge_battery_switch
+    from: 'off'
+    to: 'on'
+    id: Enable Charge from Grid
+    trigger: state
+  - entity_id:
+    - input_boolean.charge_battery_switch
+    from: 'on'
+    to: 'off'
+    id: Disable Charge from Grid
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.charge_automation_enable
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Enable Charge from Grid
+      sequence:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.deyeinvertermaster_battery_grid_charge_enabled
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.deyeinvertermaster_time_of_use
+        enabled: false
+      - action: scene.create
+        metadata: {}
+        data:
+          scene_id: before_battery_charge
+          snapshot_entities:
+          - select.deyeinvertermaster_timezone1_charge
+          - select.deyeinvertermaster_timezone2_charge
+          - select.deyeinvertermaster_timezone3_charge
+          - select.deyeinvertermaster_timezone4_charge
+          - select.deyeinvertermaster_timezone5_charge
+          - select.deyeinvertermaster_timezone6_charge
+          - number.deyeinvertermaster_timezone1_soc
+          - number.deyeinvertermaster_timezone2_soc
+          - number.deyeinvertermaster_timezone3_soc
+          - number.deyeinvertermaster_timezone4_soc
+          - number.deyeinvertermaster_timezone5_soc
+          - number.deyeinvertermaster_timezone6_soc
+        enabled: true
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Grid
+        target:
+          entity_id:
+          - select.deyeinvertermaster_timezone1_charge
+          - select.deyeinvertermaster_timezone2_charge
+          - select.deyeinvertermaster_timezone3_charge
+          - select.deyeinvertermaster_timezone4_charge
+          - select.deyeinvertermaster_timezone5_charge
+          - select.deyeinvertermaster_timezone6_charge
+        enabled: true
+      - action: number.set_value
+        metadata: {}
+        data:
+          value: '80'
+        target:
+          entity_id:
+          - number.deyeinvertermaster_timezone1_soc
+          - number.deyeinvertermaster_timezone2_soc
+          - number.deyeinvertermaster_timezone3_soc
+          - number.deyeinvertermaster_timezone4_soc
+          - number.deyeinvertermaster_timezone5_soc
+          - number.deyeinvertermaster_timezone6_soc
+        enabled: true
+    - conditions:
+      - condition: trigger
+        id:
+        - Disable Charge from Grid
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.deyeinvertermaster_battery_grid_charge_enabled
+        enabled: true
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.deyeinvertermaster_time_of_use
+        enabled: false
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.before_battery_charge
+        enabled: true
+  mode: single
+- id: '1709538239920'
+  alias: Monitor Discharge price Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.nordpool_kwh_lt_eur_3_095_021
+  - platform: state
+    entity_id:
+    - input_number.charge_below_price
+  - platform: state
+    entity_id:
+    - input_number.discharge_above_price
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ states("sensor.nordpool_kwh_lt_eur_3_095_021") >= states("input_number.discharge_above_price")}}'
+      sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.discharge_battery_switch
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: '{{ states("sensor.nordpool_kwh_lt_eur_3_095_021") < states("input_number.discharge_above_price")}}'
+      sequence:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.discharge_battery_switch
+        data: {}
+  mode: single
+

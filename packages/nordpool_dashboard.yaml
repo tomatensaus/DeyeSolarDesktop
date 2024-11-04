@@ -1,0 +1,151 @@
+views:
+  - title: Home
+    cards:
+      - type: entities
+        entities:
+          - entity: input_boolean.charge_automation_enable
+            name: Enable Charging System
+          - entity: sensor.nordpool_kwh_lt_eur_3_095_021
+          - entity: input_number.charge_below_price
+            name: Charge on/below price
+          - entity: input_boolean.charge_battery_switch
+          - entity: number.deyeinvertermaster_grid_charge_current
+          - entity: automation.charge_settings_change
+          - entity: switch.deyeinvertermaster_battery_grid_charge_enabled
+        title: Charge
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - entity: input_boolean.discharge_automation_enable
+            name: Enable Discharging System
+          - entity: input_number.discharge_above_price
+            name: Discharge on/above price
+          - entity: input_boolean.discharge_battery_switch
+          - entity: number.deyeinvertermaster_export_limit
+          - entity: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+        title: Discharge
+        show_header_toggle: false
+      - type: history-graph
+        entities:
+          - entity: input_boolean.discharge_battery_switch
+          - entity: input_boolean.charge_battery_switch
+          - entity: sensor.nordpool_kwh_lt_eur_3_095_021
+        title: Debug State
+      - type: markdown
+        content: "  ## System Timer Settings\n<table width=\"100%\"  border=0>\n  <tbody> \n  <tr>\n    <td align=\"left\">\n    <b>Time Slot</b>\n    </td>\n    <td align=\"left\">\n    <b>Power</b>\n    </td>\n    <td align=\"left\">\n    <b>Bat SOC</b>\n    </td>\n    <td align=\"left\">\n\t<b>Charge</b>\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n     {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone1_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone1_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone1_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone2_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone2_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone2_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone3_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone3_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone3_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone4_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone4_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone4_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone4_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone5_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone5_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone5_charge')}}\n\t</td>\n  </tr>\n  <tr>\n    <td align=\"left\">\n    {{state_attr('input_datetime.timezone6_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}} - {{state_attr('input_datetime.timezone1_time', 'timestamp') | timestamp_custom(\"%H:%M\", false)}}\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_power') }}W\n    </td>\n    <td align=\"left\">\n    {{ states('number.deyeinvertermaster_timezone6_soc') }} %\n    </td>\n    <td align=\"left\">\n\t{{states('select.deyeinvertermaster_timezone6_charge')}}\n\t</td>\n  </tr>\n  </tbody>\n</table>"
+        title: Timer
+      - type: custom:sunsynk-power-flow-card
+        cardstyle: lite
+        show_solar: true
+        card_height: 410px
+        show_grid: true
+        solar:
+          mppts: 4
+          display_mode: 2
+          colour: orange
+          show_daily: true
+          animation_speed: 6
+          max_power: 50000
+          auto_scale: true
+        inverter:
+          modern: true
+          colour: grey
+        battery:
+          energy: 138000
+          shutdown_soc: 8
+          invert_power: false
+          colour: green
+          show_daily: true
+          animation_speed: 6
+          max_power: 50000
+        load:
+          colour: '#5fb6ad'
+          show_daily: true
+          show_aux: false
+          animation_speed: 4
+          max_power: 40000
+        grid:
+          colour: '#5490c2'
+          show_daily_buy: true
+          show_daily_sell: true
+          no_grid_colour: red
+          show_nonessential: true
+          animation_speed: 9
+          max_power: 6000
+        entities:
+          use_timer_248: switch.deyeinvertermaster_time_of_use
+          priority_load_243: sensor.deyeinvertermaster_priority_charge_or_load
+          day_battery_charge_70: sensor.deyeinvertermaster_summary_day_battery_charge
+          day_battery_discharge_71: sensor.deyeinvertermaster_summary_day_battery_discharge
+          day_load_energy_84: sensor.deyeinvertermaster_summary_day_load
+          day_grid_import_76: sensor.deyeinvertermaster_summary_day_grid_import_buy
+          day_grid_export_77: sensor.deyeinvertermaster_summary_day_grid_export_sell
+          day_pv_energy_108: sensor.deyeinvertermaster_summary_day_pv
+          inverter_voltage_154: sensor.deyeinvertermaster_grid_voltage_l1
+          load_frequency_192: sensor.deyeinvertermaster_grid_frequency
+          inverter_current_164: sensor.deyeinvertermaster_inverter_output_current_l1
+          inverter_power_175: sensor.deyeinvertermaster_inverter_output_power
+          grid_power_169: sensor.deyeinvertermaster_grid_load
+          radiator_temp_91: sensor.deyeinvertermaster_temperature_ac_transformer
+          dc_transformer_temp_90: sensor.deyeinvertermaster_temperature_dc_transformer
+          pv1_power_186: sensor.deyeinvertermaster_pv1_power
+          pv2_power_187: sensor.deyeinvertermaster_pv2_power
+          pv3_power_188: sensor.deyeinvertermaster_pv3_power
+          pv4_power_189: sensor.deyeinvertermaster_pv4_power
+          battery_voltage_183: sensor.deyeinvertermaster_battery_voltage
+          battery_soc_184: sensor.deyeinvertermaster_battery_soc
+          battery_power_190: sensor.deyeinvertermaster_battery_output_power
+          battery_current_191: sensor.deyeinvertermaster_battery_output_current
+          battery_temp_182: sensor.deyeinvertermaster_battery_temperature
+          grid_ct_power_172: sensor.deyeinvertermaster_grid_power_ct_clamp
+          pv1_voltage_109: sensor.deyeinvertermaster_pv1_voltage
+          pv1_current_110: sensor.deyeinvertermaster_pv1_current
+          pv2_voltage_111: sensor.deyeinvertermaster_pv2_voltage
+          pv2_current_112: sensor.deyeinvertermaster_pv2_current
+          pv3_voltage_113: sensor.deyeinvertermaster_pv3_voltage
+          pv3_current_114: sensor.deyeinvertermaster_pv3_current
+          pv4_voltage_115: sensor.deyeinvertermaster_pv4_voltage
+          pv4_current_116: sensor.deyeinvertermaster_pv4_current
+          grid_connected_status_194: binary_sensor.deyeinvertermaster_grid_connected_status
+          inverter_status_59: sensor.deyeinvertermaster_inverter_system_state
+          aux_power_166: sensor.deyeinvertermaster_aux_output_power
+          remaining_solar: sensor.energy_production_today
+          solar_sell_247: switch.deyeinvertermaster_export_solar_enabled
+        decimal_places: 1
+      - type: custom:apexcharts-card
+        hours_12: false
+        header:
+          show: true
+          title: Nordpool (estimate) Prices (c)
+          show_states: true
+        now:
+          show: true
+          color: '#ff0000'
+          label: Now
+        graph_span: 2d
+        span:
+          start: day
+        series:
+          - entity: sensor.nordpool_kwh_lt_eur_3_095_021
+            name: Today
+            unit: eur/kWh
+            data_generator: |
+              return entity.attributes.raw_today.map((entry) => {
+                return [new Date(entry.start), entry.value * 100];
+              });
+            type: column
+            show:
+              legend_value: false
+              in_header: false
+          - entity: sensor.nordpool_kwh_lt_eur_3_095_021
+            name: Tomorrow
+            unit: eur/kWh
+            data_generator: |
+              return entity.attributes.raw_tomorrow.map((entry) => {
+                return [new Date(entry.start), entry.value * 100];
+              });
+            type: column
+            show:
+              legend_value: false
+              in_header: false
+
