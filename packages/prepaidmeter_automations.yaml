@@ -8,7 +8,7 @@
   condition:
   - condition: template
     value_template: '{{ states(''input_number.prepaid_meter_units'') | float > 0 }}'
-  action:
+  actions:
   - action: input_number.set_value
     metadata: {}
     data:

@@ -12,7 +12,7 @@
     offset: 00:45:00
     id: powernonessentials
   condition: []
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: trigger

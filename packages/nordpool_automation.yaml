@@ -12,7 +12,7 @@
     entity_id:
     - input_number.discharge_above_price
   condition: []
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: template
@@ -52,7 +52,7 @@
   - condition: state
     entity_id: input_boolean.discharge_automation_enable
     state: 'on'
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: trigger
@@ -235,7 +235,7 @@
     entity_id:
     - input_number.discharge_above_price
   condition: []
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: template
