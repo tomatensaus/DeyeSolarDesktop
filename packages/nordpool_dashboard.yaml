@@ -6,12 +6,14 @@ views:
           - entity: input_boolean.charge_automation_enable
             name: Enable Charging System
           - entity: sensor.nordpool_kwh_lt_eur_3_095_021
+          - entity: sensor.suggested_cheap_price
           - entity: input_number.charge_below_price
             name: Charge on/below price
           - entity: input_boolean.charge_battery_switch
           - entity: number.deyeinvertermaster_grid_charge_current
-          - entity: automation.charge_settings_change
+          - entity: input_number.charge_battery_target_percentage
           - entity: switch.deyeinvertermaster_battery_grid_charge_enabled
+          - entity: automation.charge_settings_change
         title: Charge
         show_header_toggle: false
       - type: entities
@@ -23,6 +25,7 @@ views:
           - entity: input_boolean.discharge_battery_switch
           - entity: number.deyeinvertermaster_export_limit
           - entity: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+          - entity: automation.discharge_settings_change
         title: Discharge
         show_header_toggle: false
       - type: history-graph

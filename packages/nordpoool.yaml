@@ -1,3 +1,30 @@
+template:
+  - sensor:
+      - name: "Suggested Cheap Price"
+        unique_id: "suggested_cheap_price"
+        unit_of_measurement: "EUR/kWh"
+        state: >
+          {% set current_hour = now().hour %}
+          {% set prices_today = state_attr('sensor.nordpool_kwh_lt_eur_3_095_021', 'raw_today') %}
+          {% set prices_tomorrow = state_attr('sensor.nordpool_kwh_lt_eur_3_095_021', 'raw_tomorrow') %}
+          {% set tomorrow_valid = state_attr('sensor.nordpool_kwh_lt_eur_3_095_021', 'tomorrow_valid') %}
+
+          {# Combine today and tomorrow prices, ignoring past hours #}
+          {% set future_prices = prices_today[current_hour:] + (prices_tomorrow if tomorrow_valid else []) %}
+
+          {# Extract only the 'value' key from each dictionary #}
+          {% set future_values = future_prices | map(attribute='value') | list %}
+
+          {# Sort the extracted values #}
+          {% set sorted_values = future_values | sort %}
+
+          {# Take the lowest X values and find the maximum #}
+          {% set lowest_prices = sorted_values[:8] %}
+          {% set suggested_price = lowest_prices | max %}
+          {{ suggested_price | round(3) }}
+        availability: >
+          {{ states('sensor.nordpool_kwh_lt_eur_3_095_021') != 'unavailable' }}
+
 sensor:
   - platform: nordpool
     # Country/region to get the energy prices for.
@@ -42,6 +69,14 @@ input_number:
     step: 0.001
     mode: box
 
+  charge_battery_target_percentage:
+    name: Charge Battery Target
+    min: 0.0
+    max: 100.0
+    step: 1.0
+    mode: box
+    unit_of_measurement: "%"
+
 input_boolean:
   charge_battery_switch:
     name: Triggers Battery Charging
@@ -54,3 +89,4 @@ input_boolean:
 
   discharge_automation_enable:
     name: Enable Discharging
+

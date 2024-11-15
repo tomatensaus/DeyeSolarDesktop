@@ -1,17 +1,17 @@
 - id: '1708977359107'
   alias: 'Monitor Charge price automation '
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.nordpool_kwh_lt_eur_3_095_021
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - input_number.charge_below_price
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - input_number.discharge_above_price
-  condition: []
+    trigger: state
+  conditions: []
   actions:
   - choose:
     - conditions:
@@ -35,20 +35,20 @@
 - id: '1709319682608'
   alias: Discharge Settings Change
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.discharge_battery_switch
     from: 'off'
     to: 'on'
     id: Enable Discharge
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - input_boolean.discharge_battery_switch
     id: Disable Discharge
     from: 'on'
     to: 'off'
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.discharge_automation_enable
     state: 'on'
@@ -111,10 +111,10 @@
           option: Zero Export
         target:
           entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
-      - service: scene.turn_on
-        metadata: {}
+      - metadata: {}
         target:
           entity_id: scene.normal_settings
+        action: scene.turn_on
   mode: single
 - id: '1709319936727'
   alias: Charge Settings Change
@@ -188,7 +188,7 @@
       - action: number.set_value
         metadata: {}
         data:
-          value: '80'
+          value: '{{ states("input_number.charge_battery_target_percentage") }}'
         target:
           entity_id:
           - number.deyeinvertermaster_timezone1_soc
@@ -224,17 +224,17 @@
 - id: '1709538239920'
   alias: Monitor Discharge price Automation
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.nordpool_kwh_lt_eur_3_095_021
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - input_number.charge_below_price
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - input_number.discharge_above_price
-  condition: []
+    trigger: state
+  conditions: []
   actions:
   - choose:
     - conditions:
