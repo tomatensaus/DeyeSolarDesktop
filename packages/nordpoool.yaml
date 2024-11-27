@@ -11,6 +11,12 @@ template:
 
           {# Combine today and tomorrow prices, ignoring past hours #}
           {% set future_prices = prices_today[current_hour:] + (prices_tomorrow if tomorrow_valid else []) %}
+          {% set number_prices =  future_prices | count %}
+
+          {% if number_prices <= 12 %}
+          {# if future prices are not available just use the lowest of all prices we have #}
+          {% set future_prices = prices_today + (prices_tomorrow if tomorrow_valid else []) %}
+          {% endif %}
 
           {# Extract only the 'value' key from each dictionary #}
           {% set future_values = future_prices | map(attribute='value') | list %}
@@ -19,7 +25,7 @@ template:
           {% set sorted_values = future_values | sort %}
 
           {# Take the lowest X values and find the maximum #}
-          {% set lowest_prices = sorted_values[:8] %}
+          {% set lowest_prices = sorted_values[:6] %}
           {% set suggested_price = lowest_prices | max %}
           {{ suggested_price | round(3) }}
         availability: >
