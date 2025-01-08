@@ -1,0 +1,77 @@
+template:
+  - sensor:
+      - name: "Suggested Cheap Price"
+        unique_id: "suggested_cheap_price"
+        unit_of_measurement: "zl/MWh"
+        state: >
+          {% set current_hour = now().hour %}
+          {% set prices_today = state_attr('sensor.tge_fixing_1_rate', 'prices_today') %}
+          {% set prices_tomorrow = state_attr('sensor.tge_fixing_1_rate', 'prices_tomorrow') %}
+          {% set tomorrow_valid = True %}
+
+          {# Combine today and tomorrow prices, ignoring past hours #}
+          {% set future_prices = prices_today[current_hour:] + (prices_tomorrow if tomorrow_valid else []) %}
+          {% set number_prices =  future_prices | count %}
+
+          {% if number_prices <= 22 %}
+          {# if future prices are not available just use the lowest of all prices we have #}
+          {% set future_prices = prices_today + (prices_tomorrow if tomorrow_valid else []) %}
+          {% endif %}
+
+          {# Extract only the 'value' key from each dictionary #}
+          {% set future_values = future_prices | map(attribute='price') | list %}
+
+          {# Sort the extracted values #}
+          {% set sorted_values = future_values | sort %}
+
+          {# Take the lowest X values and find the maximum #}
+          {% set lowest_prices = sorted_values[:3] %}
+          {% set suggested_price = lowest_prices | max %}
+          {{ suggested_price | round(3) }}
+        availability: >
+          {{ states('sensor.tge_fixing_1_rate') != 'unavailable' }}
+
+      - name: "Energy Provider Actual Price"
+        unique_id: "energy_provider_actual_price"
+        unit_of_measurement: "zl/MWh"
+        state: >
+          {{ states('sensor.tge_fixing_1_rate') | float(2) | round(3) }}
+        availability: >
+          {{ states('sensor.tge_fixing_1_rate') != 'unavailable' }}
+
+input_number:
+  charge_below_price:
+    name: Charge battery below price
+    min: -1000.0
+    max: 1000.0
+    step: 50.0
+    mode: box
+
+  discharge_above_price:
+    name: Discharge battery above price
+    min: -1000.0
+    max: 9000.0
+    step: 50.0
+    mode: box
+
+  charge_battery_target_percentage:
+    name: Charge Battery Target
+    min: 0.0
+    max: 100.0
+    step: 1.0
+    mode: box
+    unit_of_measurement: "%"
+
+input_boolean:
+  charge_battery_switch:
+    name: Triggers Battery Charging
+
+  discharge_battery_switch:
+    name: Triggers Battery Discharging
+
+  charge_automation_enable:
+    name: Enable Charging
+
+  discharge_automation_enable:
+    name: Enable Discharging
+
