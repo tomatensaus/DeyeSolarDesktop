@@ -2,7 +2,7 @@
 
 Let's get your desktop up and running, once entities are populating with data it will look like this:
 
-New! : Dashboard 4.5 now available see Youtube Video below for a preview.
+New! : Dashboard 4.5 now available see Youtube Video below for a preview. (Firmware 4.6 is fully compatible with this dashboard)
 
 [![Watch the video](https://img.youtube.com/vi/djIpEzQoppA/0.jpg)](https://www.youtube.com/watch?v=djIpEzQoppA)
 
