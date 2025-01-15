@@ -41,14 +41,14 @@ A basic dashboard to capture the current prepaid meter units remaining. It recor
 A complete dashboard and automation to export to the grid during peak hours and charge during cheap hours. Sit back while your inverter buys and sells power
 
 * Import/Export Dashboard [Import/Export](./Import_Export.md)
-  Automate your Deye inverter to charge the battery using the cheapest hours on the tariff for your country.
+  Automate your Deye inverter to charge the battery using the cheapest hours on the tariff for your country (for European countries with very little winter sun).
 
 * Telegram integration with notifications about power outages:
 see [TELEGRAM_SETUP Guide](./TELEGRAM_SETUP.md)
 
 * New automation added:
 Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises
-Automation is disabled (by default)
+Automation is not installed by default [packages/essentials_automation.yaml](./packages/essentials_automation.yaml)
 This stops the export to non-essentials from the battery when the sun is not shining, but during the day solar power is sent to non-essentials
 
 ### Why this project:
