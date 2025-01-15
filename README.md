@@ -46,6 +46,9 @@ A complete dashboard and automation to export to the grid during peak hours and 
 * Telegram integration with notifications about power outages:
 see [TELEGRAM_SETUP Guide](./TELEGRAM_SETUP.md)
 
+* A nice full screen dashboard with the powerflow (ideal for tablet display on a wall)
+  use [solarDesktopPowerFlow.yaml](./solarDesktopPowerFlow.yaml)
+
 * New automation added:
 Inverter: Switch to Export essentials/Non-Essentials when sun sets/rises
 Automation is not installed by default [packages/essentials_automation.yaml](./packages/essentials_automation.yaml)
