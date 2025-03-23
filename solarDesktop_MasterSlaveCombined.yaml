@@ -1573,6 +1573,7 @@ views:
               tickAmount: 4
         series:
           - entity: sensor.deyeinvertercombined_summary_total_grid_import_buy
+            stack_group: sg1
             type: column
             name: Grid/Gen
             color: rgb(84, 144, 194)
@@ -1587,6 +1588,7 @@ views:
             transform: return Number(x) * 1000.0;
             unit: kWh
           - entity: sensor.deyeinvertercombined_summary_total_pv
+            stack_group: sg1
             type: column
             name: PV
             show:
@@ -1601,6 +1603,7 @@ views:
             transform: return Number(x) * 1000.0;
             unit: kWh
           - entity: sensor.deyeinvertercombined_summary_total_battery_discharge
+            stack_group: sg1
             type: column
             name: Discharge
             color: purple
@@ -1727,6 +1730,7 @@ views:
               tickAmount: 4
         series:
           - entity: sensor.deyeinvertercombined_summary_total_grid_import_buy
+            stack_group: sg1
             type: column
             name: Grid/Gen
             color: rgb(84, 144, 194)
@@ -1741,6 +1745,7 @@ views:
             transform: return Number(x) * 1000.0;
             unit: kWh
           - entity: sensor.deyeinvertercombined_summary_total_pv
+            stack_group: sg1
             type: column
             name: PV
             show:
@@ -1755,6 +1760,7 @@ views:
             transform: return Number(x) * 1000.0;
             unit: kWh
           - entity: sensor.deyeinvertercombined_summary_total_battery_discharge
+            stack_group: sg1
             type: column
             name: Discharge
             color: purple
@@ -1883,6 +1889,7 @@ views:
               tickAmount: 4
         series:
           - entity: sensor.deyeinvertercombined_summary_total_grid_import_buy
+            stack_group: sg1
             type: column
             name: Grid/Gen
             color: rgb(84, 144, 194)
@@ -1897,6 +1904,7 @@ views:
             transform: return Number(x) * 1000.0;
             unit: kWh
           - entity: sensor.deyeinvertercombined_summary_total_pv
+            stack_group: sg1
             type: column
             name: PV
             show:
@@ -1911,6 +1919,7 @@ views:
             transform: return Number(x) * 1000.0;
             unit: kWh
           - entity: sensor.deyeinvertercombined_summary_total_battery_discharge
+            stack_group: sg1
             type: column
             name: Discharge
             color: purple
