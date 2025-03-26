@@ -1,0 +1,362 @@
+views:
+  - type: sidebar
+    path: forecast
+    title: Forecast
+    cards:
+      - type: custom:apexcharts-card
+        header:
+          title: Solar forecast
+          show: true
+          show_states: true
+          colorize_states: true
+        apex_config:
+          chart:
+            height: 400px
+          tooltip:
+            enabled: true
+            shared: true
+            followCursor: true
+        graph_span: 24h
+        span:
+          start: day
+        yaxis:
+          - id: capacity
+            show: true
+            opposite: true
+            decimals: 0
+            max: 100
+            min: 0
+            apex_config:
+              tickAmount: 10
+          - id: kWh
+            show: true
+            min: 0
+            apex_config:
+              tickAmount: 10
+          - id: header_only
+            show: false
+        series:
+          - entity: sensor.deyeinvertermaster_pv_power
+            name: Solar Power (now)
+            type: line
+            stroke_width: 2
+            float_precision: 2
+            color: Orange
+            yaxis_id: kWh
+            unit: kW
+            extend_to: now
+            show:
+              legend_value: true
+              in_header: false
+            group_by:
+              func: avg
+              duration: 5m
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            name: Forecast
+            color: Grey
+            opacity: 0.3
+            stroke_width: 0
+            type: area
+            time_delta: +15min
+            extend_to: false
+            yaxis_id: kWh
+            show:
+              legend_value: false
+              in_header: false
+            data_generator: |
+              return entity.attributes.detailedForecast.map((entry) => {
+                    return [new Date(entry.period_start), entry.pv_estimate * 1000];
+                  });
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            name: Forecast 10%
+            color: Grey
+            opacity: 0.3
+            stroke_width: 0
+            type: area
+            time_delta: +15min
+            extend_to: false
+            yaxis_id: kWh
+            show:
+              legend_value: false
+              in_header: false
+            data_generator: |
+              return entity.attributes.detailedForecast.map((entry) => {
+                    return [new Date(entry.period_start), entry.pv_estimate10 * 1000];
+                  });
+          - entity: sensor.deyeinvertermaster_summary_day_pv
+            yaxis_id: header_only
+            name: Today Actual
+            stroke_width: 2
+            color: Orange
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            yaxis_id: header_only
+            name: Today Forecast
+            color: Grey
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            attribute: estimate10
+            yaxis_id: header_only
+            name: Today Forecast 10%
+            color: Grey
+            opacity: 0.3
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_forecast_remaining_today
+            yaxis_id: header_only
+            name: Remaining
+            color: Grey
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 450px
+        all_series_config:
+          unit: ' kWh'
+        update_interval: 10m
+        header:
+          title: Solar forecast
+          show: true
+          standard_format: true
+          show_states: true
+          colorize_states: true
+        graph_span: 3d
+        span:
+          start: day
+          offset: '-1d'
+        now:
+          show: true
+          label: Now
+        yaxis:
+          - id: kwh
+            min: 0
+            max: ~4.8
+            apex_config:
+              tickAmount: 5
+          - id: capacity
+            show: true
+            opposite: true
+            decimals: 0
+            max: 100
+            min: 0
+            apex_config:
+              tickAmount: 5
+          - id: header_only
+            show: false
+        series:
+          - entity: sensor.deyeinvertermaster_pv_power
+            yaxis_id: kwh
+            type: area
+            group_by:
+              func: avg
+              duration: 5min
+            opacity: 0.4
+            name: Actual Generation
+            color: orange
+            show:
+              legend_value: false
+              in_header: false
+              in_chart: true
+            stroke_width: 2
+            float_precision: 2
+            extend_to: false
+            transform: return x / 1000;
+          - entity: sensor.deyeinvertermaster_inverter_output_power
+            name: House Power
+            float_precision: 3
+            type: line
+            color: MediumAquaMarine
+            opacity: 0.3
+            stroke_width: 2
+            yaxis_id: kwh
+            unit: kW
+            transform: return x/1000;
+            extend_to: now
+            show:
+              legend_value: true
+              in_header: false
+            group_by:
+              func: avg
+              duration: 5m
+          - entity: sensor.deyeinvertermaster_grid_power_ct_clamp
+            name: Grid Power
+            float_precision: 3
+            type: line
+            color: Blue
+            opacity: 0.3
+            stroke_width: 2
+            yaxis_id: kwh
+            unit: kW
+            transform: return x/1000;
+            extend_to: now
+            show:
+              legend_value: true
+              in_header: false
+            group_by:
+              func: avg
+              duration: 5m
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            yaxis_id: kwh
+            type: area
+            opacity: 0.2
+            name: Estimate Today
+            color: yellow
+            data_generator: >
+              var today = entity.attributes.detailedForecast.map((start, index)
+              => {
+                return [new Date(start["period_start"]).getTime(), entity.attributes.detailedForecast[index]["pv_estimate"]];
+              });
+
+              var data = today
+
+              return data;
+            show:
+              legend_value: false
+              in_header: false
+              in_chart: true
+            stroke_width: 3
+            float_precision: 2
+            extend_to: false
+          - entity: sensor.solcast_pv_forecast_forecast_tomorrow
+            yaxis_id: kwh
+            type: area
+            name: Tomorrow
+            color: grey
+            data_generator: >
+              var today = entity.attributes.detailedForecast.map((start, index)
+              => {
+                return [new Date(start["period_start"]).getTime(), entity.attributes.detailedForecast[index]["pv_estimate"]];
+              });
+
+              var data = today
+
+              return data;
+            show:
+              legend_value: false
+              in_header: false
+            stroke_width: 3
+            float_precision: 2
+            extend_to: false
+          - entity: sensor.deyeinvertermaster_battery_soc
+            name: Battery
+            float_precision: 0
+            type: line
+            color: red
+            opacity: 0.6
+            stroke_width: 2
+            yaxis_id: capacity
+            extend_to: now
+            show:
+              legend_value: true
+              in_header: false
+            unit: '%'
+          - entity: sensor.deyeinvertermaster_summary_day_pv
+            yaxis_id: header_only
+            name: Generated Today
+            color: orange
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            yaxis_id: header_only
+            name: Forecast Today
+            color: orange
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_forecast_remaining_today
+            yaxis_id: header_only
+            name: Remaining
+            color: orange
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_forecast_tomorrow
+            yaxis_id: header_only
+            name: Tomorrow
+            color: grey
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+          - entity: sensor.solcast_pv_forecast_api_last_polled
+            yaxis_id: header_only
+            name: Last update
+            unit: ' min.'
+            transform: return ((Date.now()) - (new Date(x).getTime())) / 60 / 60 / 24
+            show:
+              legend_value: true
+              in_header: true
+              in_chart: false
+  - title: Home
+    cards:
+      - type: entities
+        entities:
+          - entity: sensor.solcast_pv_forecast_forecast_day_3
+            name: Forecast Day 3
+          - entity: sensor.solcast_pv_forecast_forecast_day_4
+            name: Forecast Day 4
+          - entity: sensor.solcast_pv_forecast_forecast_day_5
+            name: Forecast Day 5
+          - entity: sensor.solcast_pv_forecast_forecast_day_6
+            name: Forecast Day 6
+          - entity: sensor.solcast_pv_forecast_forecast_day_7
+            name: Forecast Day 7
+          - entity: sensor.solcast_pv_forecast_forecast_next_hour
+            name: Forecast Next Hour
+          - entity: sensor.solcast_pv_forecast_forecast_next_x_hours
+            name: Forecast Next X Hours
+          - entity: sensor.solcast_pv_forecast_forecast_remaining_today
+            name: Forecast Remaining Today
+          - entity: sensor.solcast_pv_forecast_forecast_this_hour
+            name: Forecast This Hour
+          - entity: sensor.solcast_pv_forecast_forecast_today
+            name: Forecast Today
+          - entity: sensor.solcast_pv_forecast_forecast_tomorrow
+            name: Forecast Tomorrow
+          - entity: sensor.solcast_pv_forecast_peak_forecast_today
+            name: Peak Forecast Today
+          - entity: sensor.solcast_pv_forecast_peak_forecast_tomorrow
+            name: Peak Forecast Tomorrow
+          - entity: sensor.solcast_pv_forecast_peak_time_today
+            name: Peak Time Today
+          - entity: sensor.solcast_pv_forecast_peak_time_tomorrow
+            name: Peak Time Tomorrow
+          - entity: sensor.solcast_pv_forecast_power_in_1_hour
+            name: Power in 1 Hour
+          - entity: sensor.solcast_pv_forecast_power_in_30_minutes
+            name: Power in 30 Minutes
+          - entity: sensor.solcast_pv_forecast_power_now
+            name: Power Now
+        title: Solcast PV Forecast
+      - type: entities
+        entities:
+          - entity: select.solcast_pv_forecast_use_forecast_field
+            name: Use Forecast Field
+        title: Solcast PV Forecast
+      - type: entities
+        entities:
+          - entity: sensor.solcast_pv_forecast_api_last_polled
+            name: API Last Polled
+          - entity: sensor.solcast_pv_forecast_api_limit
+            name: API Limit
+          - entity: sensor.solcast_pv_forecast_api_used
+            name: API Used
+          - sensor.carrick
+          - entity: sensor.solcast_pv_forecast_hard_limit_set
+            name: Hard Limit Set
+        title: Solcast PV Forecast
