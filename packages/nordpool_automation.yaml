@@ -254,3 +254,24 @@
           entity_id: input_boolean.discharge_battery_switch
         data: {}
   mode: single
+- id: '1736228839643'
+  alias: Automatically Update Charge Price
+  description: Automate the price so you do not need to monitor prices
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.suggested_cheap_price
+  - trigger: state
+    entity_id:
+    - automation.automatically_update_charge_price
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - action: input_number.set_value
+    metadata: {}
+    data:
+      value: '{{ states("sensor.suggested_cheap_price") }}'
+    target:
+      entity_id: input_number.charge_below_price
+  mode: single
