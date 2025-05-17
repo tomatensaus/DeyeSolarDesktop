@@ -13,10 +13,16 @@ template:
           {% set future_prices = prices_today[current_hour:] + (prices_tomorrow if tomorrow_valid else []) %}
           {% set number_prices =  future_prices | count %}
 
-          {% if number_prices <= 12 %}
+          {% if number_prices <= 24 %}
           {# if future prices are not available just use the lowest of all prices we have #}
           {% set future_prices = prices_today + (prices_tomorrow if tomorrow_valid else []) %}
           {% endif %}
+
+          {% if current_hour <= 6 %}
+          {# if early hours of the morning just use the best nightly rates available to get through the day #}
+          {% set future_prices = prices_today %}
+          {% endif %}
+
 
           {# Extract only the 'value' key from each dictionary #}
           {% set future_values = future_prices | map(attribute='value') | list %}
@@ -95,4 +101,3 @@ input_boolean:
 
   discharge_automation_enable:
     name: Enable Discharging
-
