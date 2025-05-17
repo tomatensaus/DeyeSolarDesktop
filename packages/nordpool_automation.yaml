@@ -254,4 +254,3 @@
           entity_id: input_boolean.discharge_battery_switch
         data: {}
   mode: single
-
