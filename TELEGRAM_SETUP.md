@@ -1,15 +1,23 @@
 Boilerplate config and automations to integrate into your own Telegram bot.
 
-
 NEW: please note that you can now setup your bot from Settings >> Devices and Services >> Add Integration >> Telegram (Once installed restart HA)
-The above setup might replace the config needed in the [packages/telegram.yaml](./packages/telegram.yaml).  The automation will still be needed to action telegram messages and responses
+The above setup might replace the config needed in the [packages/telegram.yaml](./packages/telegram.yaml).  
+The automation will still be needed to action telegram messages and responses
+
+What do we need to achieve
+1. You need to register with Telegram BotFather (A bot on telegram, see walkthrough below)
+2. You need to find your chatID, this is a number such as 123221211 assigned to your telegram user. (This is done with an automation or looking in the logs)
+3. You need to register this ChatID with the HA telegram plugin to allow HA to received and send messages to this user
+4. The same applies when adding your Bot to a group (the group has a chatID)
+5. Every user that wants to send or receive messages need to be added to you HA configuration
+
 
 Old Steps:
-You only need to register your own bot on Telegram and give the bot additional permissions to see your messages.
+You only need to register your own bot on Telegram and give the bot additional permissions to (read your/send you) messages.
 Then supply the api KEY in the config file
 in [packages/telegram.yaml](./packages/telegram.yaml) 
 
-Input your bot's api key under "api_key" as supplied by the "BotFather_BOT"
+Input your bot's api key under "api_key" as supplied by the "BotFather_BOT" (walkrhtough below)
 Restart home assistant:
 Now /start your bot and send it a some text, we will see the automation will log this event.
 
@@ -53,7 +61,7 @@ Note:
     message: 'Loadshedding finished with battery SOC: {{states("sensor.deyeinverter_battery_soc")}}%'
     target: -12333321
 ```
-the target should be the group id where you want the message to be sent to
+the "target" should be the user_id/group_id where you want the message to be sent to
 
 
 This is the walkthrough to get your bot talking to your home assistant server
@@ -102,8 +110,9 @@ I got a message from chatID:#yourChatID this is the group chatID, copy this to t
 ```
 Restart Home Assistant
 
-Go to your automations about the loadshedding and update the chatID so messages can go to your group by default, the hardcode id is not valid. The next loadshedding your home assistant service will let you know via telegram what the state of the grid is and also the battery charge
+Go to your automations about the loadshedding and update the chatID so messages can go to your group by default, the hardcoded "target" is not valid. The next loadshedding event your home assistant service will let you know via telegram what the state of the grid is and also the battery charge
 
-You can also send your bot/group a command. I have added the command1 as an example. I use it to remotely tell me what temperature my water heater is at, I can also trigger the heating of water.
+You can also send your bot/group a command. I have added the command1 as an example to be modified and customised. 
+I use mine to remotely tell me what temperature my water heater is at, I can also trigger the heating of water by switching on the heatpump.
 
 Now it is up to you to expand this into something useful that serves your purpose.
