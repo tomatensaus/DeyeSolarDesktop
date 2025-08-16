@@ -2,12 +2,12 @@ Boilerplate config and automations to integrate into your own Telegram bot.
 
 NEW: please note that you can now setup your bot from Settings >> Devices and Services >> Add Integration >> Telegram (Once installed restart HA)
 The above setup might replace the config needed in the [packages/telegram.yaml](./packages/telegram.yaml).  
-The automation will still be needed to action telegram messages and responses
+The automation [packages/telegram_automation.yaml](./packages/telegram_automation.yaml)  will still be needed to action telegram messages/commands and responses
 
 What do we need to achieve
 1. You need to register with Telegram BotFather (A bot on telegram, see walkthrough below)
-2. You need to find your chatID, this is a number such as 123221211 assigned to your telegram user. (This is done with an automation or looking in the logs)
-3. You need to register this ChatID with the HA telegram plugin to allow HA to received and send messages to this user
+2. You need to find your chatID, this is a number such as 123221211 assigned to your telegram user. (This is done with an automation or looking in the HA logs)
+3. You need to register this ChatID with the HA telegram plugin(your bot) to allow HA to received and send messages to the allowed user(s)
 4. The same applies when adding your Bot to a group (the group has a chatID)
 5. Every user that wants to send or receive messages need to be added to you HA configuration
 
