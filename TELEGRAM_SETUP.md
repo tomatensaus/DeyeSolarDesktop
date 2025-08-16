@@ -14,10 +14,12 @@ What do we need to achieve
 
 Old Steps:
 Edit your [configuration.yaml](./configuration.yaml) and add the 2 lines that enable packages folder to be read, create a packages folder and copy the [packages/telegram.yaml](./packages/telegram.yaml) there.
-
+```
+homeassistant:
+  packages: !include_dir_named packages
+```
 You only need to register your own bot on Telegram and give the bot additional permissions to (read your/send you) messages.
-Then supply the api KEY in the config file
-in [packages/telegram.yaml](./packages/telegram.yaml) 
+Then supply the api KEY in the config file in [packages/telegram.yaml](./packages/telegram.yaml) 
 
 Input your bot's api key under "api_key" as supplied by the "BotFather_BOT" (walkrhtough below)
 Restart home assistant:
