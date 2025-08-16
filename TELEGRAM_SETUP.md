@@ -13,6 +13,8 @@ What do we need to achieve
 
 
 Old Steps:
+Edit your [configuration.yaml](./configuration.yaml) and add the 2 lines that enable packages folder to be read, create a packages folder and copy the [packages/telegram.yaml](./packages/telegram.yaml) there.
+
 You only need to register your own bot on Telegram and give the bot additional permissions to (read your/send you) messages.
 Then supply the api KEY in the config file
 in [packages/telegram.yaml](./packages/telegram.yaml) 
@@ -92,7 +94,7 @@ type a message for the bot
 Now look in Home Assistant --> settings->System->logs
 You should see an error message to say that
 "Unauthorized update - neither user id #yourChatID nor chat id #anotherId is in allowed chats:
-copy your chatID into configuration.yaml, there are 2 places I documented where it should be placed
+copy your chatID into your [packages/telegram.yaml], there are 2 places I documented where it should be placed
 ```
 Restart Home Assistant
 ```
@@ -106,7 +108,7 @@ Now your home assistant can talk to you and you can give it commands
 Personally I like to add a group that I can easily add multiple people or remove them
 On Telegram, Add group, be sure to add yourself and also the bot
 send a message on the group... your bot will send you a private message:
-I got a message from chatID:#yourChatID this is the group chatID, copy this to the configuration.yaml under the place documented for the group
+I got a message from chatID:#yourChatID this is the group chatID, copy this to the [packages/telegram.yaml], under the place documented for the group
 ```
 Restart Home Assistant
 
