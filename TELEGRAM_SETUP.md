@@ -2,12 +2,12 @@ Boilerplate config and automations to integrate into your own Telegram bot.
 
 
 NEW: please note that you can now setup your bot from Settings >> Devices and Services >> Add Integration >> Telegram (Once installed restart HA)
-The above setup might replace the config needed in the [configuration.yaml](./configuration.yaml).  The automation will still be needed
+The above setup might replace the config needed in the [packages/telegram.yaml](./packages/telegram.yaml).  The automation will still be needed to action telegram messages and responses
 
 Old Steps:
 You only need to register your own bot on Telegram and give the bot additional permissions to see your messages.
 Then supply the api KEY in the config file
-in [configuration.yaml](./configuration.yaml) 
+in [packages/telegram.yaml](./packages/telegram.yaml) 
 
 Input your bot's api key under "api_key" as supplied by the "BotFather_BOT"
 Restart home assistant:
@@ -28,7 +28,7 @@ trigger:
       id: 4196
       chat_id: 123456789   #This be your chat_ID, also works for group so copy these to your config file
 ```  
-Then fill this in on [configuration.yaml](./configuration.yaml) 
+Then fill this in on [packages/telegram.yaml](./packages/telegram.yaml)
 The under "allowed_chat_ids"
 and "chat_id"
 repeat the process for your groups if so desired (You can setup a chat group and then simply add users to the group)
