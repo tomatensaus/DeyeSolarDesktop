@@ -534,7 +534,7 @@ views:
           pv4_voltage_115: sensor.deyeinvertermaster_pv4_voltage
           pv4_current_116: sensor.deyeinvertermaster_pv4_current
           grid_connected_status_194: binary_sensor.deyeinvertermaster_grid_connected_status
-          inverter_status_59: sensor.deyeinvertercmaster_inverter_system_state
+          inverter_status_59: sensor.deyeinvertermaster_inverter_system_state
           aux_power_166: sensor.deyeinvertermaster_generator_port_power
           day_aux_energy: sensor.deyeinvertermaster_summary_day_generator
           remaining_solar: sensor.energy_production_today_remaining
