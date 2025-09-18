@@ -1,10 +1,11 @@
 - id: '1710562585517'
   alias: Solcast_update
   description: New API call Solcast
-  trigger:
-  - platform: time_pattern
-    hours: /4
-  condition:
+  triggers:
+  - hours: /4
+    trigger: time_pattern
+    enabled: true
+  conditions:
   - condition: sun
     before: sunset
     after: sunrise
@@ -15,16 +16,16 @@
 - id: '1712779724660'
   alias: Energy - Start Charge
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_select.octopus_energy_state
     to: start charge
     for:
       hours: 0
       minutes: 0
       seconds: 15
-  condition: []
+    trigger: state
+  conditions: []
   actions:
   - action: number.set_value
     metadata: {}
@@ -44,20 +45,21 @@
       option: Grid
     target:
       entity_id: select.deyeinvertermaster_timezone1_charge
+    enabled: true
   mode: single
 - id: '1712831382846'
   alias: Energy Stop Charge
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_select.octopus_energy_state
     to: stop charge
     for:
       hours: 0
       minutes: 0
       seconds: 15
-  condition: []
+    trigger: state
+  conditions: []
   actions:
   - action: select.select_option
     metadata: {}
@@ -81,16 +83,16 @@
 - id: '1712832456126'
   alias: Energy Start Export
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_select.octopus_energy_state
     to: start discharge
     for:
       hours: 0
       minutes: 0
       seconds: 15
-  condition: []
+    trigger: state
+  conditions: []
   actions:
   - action: select.select_option
     metadata: {}
@@ -98,20 +100,21 @@
       option: Allow Export
     target:
       entity_id: select.deyeinvertermaster_load_limit_exp_ess_non_ess
+    enabled: true
   mode: single
 - id: '1712832480479'
   alias: Energy Stop Export
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_select.octopus_energy_state
     to: stop discharge
     for:
       hours: 0
       minutes: 0
       seconds: 15
-  condition: []
+    trigger: state
+  conditions: []
   actions:
   - action: select.select_option
     metadata: {}
@@ -130,29 +133,31 @@
       value: 5000
     target:
       entity_id: number.deyeinvertermaster_timezone4_power
+    enabled: true
   mode: single
 - id: '1712838905064'
   alias: Energy Time Trigger
   description: ''
-  trigger:
-  - platform: time
-    at: 02:01:00
+  triggers:
+  - at: 02:01:00
     id: startCharge
-  - platform: time
-    at: 04:59:00
+    trigger: time
+  - at: 04:59:00
     id: stopCharge
-  - platform: time
-    at: '16:00:00'
+    trigger: time
+  - at: '16:00:00'
     id: startExport
-  - platform: time
-    at: '19:00:00'
+    trigger: time
+  - at: '19:00:00'
     id: stopExport
-  condition:
+    trigger: time
+  conditions:
   - condition: not
     conditions:
     - condition: state
       entity_id: input_select.octopus_energy_state
       state: disable
+    enabled: true
   actions:
   - choose:
     - conditions:
@@ -203,14 +208,14 @@
 - id: '1713294916505'
   alias: Energy Update Discharge Rates
   description: ''
-  trigger:
-  - platform: time_pattern
-    minutes: /3
-    enabled: false
-  - platform: state
-    entity_id:
+  triggers:
+  - minutes: /3
+    enabled: true
+    trigger: time_pattern
+  - entity_id:
     - sensor.deyeinvertermaster_battery_soc
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_select.octopus_energy_state
     state: start discharge
@@ -226,14 +231,14 @@
 - id: '1714048088646'
   alias: Energy Update Charge Current
   description: ''
-  trigger:
-  - platform: time_pattern
-    minutes: /3
-    enabled: false
-  - platform: state
-    entity_id:
+  triggers:
+  - minutes: /3
+    enabled: true
+    trigger: time_pattern
+  - entity_id:
     - sensor.deyeinvertermaster_battery_soc
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_select.octopus_energy_state
     state: start charge
