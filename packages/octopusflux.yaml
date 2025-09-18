@@ -1,54 +1,54 @@
 template:
-  sensor:
-    #Calculating the power needed to reach target SOC during export
-    - name: "deyeinvertermaster_timezone4_estimate_export_power"
-      unit_of_measurement: "W"
-      device_class: power
-      state_class: measurement
-      state: >-
-        {% set hoursleft = (- now().timestamp() | int  + today_at(states("input_datetime.timezone5_time")).timestamp() | int ) / 60.0 / 60.0 %}
-        {% set soc = states("sensor.deyeinvertermaster_battery_soc") | int %}
-        {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 50.0 | float)  %}
-        {% set target = ((states("number.deyeinvertermaster_timezone4_soc") | int) )  %}
-        {% set reserve = ((states("input_number.deyeinvertermaster_discharge_reserve") | int) )  %}
-        {% set capremaining = ((soc - (target + reserve))/100.0) * cap %}
-        {% if (hoursleft > 0.0003) and (capremaining > 0.0) %}
-        {% set poweroutput = ((capremaining / hoursleft) | int) %}
-        {% set discharge = poweroutput if (poweroutput < 4000) else 4000 %}
-        {% else %}
-        {% set discharge = 100 %}
-        {% endif %}
-        {{discharge}}
+  - sensor:
+      #Calculating the power needed to reach target SOC during export
+      - name: "deyeinvertermaster_timezone4_estimate_export_power"
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+        state: >-
+          {% set hoursleft = (- now().timestamp() | int  + today_at(states("input_datetime.timezone5_time")).timestamp() | int ) / 60.0 / 60.0 %}
+          {% set soc = states("sensor.deyeinvertermaster_battery_soc") | int %}
+          {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 50.0 | float)  %}
+          {% set target = ((states("number.deyeinvertermaster_timezone4_soc") | int) )  %}
+          {% set reserve = ((states("input_number.deyeinvertermaster_discharge_reserve") | int) )  %}
+          {% set capremaining = ((soc - (target + reserve))/100.0) * cap %}
+          {% if (hoursleft > 0.0003) and (capremaining > 0.0) %}
+          {% set poweroutput = ((capremaining / hoursleft) | int) %}
+          {% set discharge = poweroutput if (poweroutput < 4000) else 4000 %}
+          {% else %}
+          {% set discharge = 100 %}
+          {% endif %}
+          {{discharge}}
 
-      # hours left: {{hoursleft}}
-      # TargetSOC: {{target}}
-      # TotalCapacity: {{cap}}
-      # CapRemaining = {{ capremaining}}
-      # Suggested Discharge:
+        # hours left: {{hoursleft}}
+        # TargetSOC: {{target}}
+        # TotalCapacity: {{cap}}
+        # CapRemaining = {{ capremaining}}
+        # Suggested Discharge:
 
-    # {# {{now().timestamp() | int }}
-    # {{today_at("19:00").timestamp() | int }} #}
+      # {# {{now().timestamp() | int }}
+      # {{today_at("19:00").timestamp() | int }} #}
 
-    #Calculating the current needed to reach target SOC during import
-    - name: "deyeinvertermaster_timezone1_estimate_charge_current"
-      unit_of_measurement: "A"
-      device_class: current
-      state_class: measurement
-      state: >-
-        {% set hoursleft = (- now().timestamp() | int  + today_at(states("input_datetime.timezone2_time")).timestamp() | int ) / 60.0 / 60.0 %}
-        {% set soc = states("sensor.deyeinvertermaster_battery_soc") | int %}
-        {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 52.0 | float)  %}
-        {% set target = ((states("number.deyeinvertermaster_timezone1_soc") | int) ) %}
-        {% set captocharge = ((target - (soc))/100.0) * cap %}
-        {% if (hoursleft > 0.0003) and (captocharge > 0.0) %}
-        {% set poweroutputloss = 1.14 | float %}
-        {% set poweroutputW = (((captocharge / hoursleft) | int)) | int %}
-        {% set poweroutputA = ((((poweroutputW) / 55) | int) * poweroutputloss) | int %}
-        {% set charge = poweroutputA if (poweroutputA < 120) else 120 %}
-        {% else %}
-        {% set charge = 12 %}
-        {% endif %}
-        {{charge}}
+      #Calculating the current needed to reach target SOC during import
+      - name: "deyeinvertermaster_timezone1_estimate_charge_current"
+        unit_of_measurement: "A"
+        device_class: current
+        state_class: measurement
+        state: >-
+          {% set hoursleft = (- now().timestamp() | int  + today_at(states("input_datetime.timezone2_time")).timestamp() | int ) / 60.0 / 60.0 %}
+          {% set soc = states("sensor.deyeinvertermaster_battery_soc") | int %}
+          {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 52.0 | float)  %}
+          {% set target = ((states("number.deyeinvertermaster_timezone1_soc") | int) ) %}
+          {% set captocharge = ((target - (soc))/100.0) * cap %}
+          {% if (hoursleft > 0.0003) and (captocharge > 0.0) %}
+          {% set poweroutputloss = 1.14 | float %}
+          {% set poweroutputW = (((captocharge / hoursleft) | int)) | int %}
+          {% set poweroutputA = ((((poweroutputW) / 55) | int) * poweroutputloss) | int %}
+          {% set charge = poweroutputA if (poweroutputA < 120) else 120 %}
+          {% else %}
+          {% set charge = 12 %}
+          {% endif %}
+          {{charge}}
 
     # hours left: {{hoursleft}}
     # SOC: {{soc}}
