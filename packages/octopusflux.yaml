@@ -6,15 +6,19 @@ template:
         device_class: power
         state_class: measurement
         state: >-
-          {% set hoursleft = (- now().timestamp() | int  + today_at(states("input_datetime.timezone5_time")).timestamp() | int ) / 60.0 / 60.0 %}
+          {% set target_time = states("input_datetime.timezone5_time") %}
+          {% set target_dt = today_at(target_time) %}
+          {% set current_dt = now() %}
+          {% set next_occurrence = target_dt if target_dt > current_dt else target_dt + timedelta(days=1) %}
+          {% set hoursleft = (next_occurrence.timestamp() - current_dt.timestamp()) / 3600.0 %}
           {% set soc = states("sensor.deyeinvertermaster_battery_soc") | int %}
-          {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 50.0 | float)  %}
+          {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 53.0 | float)  %}
           {% set target = ((states("number.deyeinvertermaster_timezone4_soc") | int) )  %}
           {% set reserve = ((states("input_number.deyeinvertermaster_discharge_reserve") | int) )  %}
           {% set capremaining = ((soc - (target + reserve))/100.0) * cap %}
           {% if (hoursleft > 0.0003) and (capremaining > 0.0) %}
           {% set poweroutput = ((capremaining / hoursleft) | int) %}
-          {% set discharge = poweroutput if (poweroutput < 4000) else 4000 %}
+          {% set discharge = 7500 if (poweroutput >= 7500) else poweroutput %}
           {% else %}
           {% set discharge = 100 %}
           {% endif %}
@@ -26,25 +30,33 @@ template:
         # CapRemaining = {{ capremaining}}
         # Suggested Discharge:
 
+        # hours left: {{hoursleft}}
+        # TargetSOC: {{target}}
+        # TotalCapacity: {{cap}}
+        # CapRemaining = {{ capremaining}}
+        # Suggested Discharge:
+
       # {# {{now().timestamp() | int }}
       # {{today_at("19:00").timestamp() | int }} #}
 
       #Calculating the current needed to reach target SOC during import
+      #{#% set soc = soc - 14.0 if (soc <= 90.0) else soc%#} #workaround for bms that gives estimates
       - name: "deyeinvertermaster_timezone1_estimate_charge_current"
         unit_of_measurement: "A"
         device_class: current
         state_class: measurement
         state: >-
-          {% set hoursleft = (- now().timestamp() | int  + today_at(states("input_datetime.timezone2_time")).timestamp() | int ) / 60.0 / 60.0 %}
+          {% set hoursleft = ((- now().timestamp() | int  + today_at(states("input_datetime.timezone2_time")).timestamp() | int ) / 60.0 / 60.0) | abs %}
           {% set soc = states("sensor.deyeinvertermaster_battery_soc") | int %}
+          {## % set soc = soc - 14.0 if (soc <= 90.0) else soc #workaround for bms that gives estimates % ##}
           {% set cap = ((states("number.deyeinvertermaster_battery_capacity_ah") | int) * 52.0 | float)  %}
           {% set target = ((states("number.deyeinvertermaster_timezone1_soc") | int) ) %}
           {% set captocharge = ((target - (soc))/100.0) * cap %}
           {% if (hoursleft > 0.0003) and (captocharge > 0.0) %}
-          {% set poweroutputloss = 1.14 | float %}
+          {% set poweroutputloss = 1.10 | float %}
           {% set poweroutputW = (((captocharge / hoursleft) | int)) | int %}
-          {% set poweroutputA = ((((poweroutputW) / 55) | int) * poweroutputloss) | int %}
-          {% set charge = poweroutputA if (poweroutputA < 120) else 120 %}
+          {% set poweroutputA = ((((poweroutputW) / 53) | int) * poweroutputloss) | int %}
+          {% set charge = 170 if (poweroutputA >= 170) else poweroutputA %}
           {% else %}
           {% set charge = 12 %}
           {% endif %}
@@ -67,13 +79,23 @@ sensor:
       - filter: time_simple_moving_average
         window_size: "00:08"
         precision: 0
-  - platform: filter
+  # - platform: filter
+  #   name: "deyeinvertermaster_timezone1_estimate_charge_current_filtered"
+  #   entity_id: sensor.deyeinvertermaster_timezone1_estimate_charge_current
+  #   filters:
+  #     - filter: time_simple_moving_average
+  #       window_size: "00:08"
+  #       precision: 0
+  #continuous 08 min Linear average
+  - platform: statistics
     name: "deyeinvertermaster_timezone1_estimate_charge_current_filtered"
     entity_id: sensor.deyeinvertermaster_timezone1_estimate_charge_current
-    filters:
-      - filter: time_simple_moving_average
-        window_size: "00:08"
-        precision: 0
+    state_characteristic: median
+    sampling_size: 20
+    max_age:
+      minutes: 15 # Adjust as needed
+    keep_last_sample: true
+
 input_number:
   deyeinvertermaster_discharge_reserve:
     name: DeyeinverterMaster Discharge Reserve
