@@ -60,41 +60,40 @@ All updates and fixes are being done in the /packages folder files. You need to 
 # Instructions below works for Single Phase / Split Phase / 3 Phase Low Voltage / 3 Phase High Voltage inverters
 
 ## You have a master inverter (All installs follow this)
-### Define entities:
-~~Old: templates.yaml~~  -->  New: [packages/smartdeyedongle.yaml](./packages/smartdeyedongle.yaml) (create packages folder, next create a file that ends with .yaml like **packages/smartdeyedongle.yaml**)
-### Define automations:
-~~Old: automation.yaml~~ --> New: [package/smartdeyedongle_automations.yaml](./packages/smartdeyedongle_automations.yaml) contents to be copied to "automations.yaml"
-### Display Dashboard:
-Same: [/solarDesktop_MasterSlave_Master.yaml](./solarDesktop_MasterSlave_Master.yaml) contents to be copied as raw contents to a new empty dashboard. This view is for the Master Inverter
+#### Define entities:
+* ~~Old: templates.yaml~~  -->  New: [packages/smartdeyedongle.yaml](./packages/smartdeyedongle.yaml) (create packages folder, next create a file that ends with .yaml like **packages/smartdeyedongle.yaml**)
+#### Define automations:
+* ~~Old: automation.yaml~~ --> New: [package/smartdeyedongle_automations.yaml](./packages/smartdeyedongle_automations.yaml) contents to be copied to "automations.yaml"
+#### Display Dashboard:
+* Same: [/solarDesktop_MasterSlave_Master.yaml](./solarDesktop_MasterSlave_Master.yaml) contents to be copied as raw contents to a new empty dashboard. This view is for the Master Inverter
 
 ### More Optional Dashboards:
-[/solarDesktopPowerFlow.yaml](./solarDesktopPowerFlow.yaml)  contents to be copied as raw contents to a new empty dashboard
-[solarDesktop_solcastForecast.yaml](./packages/solarDesktop_solcastForecast.yaml) dashboard for solar forecast, contents to be copied as raw contents to a new empty dashboard
-Have a look at [Import_Export.md](./Import_Export.md) Some automations & dashboards around buying & selling according to prices
+* [/solarDesktopPowerFlow.yaml](./solarDesktopPowerFlow.yaml)  contents to be copied as raw contents to a new empty dashboard
+* [solarDesktop_solcastForecast.yaml](./packages/solarDesktop_solcastForecast.yaml) dashboard for solar forecast, contents to be copied as raw contents to a new empty dashboard
+* Have a look at [Import_Export.md](./Import_Export.md) Some automations & dashboards around buying & selling according to prices
+* Perhaps you have a prepaid grid meter [Prepaid_electricity_meter.md](./Prepaid_electricity_meter.md)
 
 ## Adding a Slave Inverter to your setup
-### Define entities:
-[packages/smartdeyedongle_master_slave.yaml](./packages/smartdeyedongle_master_slave.yaml) this contents must be in your  **packages/smartdeyedongle.yaml**
+#### Define entities:
+* [packages/smartdeyedongle_master_slave.yaml](./packages/smartdeyedongle_master_slave.yaml) this contents must be in your  **packages/smartdeyedongle.yaml**
 
-### Define automations:
-No Changes for automations (There are no additional changes for the Slave)
+#### Define automations:
+* No Changes for automations (There are no additional changes for the Slave)
 
-### Dashboards:
-[solarDesktop_MasterSlaveCombined.yaml](./solarDesktop_MasterSlaveCombined.yaml) contents to be copied as raw contents to a new empty dashboard. It shows you the the Master & Slave combined. The whole system. This becomes your main view of the system
-### Display Dashboard:
-[solarDesktop_MasterSlave_Slave.yaml](./solarDesktop_MasterSlave_Slave.yaml) contents to be copied as raw contents to a new empty dashboard. It shows you the the Slave inverter numbers
+#### Dashboards:
+* [solarDesktop_MasterSlaveCombined.yaml](./solarDesktop_MasterSlaveCombined.yaml) contents to be copied as raw contents to a new empty dashboard. It shows you the the Master & Slave combined. The whole system. This becomes your main view of the system
+* [solarDesktop_MasterSlave_Slave.yaml](./solarDesktop_MasterSlave_Slave.yaml) contents to be copied as raw contents to a new empty dashboard. It shows you the the Slave inverter numbers
 
 
 ## Adding a Second Slave Inverter (SlaveC)
-### Define entities:
-[/packages/smartdeyedongle_master_slave_slavec.yaml](./packages/smartdeyedongle_master_slave_slavec.yaml) this contents must be in your **packages/smartdeyedongle.yaml**
+#### Define entities:
+* [/packages/smartdeyedongle_master_slave_slavec.yaml](./packages/smartdeyedongle_master_slave_slavec.yaml) this contents must be in your **packages/smartdeyedongle.yaml**
 
+#### Define automations:
+* No Changes for automations (There are no additional changes for the SlaveC)
 
-### Define automations:
-No Changes for automations (There are no additional changes for the SlaveC)
-
-### Display Dashboard:
-[/solarDesktop_MasterSlave_SlaveC.yaml](./solarDesktop_MasterSlave_SlaveC.yaml) contents to be copied as raw contents to a new empty dashboard. It shows you the the SlaveC  inverter numbers
+#### Display Dashboard:
+* [/solarDesktop_MasterSlave_SlaveC.yaml](./solarDesktop_MasterSlave_SlaveC.yaml) contents to be copied as raw contents to a new empty dashboard. It shows you the the SlaveC  inverter numbers
 
 
 
