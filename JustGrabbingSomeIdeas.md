@@ -61,7 +61,7 @@ All updates and fixes are being done in the /packages folder files. You need to 
 
 ## You have a master inverter (All installs follow this)
 ### Define entities:
-~~Old: templates.yaml~~  -->  New: [packages/smartdeyedongle.yaml](./packages/smartdeyedongle.yaml) (create packages folder, next create a file that ends with .yaml and copy the contents there, the name is not important just the extension)
+~~Old: templates.yaml~~  -->  New: [packages/smartdeyedongle.yaml](./packages/smartdeyedongle.yaml) (create packages folder, next create a file that ends with .yaml like **packages/smartdeyedongle.yaml**)
 ### Define automations:
 ~~Old: automation.yaml~~ --> New: [package/smartdeyedongle_automations.yaml](./packages/smartdeyedongle_automations.yaml) contents to be copied to "automations.yaml"
 ### Display Dashboard:
